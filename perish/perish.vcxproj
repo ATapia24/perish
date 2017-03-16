@@ -19,32 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\thegame\game\game\Debug.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\Entity.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\GameManager.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\InputManager.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\Location.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\Main.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\Miscellaneous.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\Timer.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\WindowEventHandler.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\WindowManager.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\World.cpp" />
-    <ClCompile Include="..\..\..\thegame\game\game\WorldNode.cpp" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="Location.h" />
+    <ClInclude Include="Miscellaneous.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="WindowEventHandler.h" />
+    <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="WorldNode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\thegame\game\game\Debug.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\Entity.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\GameManager.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\InputManager.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\LinkedList.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\Location.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\Miscellaneous.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\Timer.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\WindowEventHandler.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\WindowManager.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\World.h" />
-    <ClInclude Include="..\..\..\thegame\game\game\WorldNode.h" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Location.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Miscellaneous.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WindowEventHandler.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldNode.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

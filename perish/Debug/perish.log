@@ -1,0 +1,26 @@
+﻿  WorldNode.cpp
+  World.cpp
+  WindowManager.cpp
+  WindowEventHandler.cpp
+  Timer.cpp
+  Miscellaneous.cpp
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(38): warning C4018: '<': signed/unsigned mismatch
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(63): warning C4018: '<': signed/unsigned mismatch
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(138): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(139): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(140): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(141): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(142): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(143): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(167): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\pc\desktop\thegame\game\game\miscellaneous.cpp(168): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Main.cpp
+c:\users\pc\desktop\thegame\game\game\main.cpp(6): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Location.cpp
+  InputManager.cpp
+  GameManager.cpp
+  Entity.cpp
+  Debug.cpp
+  Generating Code...
+  perish.vcxproj -> C:\Users\pc\Desktop\perish\perish\Debug\perish.exe
+  perish.vcxproj -> C:\Users\pc\Desktop\perish\perish\Debug\perish.pdb (Partial PDB)
