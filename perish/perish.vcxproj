@@ -18,6 +18,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\thegame\game\game\Debug.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\Entity.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\GameManager.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\InputManager.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\Location.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\Main.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\Miscellaneous.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\Timer.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\WindowEventHandler.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\WindowManager.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\World.cpp" />
+    <ClCompile Include="..\..\..\thegame\game\game\WorldNode.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\thegame\game\game\Debug.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\Entity.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\GameManager.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\InputManager.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\LinkedList.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\Location.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\Miscellaneous.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\Timer.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\WindowEventHandler.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\WindowManager.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\World.h" />
+    <ClInclude Include="..\..\..\thegame\game\game\WorldNode.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{2C596C96-11B0-452E-B64F-23A65810F007}</ProjectGuid>
@@ -75,7 +103,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.4.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -91,10 +124,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.4.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
