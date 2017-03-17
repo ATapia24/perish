@@ -1,9 +1,7 @@
-#include "GameManager.h"
-#include <ctime>
+#include <iostream>
 
 int main() {
-	GameManager game;
-	srand(time(NULL));
-	game.start();
+
 	return 0;
+	
 }
