@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "WindowManager.h"
 #include "InputManager.h"
+#include "WorldNode.h"
 
 class World {
 private:
@@ -15,7 +16,9 @@ private:
 	//world nodes - TODO: make a WorldNodes class
 	void calculateNodes();
 	sf::RectangleShape node1, node2, node3, node4;
-	sf::RectangleShape* topLeftNode, *topRightNode, *bottomLeftNode, *bottomRightNode;
+	sf::RectangleShape *trn, *tln, *bln, *brn;
+	WorldNode* topLeftNode, *topRightNode, *bottomLeftNode, *bottomRightNode;
+	WorldNode worldMesh[100][100];
 	int nodeX, nodeY;
 	float nodeWidth = 1920.f;
 	float nodeHeight = 1080.f;

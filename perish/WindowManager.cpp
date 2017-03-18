@@ -226,5 +226,4 @@ void WindowManager::setResolution(int width, int height, bool _fullscreen, bool 
 	fullscreen = _fullscreen;
 	guiView.reset((sf::FloatRect(0, 0, (float)width, (float)height)));
 	worldView.reset((sf::FloatRect(0, 0, (float)width, (float)height)));
-
 }

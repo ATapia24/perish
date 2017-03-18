@@ -31,12 +31,26 @@ void World::load() {
 	node2.setPosition(sf::Vector2f(nodeWidth / 2, -nodeHeight / 2));
 	node3.setPosition(sf::Vector2f(-nodeWidth / 2, nodeHeight / 2));
 	node4.setPosition(sf::Vector2f(nodeWidth / 2, nodeHeight / 2));
-	topLeftNode = &node1;
-	topRightNode = &node2;
-	bottomLeftNode = &node3;
-	bottomRightNode = &node4;
-	nodeX = 0;
-	nodeY = 0;
+	
+	nodeX = 50;
+	nodeY = 50;
+
+	topLeftNode = &worldMesh[nodeY][nodeX];
+	topRightNode = &worldMesh[nodeY][nodeX+1];
+	bottomLeftNode = &worldMesh[nodeY+1][nodeX];
+	bottomRightNode = &worldMesh[nodeY+1][nodeX+1];
+
+	tln = &node1;
+	trn = &node2;
+	bln = &node3;
+	brn = &node4;
+
+	topLeftNode->load(window, nodeX, nodeY);
+	topRightNode->load(window, nodeX, nodeY+1);
+	bottomLeftNode->load(window, nodeX+1, nodeY);
+	bottomRightNode->load(window, nodeX+1, nodeY+1);
+
+	window->getWorldView()->setCenter(nodeX * nodeWidth * window->getScale().x, nodeY * nodeHeight * window->getScale().y);
 }
 
 void World::update() {
@@ -56,53 +70,68 @@ void World::update() {
 }
 
 void World::draw() {
-	window->addWorld(node1);
-	window->addWorld(node2);
-	window->addWorld(node3);
-	window->addWorld(node4);
+	topLeftNode->draw();
+	topRightNode->draw();
+	bottomLeftNode->draw();
+	bottomRightNode->draw();
+	
+	if (0)
+	{
+		window->addWorld(*tln);
+		window->addWorld(*trn);
+		window->addWorld(*bln);
+		window->addWorld(*brn);
+	}
 }
 
 
 void World::calculateNodes()
 {
-	sf::Vector2f center = sf::Vector2f(worldView->getCenter().x * ( 1 / window->getScale().x), worldView->getCenter().y * (1 / window->getScale().y));
-
+	sf::Vector2f center = sf::Vector2f(worldView->getCenter().x * ( 1 / window->getScale().x), worldView->getCenter().y * (1 / window->getScale().y));	
 	//left and right
-	if (center.x > topRightNode->getPosition().x + (nodeWidth / 2)) {
-		topLeftNode->move(nodeWidth*2, 0);
-		bottomLeftNode->move(nodeWidth * 2, 0);
-		topLeftNode->setFillColor(misc::randomColor());
-		bottomLeftNode->setFillColor(misc::randomColor());
-		misc::swap(topLeftNode, topRightNode);
-		misc::swap(bottomLeftNode, bottomRightNode);
+	if (center.x > trn->getPosition().x + (nodeWidth / 2)) {
+		tln->move(nodeWidth*2, 0);
+		bln->move(nodeWidth * 2, 0);
+		tln->setFillColor(misc::randomColor());
+		bln->setFillColor(misc::randomColor());
+		//misc::swap(topLeftNode, topRightNode);
+		//misc::swap(bottomLeftNode, bottomRightNode);
+		misc::swap(tln, trn);
+		misc::swap(bln, brn);
 		nodeX++;
-	} else if (center.x < topLeftNode->getPosition().x + (nodeWidth / 2)) {
-		topRightNode->move(-nodeWidth*2, 0);
-		bottomRightNode->move(-nodeWidth * 2, 0);
-		topRightNode->setFillColor(misc::randomColor());
-		bottomRightNode->setFillColor(misc::randomColor());
-		misc::swap(topLeftNode, topRightNode);
-		misc::swap(bottomLeftNode, bottomRightNode);
+	} else if (center.x < tln->getPosition().x + (nodeWidth / 2)) {
+		trn->move(-nodeWidth*2, 0);
+		brn->move(-nodeWidth * 2, 0);
+		trn->setFillColor(misc::randomColor());
+		brn->setFillColor(misc::randomColor());
+		//misc::swap(topLeftNode, topRightNode);
+		//misc::swap(bottomLeftNode, bottomRightNode);
+		misc::swap(tln, trn);
+		misc::swap(bln, brn);
 		nodeX--;
 	}
 
 	//up and down
-	if (center.y < topLeftNode->getPosition().y + (nodeHeight / 2)) {
-		bottomLeftNode->move(0, -nodeHeight * 2);
-		bottomRightNode->move(0, -nodeHeight * 2);
-		bottomLeftNode->setFillColor(misc::randomColor());
-		bottomRightNode->setFillColor(misc::randomColor());
-		misc::swap(topLeftNode, bottomLeftNode);
-		misc::swap(topRightNode, bottomRightNode);
+	if (center.y < tln->getPosition().y + (nodeHeight / 2)) {
+		bln->move(0, -nodeHeight * 2);
+		brn->move(0, -nodeHeight * 2);
+		bln->setFillColor(misc::randomColor());
+		brn->setFillColor(misc::randomColor());
+		//misc::swap(topLeftNode, bottomLeftNode);
+		//misc::swap(topRightNode, bottomRightNode);
+		misc::swap(tln, bln);
+		misc::swap(trn, brn);
 		nodeY--;
 	}
-	else if (center.y > bottomLeftNode->getPosition().y + (nodeHeight / 2)) {
-		topLeftNode->move(0, nodeHeight * 2);
-		topRightNode->move(0, nodeHeight * 2);
-		topLeftNode->setFillColor(misc::randomColor());
-		topRightNode->setFillColor(misc::randomColor());
-		misc::swap(topLeftNode, bottomLeftNode);
-		misc::swap(topRightNode, bottomRightNode);
+	else if (center.y > bln->getPosition().y + (nodeHeight / 2)) {
+		tln->move(0, nodeHeight * 2);
+		trn->move(0, nodeHeight * 2);
+		tln->setFillColor(misc::randomColor());
+		trn->setFillColor(misc::randomColor());
+		//misc::swap(topLeftNode, bottomLeftNode);
+		//misc::swap(topRightNode, bottomRightNode);
+		misc::swap(tln, bln);
+		misc::swap(trn, brn);
 		nodeY++;
 	}
 }

@@ -22,7 +22,7 @@ public:
     WorldNode();
     WorldNode(WindowManager* _window, int _x, int _y);
     ~WorldNode();
-    void load();
+    void load(WindowManager* _window, int _x, int _y);
     void unload();
     void update();
     void draw();

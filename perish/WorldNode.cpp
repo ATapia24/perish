@@ -18,11 +18,14 @@ WorldNode::~WorldNode() {
 }
 
 //LOAD
-void WorldNode::load() {
+void WorldNode::load(WindowManager* _window, int _x, int _y) {
     loaded = 1;
+	window = _window;
+	x = _x;
+	y = _y;
     bg.setFillColor(misc::randomColor());
     bg.setSize(sf::Vector2f(width, height));
-    bg.setPosition(sf::Vector2f(width * x, height * x));
+	bg.setPosition(sf::Vector2f(width * x, height * x));
 }
 
 //UNLOAD UNLOAD
