@@ -1,27 +1,15 @@
-﻿  WorldNode.cpp
-  World.cpp
-  WindowManager.cpp
-  WindowEventHandler.cpp
-  Timer.cpp
-  Miscellaneous.cpp
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(38): warning C4018: '<': signed/unsigned mismatch
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(63): warning C4018: '<': signed/unsigned mismatch
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(138): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(139): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(140): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(141): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(142): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(143): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(167): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\activates\source\repos\perish\perish\miscellaneous.cpp(168): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  Main.cpp
-c:\users\activates\source\repos\perish\perish\main.cpp(6): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Location.cpp
-  InputManager.cpp
-  GameManager.cpp
-  Entity.cpp
-  Debug.cpp
+﻿  Shape.cpp
+  main.cpp
+  DrawObject.cpp
+  DrawManager.cpp
   Generating Code...
+c:\users\activates\source\repos\perish\perish\drawmanager.cpp(139): warning C4715: 'DrawManager::addShape': not all control paths return a value
+c:\users\activates\source\repos\perish\perish\drawmanager.cpp(180): warning C4715: 'DrawManager::addToShapes': not all control paths return a value
+c:\users\activates\source\repos\perish\perish\drawobject.cpp(49): warning C4715: 'DrawObject::getSprite': not all control paths return a value
+c:\users\activates\source\repos\perish\perish\drawobject.cpp(61): warning C4715: 'DrawObject::getText': not all control paths return a value
+c:\users\activates\source\repos\perish\perish\drawobject.cpp(74): warning C4715: 'DrawObject::getCircle': not all control paths return a value
+c:\users\activates\source\repos\perish\perish\drawobject.cpp(87): warning C4715: 'DrawObject::getRectangle': not all control paths return a value
+c:\users\activates\source\repos\perish\perish\drawobject.cpp(100): warning C4715: 'DrawObject::getConvex': not all control paths return a value
   LINK : C:\Users\activates\Source\Repos\perish\Debug\perish.exe not found or not built by the last incremental link; performing full link
   perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.exe
   perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.pdb (Partial PDB)
