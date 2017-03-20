@@ -19,11 +19,12 @@
 
 #include "DrawManager.h"
 #include "Shape.h"
+#include "DrawLayer.h"
 
 int main() {
 
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(800, 500), "Perish");
-	DrawManager *manager = new DrawManager(window, 90, sf::Vector2f(0, 0), sf::Vector2f(0, 0));
+	DrawManager *manager = new DrawManager(window, 5);
 
 	window->setActive(false);
 
@@ -46,11 +47,11 @@ int main() {
 
 	convex.setFillColor(sf::Color(150, 50, 250));
 
-	Shape shape(convex);
+	DrawLayer layer;
 
-	DrawObject shapeObject = manager->addShape(shape);
+	int loc = layer.addConvex(&convex);
 
-	shapeObject.getConvex().move(5, 5);
+	manager->addLayer(layer);
 
 	// event handler on this end
 	while (window->isOpen()) {
@@ -62,6 +63,15 @@ int main() {
 			if (event.type == sf::Event::Closed) {
 
 				window->close();
+
+			}
+			else if (event.type == sf::Event::KeyPressed) {
+
+				if (event.key.code == sf::Keyboard::A) {
+					
+					convex.move(convex.getPosition().x + 1, convex.getPosition().y + 1);
+
+				}
 
 			}
 

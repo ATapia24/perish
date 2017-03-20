@@ -1,15 +1,3 @@
-﻿  Shape.cpp
-  main.cpp
-  DrawObject.cpp
-  DrawManager.cpp
-  Generating Code...
-c:\users\activates\source\repos\perish\perish\drawmanager.cpp(139): warning C4715: 'DrawManager::addShape': not all control paths return a value
-c:\users\activates\source\repos\perish\perish\drawmanager.cpp(180): warning C4715: 'DrawManager::addToShapes': not all control paths return a value
-c:\users\activates\source\repos\perish\perish\drawobject.cpp(49): warning C4715: 'DrawObject::getSprite': not all control paths return a value
-c:\users\activates\source\repos\perish\perish\drawobject.cpp(61): warning C4715: 'DrawObject::getText': not all control paths return a value
-c:\users\activates\source\repos\perish\perish\drawobject.cpp(74): warning C4715: 'DrawObject::getCircle': not all control paths return a value
-c:\users\activates\source\repos\perish\perish\drawobject.cpp(87): warning C4715: 'DrawObject::getRectangle': not all control paths return a value
-c:\users\activates\source\repos\perish\perish\drawobject.cpp(100): warning C4715: 'DrawObject::getConvex': not all control paths return a value
-  LINK : C:\Users\activates\Source\Repos\perish\Debug\perish.exe not found or not built by the last incremental link; performing full link
+﻿  main.cpp
   perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.exe
   perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.pdb (Partial PDB)

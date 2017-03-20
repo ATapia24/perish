@@ -21,10 +21,10 @@
     <ClCompile Include="Shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawObject.cpp">
+    <ClCompile Include="DrawManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawManager.cpp">
+    <ClCompile Include="DrawLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DrawObject.h">
+    <ClInclude Include="DrawManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DrawManager.h">
+    <ClInclude Include="DrawLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
