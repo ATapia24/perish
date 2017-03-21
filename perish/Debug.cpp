@@ -8,13 +8,14 @@ Debug::Debug() {
 //CONSTRUCTOR W/ WINDOW MGR
 Debug::Debug(WindowManager * _window) {
 	window = _window;
-	font.loadFromFile("font.ttf");
+	font.loadFromFile("./assets/font.ttf");
 	fpsText.setPosition(5.0f, 5.0f);
 	fpsText.setCharacterSize(25);
 	fpsText.setFillColor(sf::Color::Yellow);
 	fpsText.setFont(font);
 
 	updateTimer.start();
+	fpsTimer.start();
 }
 
 //DECONSTRUCTOR
@@ -27,9 +28,12 @@ void Debug::input() {
 
 //UPDATE
 void Debug::update() {
-	if (updateTimer.getTimeInt() > UPDATE_RATE) {
-		updateFps();
-		updateTimer.reset_ms();
+	
+	updateFps();
+
+	if (updateTimer.getMilliseconds() > UPDATE_RATE) {
+		fpsText.setString("fps: " + misc::floatToString(fps).substr(0, 4));
+		updateTimer.reset();
 	}
 }
 
@@ -41,8 +45,6 @@ void Debug::draw() {
 
 void Debug::updateFps()
 {
-	
-	//TODO: need to calculate
-	fps = 42;
-	fpsText.setString("fps: " + misc::floatToString(fps).substr(0, 4));
+	fps = 1000.0f  / (float)fpsTimer.getMilliseconds();
+	fpsTimer.reset();
 }

@@ -3,7 +3,7 @@
 
 int main() {
 	GameManager game;
-	srand(time(NULL));
+	srand((unsigned )time(NULL));
 	game.start();
 	return 0;
 }

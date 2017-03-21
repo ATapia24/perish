@@ -1,7 +1,6 @@
 #include "World.h"
 
 World::World() {
-;
 }
 
 World::World(WindowManager * _window) {
@@ -104,13 +103,21 @@ void World::calculateNodes()
 		brn->move(-nodeWidth * 2, 0);
 		trn->setFillColor(misc::randomColor());
 		brn->setFillColor(misc::randomColor());
-		//misc::swap(topLeftNode, topRightNode);
-		//misc::swap(bottomLeftNode, bottomRightNode);
 		misc::swap(tln, trn);
 		misc::swap(bln, brn);
 		nodeX--;
+		/*topRightNode->unload();
+		topRightNode->unload();
+		
+		topRightNode = &worldMesh[nodeY][nodeX-1];
+		bottomRightNode = &worldMesh[nodeY+1][nodeX- 1];
+		
+		topRightNode->load(window, nodeX-1, nodeY);
+		bottomRightNode->load(window, nodeX-1, nodeY + 1);
+		misc::swap(topLeftNode, topRightNode);
+		misc::swap(bottomLeftNode, bottomRightNode);
+		*/
 	}
-
 	//up and down
 	if (center.y < tln->getPosition().y + (nodeHeight / 2)) {
 		bln->move(0, -nodeHeight * 2);

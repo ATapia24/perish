@@ -1,27 +1,8 @@
-﻿  WorldNode.cpp
-  World.cpp
-  WindowManager.cpp
-  WindowEventHandler.cpp
-  Timer.cpp
-  Miscellaneous.cpp
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(38): warning C4018: '<': signed/unsigned mismatch
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(63): warning C4018: '<': signed/unsigned mismatch
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(138): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(139): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(140): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(141): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(142): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(143): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(167): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\administrator\source\repos\perish\perish\miscellaneous.cpp(168): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  Main.cpp
-c:\users\administrator\source\repos\perish\perish\main.cpp(6): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Location.cpp
-  InputManager.cpp
-  GameManager.cpp
-  Entity.cpp
-  Debug.cpp
+﻿  Debug.cpp
+c:\users\pc\desktop\perish\perish\debug.cpp(34): warning C4018: '>': signed/unsigned mismatch
   Generating Code...
-  LINK : C:\Users\Administrator\Source\Repos\perish\Debug\perish.exe not found or not built by the last incremental link; performing full link
-  perish.vcxproj -> C:\Users\Administrator\Source\Repos\perish\Debug\perish.exe
-  perish.vcxproj -> C:\Users\Administrator\Source\Repos\perish\Debug\perish.pdb (Partial PDB)
+  Skipping... (no relevant changes detected)
+  Main.cpp
+  GameManager.cpp
+  perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.exe
+  perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.pdb (Partial PDB)

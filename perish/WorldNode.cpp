@@ -25,7 +25,7 @@ void WorldNode::load(WindowManager* _window, int _x, int _y) {
 	y = _y;
     bg.setFillColor(misc::randomColor());
     bg.setSize(sf::Vector2f(width, height));
-	bg.setPosition(sf::Vector2f(width * x, height * x));
+	bg.setPosition(sf::Vector2f(width * x, height * y));
 }
 
 //UNLOAD UNLOAD

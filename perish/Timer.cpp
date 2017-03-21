@@ -1,53 +1,47 @@
 #include "Timer.h"
 
 
-Timer::Timer()
-{
-
+Timer::Timer() {
+	lastSec = 0;
+	lastMilli = 0;
+	lastNano = 0;
 }
 
 
-Timer::~Timer()
-{
+Timer::~Timer() {
+
 }
 
 
 //START
-void Timer::start()
-{
-	begin = std::clock();
+void Timer::start() {
+	t1 = std::chrono::high_resolution_clock::now();
 }
 
 //STOP
-void Timer::stop()
-{
-	end = std::clock();
+void Timer::stop() {
+	t2 = std::chrono::high_resolution_clock::now();
 }
 
-
-//GET DELTA - MILLISECONDS
-float Timer::getDelta_ms()
-{
-	return float(end - begin) / CLOCKS_PER_SEC;
+//RESET
+void Timer::reset() {
+	t1 = std::chrono::high_resolution_clock::now();
 }
 
-//RESET - MILLISECONDS
-float Timer::reset_ms()
-{
-	float d = float(end - begin) / CLOCKS_PER_SEC;
-	start();
-	return d;
+//GET SECONDS
+unsigned long Timer::getSeconds() {
+	lastSec = (unsigned long)std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - t1).count();
+	return lastSec;
 }
 
-
-//GET TIME - MILLISECONDS
-long int Timer::getTimeInt()
-{
-	return std::clock() - begin;
+//GET MILLISECONDS
+unsigned long Timer::getMilliseconds() {
+	lastMilli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - t1).count();
+	return lastMilli;
 }
 
-//GET TIME - MILLISECONDS
-float Timer::getTimeDec()
-{
-	return (float)(std::clock() - begin) / CLOCKS_PER_SEC;
+//GET NANOSECONDS
+unsigned long Timer::getNanoseconds() {
+	lastNano = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - t1).count();
+	return lastNano;
 }

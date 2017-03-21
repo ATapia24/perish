@@ -57,7 +57,7 @@ bool Key::singleCooldownCheck()
 		cooldownTimer.start();
 		return true;
 	}
-	else if ((!sf::Keyboard::isKeyPressed(key) && !released) || cooldownTimer.getTimeInt() > cooldownTime)
+	else if ((!sf::Keyboard::isKeyPressed(key) && !released) || cooldownTimer.getMilliseconds() > cooldownTime)
 	{
 		released = 1;
 	}
@@ -154,7 +154,7 @@ bool Key_M::singleCooldownCheck()
 		cooldownTimer.start();
 		return true;
 	}
-	else if ((!sf::Mouse::isButtonPressed(static_cast<sf::Mouse::Button>(key)) && !released) || cooldownTimer.getTimeInt() > cooldownTime)
+	else if ((!sf::Mouse::isButtonPressed(static_cast<sf::Mouse::Button>(key)) && !released) || cooldownTimer.getMilliseconds() > cooldownTime)
 	{
 		released = 1;
 	}

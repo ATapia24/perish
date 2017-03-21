@@ -12,10 +12,11 @@ private:
 	WindowManager* window;
 	sf::Font font;
 	Timer updateTimer;
-	const int UPDATE_RATE = 100;
+	const int UPDATE_RATE = 250;
 
 	//fps
 	sf::Text fpsText;
+	Timer fpsTimer;
 	float fps;
 	void updateFps();
 public:

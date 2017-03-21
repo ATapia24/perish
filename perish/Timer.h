@@ -1,20 +1,24 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#include <iostream>
+#include <chrono>
 #include <ctime>
+#include <ratio>
 
 class Timer {
 private:
-	clock_t begin, end, current;
+	std::chrono::high_resolution_clock::time_point t1, t2;
+	unsigned long lastSec, lastMilli, lastNano;
 public:
-	void start();
-	void stop();
-	float getDelta_ms();
-	long int getTimeInt();
-	float getTimeDec();
-	float reset_ms();
 	Timer();
 	~Timer();
+	void start();
+	void stop();
+	void reset();
+	unsigned long getSeconds();
+	unsigned long getMilliseconds();
+	unsigned long getNanoseconds();
 };
 
 #endif
