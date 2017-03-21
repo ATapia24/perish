@@ -44,7 +44,7 @@ DrawLayer::~DrawLayer() {
 
 }
 
-int DrawLayer::getBufferSize() {
+int DrawLayer::getBufferSize() const {
 
 	return BUFFER_SIZE;
 
@@ -72,6 +72,54 @@ void DrawLayer::deleteConvex(int loc) {
 }
 
 // Useful getters!
+sf::Sprite * DrawLayer::getSprites() const {
+
+	return *sprites;
+
+}
+
+uint8_t * DrawLayer::getSetSprites() const {
+
+	return openSprites;
+
+}
+
+sf::Text * DrawLayer::getTexts() const {
+
+	return *texts;
+
+}
+
+uint8_t * DrawLayer::getSetTexts() const {
+
+	return openTexts;
+
+}
+
+sf::CircleShape * DrawLayer::getCircles() const {
+
+	return *cshapes;
+
+}
+
+uint8_t * DrawLayer::getSetCircles() const {
+
+	return openCircs;
+
+}
+
+sf::RectangleShape * DrawLayer::getRectangles() const {
+
+	return *rshapes;
+
+}
+
+uint8_t * DrawLayer::getsetRectangles() const {
+
+	return openRects;
+
+}
+
 sf::ConvexShape * DrawLayer::getConvexes() const {
 
 	return *cnshapes;

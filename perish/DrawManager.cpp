@@ -82,10 +82,59 @@ DrawLayer * DrawManager::getLayers() const {
 // Private!
 void DrawManager::draw() {
 
+	int bufferSize;
+
 	// TODO
 	for (int i = 0; i < layersUsed; i++) {
+		
+		bufferSize = layers[i]->getBufferSize();
 
-		for (int cons = 0; cons < layers[i]->getBufferSize(); i++) {
+		// SPRITES
+		for (int sprite = 0; sprite < bufferSize; sprite++) {
+
+			if (layers[i]->getSetSprites()[sprite] == 0) {
+
+				window->draw(layers[i]->getSprites()[sprite]);
+
+			}
+
+		}
+
+		// TEXT
+		for (int text = 0; text < bufferSize; text++) {
+
+			if (layers[i]->getSetTexts()[text] == 0) {
+
+				window->draw(layers[i]->getTexts()[text]);
+
+			}
+
+		}
+
+		// CIRCLES
+		for (int circle = 0; circle < bufferSize; circle++) {
+
+			if (layers[i]->getSetCircles()[circle] == 0) {
+
+				window->draw(layers[i]->getCircles()[circle]);
+
+			}
+
+		}
+
+		// RECTANGLES
+		for (int rectangle = 0; rectangle < bufferSize; rectangle++) {
+
+			if (layers[i]->getsetRectangles()[rectangle] == 0) {
+
+				window->draw(layers[i]->getRectangles()[rectangle]);
+
+			}
+
+		}
+
+		// CONVEXES
+		for (int cons = 0; cons < bufferSize; cons++) {
 
 			if (layers[i]->getSetConvexes()[cons] == 0) {
 
@@ -96,5 +145,5 @@ void DrawManager::draw() {
 		}
 
 	}
-
+	
 }

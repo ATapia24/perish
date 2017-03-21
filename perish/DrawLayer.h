@@ -20,7 +20,23 @@ public:
 	// get the various lists
 
 	// For buffer size
-	int getBufferSize();
+	int getBufferSize() const;
+	
+	// SPRITES
+	sf::Sprite * getSprites() const;
+	uint8_t * getSetSprites() const;
+
+	// TEXT
+	sf::Text * getTexts() const;
+	uint8_t * getSetTexts() const;
+
+	// CIRCLES
+	sf::CircleShape * getCircles() const;
+	uint8_t * getSetCircles() const;
+
+	// RECTANGLES
+	sf::RectangleShape * getRectangles() const;
+	uint8_t * getsetRectangles() const;
 
 	// CONVEXES
 	sf::ConvexShape * getConvexes() const;
