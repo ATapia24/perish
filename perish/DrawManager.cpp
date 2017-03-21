@@ -13,13 +13,12 @@
 
 #include "DrawManager.h"
 #include <iostream>
-#include <iostream>
 
 // Construction
 DrawManager::DrawManager(sf::RenderWindow *_window, const int maxLayers) {
 
 	window = _window;
-	layers = new DrawLayer[maxLayers];
+	layers = new DrawLayer*[maxLayers];
 	MAX_LAYERS = maxLayers;
 
 }
@@ -52,7 +51,7 @@ void DrawManager::threadHandler() {
 }
 
 // Layer management
-void DrawManager::addLayer(DrawLayer &layer) {
+void DrawManager::addLayer(DrawLayer *layer) {
 
 	if (layersUsed < MAX_LAYERS) {
 
@@ -70,13 +69,13 @@ void DrawManager::addLayer(DrawLayer &layer) {
 
 void DrawManager::setLayer(int loc, DrawLayer &layer) {
 
-	layers[loc] = layer;
+	layers[loc] = &layer;
 
 }
 
 DrawLayer * DrawManager::getLayers() const {
 
-	return layers;
+	return *layers;
 
 }
 
@@ -86,11 +85,11 @@ void DrawManager::draw() {
 	// TODO
 	for (int i = 0; i < layersUsed; i++) {
 
-		for (int cons = 0; cons < layers[i].getBufferSize(); i++) {
+		for (int cons = 0; cons < layers[i]->getBufferSize(); i++) {
 
-			if (layers[i].getSetConvexes()[i] == 0) {
+			if (layers[i]->getSetConvexes()[cons] == 0) {
 
-				window->draw(layers[i].getConvexes()[i]);
+				window->draw(layers[i]->getConvexes()[cons]);
 
 			}
 

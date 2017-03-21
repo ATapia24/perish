@@ -35,7 +35,7 @@ public:
 	sf::RenderWindow * getWindow();
 
 	// Layer management
-	void addLayer(DrawLayer&);
+	void addLayer(DrawLayer*);
 	void setLayer(int, DrawLayer&);
 	DrawLayer * getLayers() const;
 
@@ -45,7 +45,7 @@ public:
 private:
 
 	// Holds the drawable layers
-	DrawLayer *layers;
+	DrawLayer **layers;
 	int layersUsed = 0;
 	int MAX_LAYERS;
 

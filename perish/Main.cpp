@@ -51,7 +51,9 @@ int main() {
 
 	int loc = layer.addConvex(&convex);
 
-	manager->addLayer(layer);
+	manager->addLayer(&layer);
+
+	// layer.deleteConvex(loc);
 
 	// event handler on this end
 	while (window->isOpen()) {
@@ -70,6 +72,10 @@ int main() {
 				if (event.key.code == sf::Keyboard::A) {
 					
 					convex.move(convex.getPosition().x + 1, convex.getPosition().y + 1);
+
+				} else if (event.key.code == sf::Keyboard::D) {
+
+					
 
 				}
 
