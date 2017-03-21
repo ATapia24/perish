@@ -21,6 +21,11 @@
 #include "Shape.h"
 #include "DrawLayer.h"
 
+// handles window events
+void eventHandler(sf::RenderWindow*, sf::Event);
+// handles keyboard stuff
+void keyboardHandler();
+
 int main() {
 
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(800, 500), "Perish");
@@ -56,30 +61,13 @@ int main() {
 	// event handler on this end
 	while (window->isOpen()) {
 
+		// Event handling
 		sf::Event event;
-		while (window->pollEvent(event)) {
+		while (window->pollEvent(event))
+			eventHandler(window, event);
 
-
-			if (event.type == sf::Event::Closed) {
-
-				window->close();
-
-			}
-			else if (event.type == sf::Event::KeyPressed) {
-
-				if (event.key.code == sf::Keyboard::A) {
-					
-					convex->move(convex->getPosition().x + 1, convex->getPosition().y + 1);
-
-				} else if (event.key.code == sf::Keyboard::D) {
-
-					layer->deleteConvex(loc);
-
-				}
-
-			}
-
-		}
+		// handle the keyboard
+		keyboardHandler();
 
 	}
 
@@ -89,4 +77,35 @@ int main() {
 	delete window;
 
 	return 0;
+}
+
+void eventHandler(sf::RenderWindow *window, sf::Event event) {
+
+	if (event.type == sf::Event::Closed) {
+
+		window->close();
+
+	}
+	else if (event.type == sf::Event::KeyPressed) {
+
+		if (event.key.code == sf::Keyboard::A) {
+
+
+		}
+		else if (event.key.code == sf::Keyboard::D) {
+
+		}
+
+	}
+
+}
+
+void keyboardHandler() {
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+
+		std::cout << "A has been pressed!\n";
+
+	}
+
 }

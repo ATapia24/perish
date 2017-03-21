@@ -39,10 +39,16 @@ public:
 	void setLayer(int, DrawLayer&);
 	DrawLayer * getLayers() const;
 
+	// view management
+	void setView(sf::View*);
+	sf::View * getView();
+
 	// to be called by the thread
 	void threadHandler();
 
 private:
+
+	sf::View *view;
 
 	// Holds the drawable layers
 	DrawLayer **layers;

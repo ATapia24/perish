@@ -21,12 +21,18 @@
   <ItemGroup>
     <ClCompile Include="DrawLayer.cpp" />
     <ClCompile Include="DrawManager.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawLayer.h" />
     <ClInclude Include="DrawManager.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Location.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Shape.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

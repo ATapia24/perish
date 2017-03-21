@@ -79,6 +79,21 @@ DrawLayer * DrawManager::getLayers() const {
 
 }
 
+// view
+void DrawManager::setView(sf::View *_view) {
+
+	view = _view;
+
+	window->setView(*view);
+
+}
+
+sf::View * DrawManager::getView() {
+
+	return view;
+
+}
+
 // Private!
 void DrawManager::draw() {
 
