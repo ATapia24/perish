@@ -13,7 +13,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <list>
-#include "Shape.h"
 #include "DrawLayer.h"
 
 #ifndef DRAWMANAGER_H

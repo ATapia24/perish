@@ -1,4 +1,3 @@
 ﻿  main.cpp
-c:\users\activates\source\repos\perish\perish\main.cpp(45): warning C4305: 'argument': truncation from 'double' to 'float'
   perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.exe
   perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.pdb (Partial PDB)

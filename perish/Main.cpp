@@ -18,7 +18,6 @@
 #include <string>
 
 #include "DrawManager.h"
-#include "Shape.h"
 #include "DrawLayer.h"
 
 // handles window events
@@ -37,16 +36,12 @@ int main() {
 
 	sf::Sprite *testSprite = new sf::Sprite();
 	sf::Texture *texture = new sf::Texture();
-
 	texture->loadFromFile("C:\\Users\\activates\\Downloads\\dirtblock.png");
-
 	testSprite->setTexture(*texture);
-
-	testSprite->scale(0.2, 0.2);
 
 	DrawLayer *layer = new DrawLayer();
 
-	int loc = layer->add(testSprite);
+	layer->add(testSprite);
 
 	manager->addLayer(layer);
 
