@@ -34,17 +34,36 @@ int main() {
 
 	sf::Thread thread(&DrawManager::threadHandler, manager);
 
-	sf::Sprite *testSprite = new sf::Sprite();
-	sf::Texture *texture = new sf::Texture();
-	texture->loadFromFile("C:\\Users\\activates\\Downloads\\dirtblock.png");
-	testSprite->setTexture(*texture);
+	sf::Sprite *dirtSprite = new sf::Sprite();
+	sf::Texture *dirtTexture = new sf::Texture();
+	dirtTexture->loadFromFile("C:\\Users\\activates\\Downloads\\dirtblock.png");
+	dirtSprite->setTexture(*dirtTexture);
 
-	DrawLayer *layer = new DrawLayer();
+	DrawLayer *layer1 = new DrawLayer();
 
-	layer->add(testSprite);
+	layer1->add(dirtSprite);
 
-	manager->addLayer(layer);
+	sf::Sprite *stoneSprite = new sf::Sprite();
+	sf::Texture *stoneTexture = new sf::Texture();
+	stoneTexture->loadFromFile("C:\\Users\\activates\\Downloads\\stoneblock.jpg");
+	stoneSprite->setTexture(*stoneTexture);
 
+	DrawLayer *layer2 = new DrawLayer();
+
+	layer2->add(stoneSprite);
+
+	// you can edit sprites after you have added them.. pointers are rad!
+	//stoneSprite->scale(sf::Vector2f(0.1, 0.1));
+	stoneSprite->move(173 * 0.1, 0);
+
+	// Which way you add layers depends! The last gets printed first.
+	manager->addLayer(layer2);
+	manager->addLayer(layer1);
+
+	dirtSprite->scale(sf::Vector2f(0.1, 0.1));
+	dirtSprite->move(sf::Vector2f(0, 0));
+
+	// start the thread
 	thread.launch();
 
 	// event handler on this end
@@ -60,9 +79,12 @@ int main() {
 
 	}
 
-	delete layer;
-	delete testSprite;
-	delete texture;
+	delete layer1;
+	delete layer2;
+	delete stoneSprite;
+	delete stoneTexture;
+	delete dirtSprite;
+	delete dirtTexture;
 	delete manager;
 	delete window;
 
