@@ -26,7 +26,6 @@ DrawLayer::DrawLayer() {
 
 }
 
-
 DrawLayer::~DrawLayer() {
 
 	// housekeeping !
@@ -50,7 +49,67 @@ int DrawLayer::getBufferSize() const {
 
 }
 
-int DrawLayer::addConvex(sf::ConvexShape *convex) {
+int DrawLayer::add(sf::Sprite *sprite) {
+
+	// loop through the openSprites to see the first open section
+	for (int i = 0; i < BUFFER_SIZE; i++) {
+
+		if (openSprites[i] == 1) {
+			sprites[i] = sprite;
+			openSprites[i] = 0;
+			return i;
+		}
+
+	}
+
+}
+
+int DrawLayer::add(sf::Text *text) {
+
+	// loop through the openSprites to see the first open section
+	for (int i = 0; i < BUFFER_SIZE; i++) {
+
+		if (openTexts[i] == 1) {
+			texts[i] = text;
+			openTexts[i] = 0;
+			return i;
+		}
+
+	}
+
+}
+
+int DrawLayer::add(sf::CircleShape *circle) {
+
+	// loop through the openSprites to see the first open section
+	for (int i = 0; i < BUFFER_SIZE; i++) {
+
+		if (openCircs[i] == 1) {
+			cshapes[i] = circle;
+			openCircs[i] = 0;
+			return i;
+		}
+
+	}
+
+}
+
+int DrawLayer::add(sf::RectangleShape *rectangle) {
+
+	// loop through the openSprites to see the first open section
+	for (int i = 0; i < BUFFER_SIZE; i++) {
+
+		if (openRects[i] == 1) {
+			rshapes[i] = rectangle;
+			openRects[i] = 0;
+			return i;
+		}
+
+	}
+
+}
+
+int DrawLayer::add(sf::ConvexShape *convex) {
 
 	// loop through the openSprites to see the first open section
 	for (int i = 0; i < BUFFER_SIZE; i++) {
@@ -62,6 +121,30 @@ int DrawLayer::addConvex(sf::ConvexShape *convex) {
 		}
 
 	}
+
+}
+
+void DrawLayer::deleteSprite(int loc) {
+
+	openSprites[loc] = 1;
+
+}
+
+void DrawLayer::deleteText(int loc) {
+
+	openTexts[loc] = 1;
+
+}
+
+void DrawLayer::deleteCircle(int loc) {
+
+	openCircs[loc] = 1;
+
+}
+
+void DrawLayer::deleteRectangle(int loc) {
+
+	openRects[loc] = 1;
 
 }
 

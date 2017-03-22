@@ -12,9 +12,17 @@ public:
 
 	// Add convex via pointer.. You must keep track
 	// Of the sprite yourself so it can modify it
-	int addConvex(sf::ConvexShape*);
+	int add(sf::Sprite*);
+	int add(sf::Text*);
+	int add(sf::CircleShape*);
+	int add(sf::RectangleShape*);
+	int add(sf::ConvexShape*);
 
-	// Delete convexs via there index in the array
+	// Delete items via there index in the array
+	void deleteSprite(int);
+	void deleteText(int);
+	void deleteCircle(int);
+	void deleteRectangle(int);
 	void deleteConvex(int);
 
 	// get the various lists

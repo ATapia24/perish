@@ -9,7 +9,7 @@ Entity::Entity() {
 
 }
 
-Entity::Entity(Location _loc, bool _moveable, sf::Sprite &_sprite) {
+Entity::Entity(const Location _loc, const bool _moveable, const sf::Sprite &_sprite) {
 
 	loc = _loc;
 	moveable = _moveable;

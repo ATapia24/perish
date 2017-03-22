@@ -17,7 +17,7 @@ public:
 
 	void setLocation(float, float);
 
-	Location& operator=(Location&);
+	Location& operator=(const Location&);
 
 };
 

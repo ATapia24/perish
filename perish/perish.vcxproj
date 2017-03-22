@@ -26,6 +26,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawLayer.h" />
@@ -34,6 +36,8 @@
     <ClInclude Include="Location.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

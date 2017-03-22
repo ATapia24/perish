@@ -9,7 +9,7 @@ class Location;
 
 class Entity {
 
-private:
+protected:
 
 	// store the entities location
 	Location loc;
@@ -24,7 +24,7 @@ public:
 	Entity();
 
 	// best constructor! :D
-	Entity(Location, bool, sf::Sprite&);
+	Entity(const Location, const bool, const sf::Sprite&);
 
 	// setters
 	virtual void teleport(Location);

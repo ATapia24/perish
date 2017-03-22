@@ -35,24 +35,18 @@ int main() {
 
 	sf::Thread thread(&DrawManager::threadHandler, manager);
 
-	// create an empty shape
-	sf::ConvexShape *convex = new sf::ConvexShape();
+	sf::Sprite *testSprite = new sf::Sprite();
+	sf::Texture *texture = new sf::Texture();
 
-	// resize it to 5 points
-	convex->setPointCount(5);
+	texture->loadFromFile("C:\\Users\\activates\\Downloads\\dirtblock.png");
 
-	// define the points
-	convex->setPoint(0, sf::Vector2f(0, 0));
-	convex->setPoint(1, sf::Vector2f(150, 10));
-	convex->setPoint(2, sf::Vector2f(120, 90));
-	convex->setPoint(3, sf::Vector2f(30, 100));
-	convex->setPoint(4, sf::Vector2f(0, 50));
+	testSprite->setTexture(*texture);
 
-	convex->setFillColor(sf::Color(150, 50, 250));
+	testSprite->scale(0.2, 0.2);
 
 	DrawLayer *layer = new DrawLayer();
 
-	int loc = layer->addConvex(convex);
+	int loc = layer->add(testSprite);
 
 	manager->addLayer(layer);
 
@@ -72,7 +66,8 @@ int main() {
 	}
 
 	delete layer;
-	delete convex;
+	delete testSprite;
+	delete texture;
 	delete manager;
 	delete window;
 

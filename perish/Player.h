@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "Location.h"
 #include <string>
 #include <SFML/Graphics.hpp>
 
@@ -12,7 +13,7 @@ private:
 
 public:
 
-	Player(std::string&);
+	Player(std::string&, Location&, sf::Sprite&);
 	~Player();
 
 	std::string getName() const;

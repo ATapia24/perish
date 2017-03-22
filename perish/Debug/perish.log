@@ -1,12 +1,4 @@
-﻿  Shape.cpp
-  Player.cpp
-  main.cpp
-  Location.cpp
-  Entity.cpp
-  DrawManager.cpp
-  DrawLayer.cpp
-  Generating Code...
-c:\users\activates\source\repos\perish2\perish\drawlayer.cpp(66): warning C4715: 'DrawLayer::addConvex': not all control paths return a value
-  LINK : C:\Users\activates\Source\Repos\perish2\Debug\perish.exe not found or not built by the last incremental link; performing full link
-  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Debug\perish.exe
-  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Debug\perish.pdb (Partial PDB)
+﻿  main.cpp
+c:\users\activates\source\repos\perish\perish\main.cpp(45): warning C4305: 'argument': truncation from 'double' to 'float'
+  perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.exe
+  perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.pdb (Partial PDB)

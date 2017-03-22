@@ -35,7 +35,7 @@ Location::~Location()
 {
 }
 
-Location & Location::operator=(Location &location) {
+Location & Location::operator=(const Location &location) {
 
 	x = location.x;
 	y = location.y;
