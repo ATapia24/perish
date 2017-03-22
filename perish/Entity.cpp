@@ -9,10 +9,11 @@ Entity::Entity() {
 
 }
 
-Entity::Entity(Location _loc, bool _moveable) {
+Entity::Entity(Location _loc, bool _moveable, sf::Sprite &_sprite) {
 
 	loc = _loc;
 	moveable = _moveable;
+	sprite = _sprite;
 
 }
 
@@ -20,6 +21,12 @@ Entity::Entity(Location _loc, bool _moveable) {
 void Entity::teleport(Location _loc) {
 
 	loc = _loc;
+
+}
+
+void Entity::setSprite(sf::Sprite &_sprite) {
+
+	sprite = _sprite;
 
 }
 
@@ -35,3 +42,10 @@ bool Entity::isMoveable() const {
 	return moveable;
 
 }
+
+sf::Sprite & Entity::getSprite() {
+
+	return sprite;
+
+}
+
