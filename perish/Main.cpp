@@ -36,32 +36,14 @@ int main() {
 
 	sf::Sprite *dirtSprite = new sf::Sprite();
 	sf::Texture *dirtTexture = new sf::Texture();
-	dirtTexture->loadFromFile("C:\\Users\\activates\\Downloads\\dirtblock.png");
+	dirtTexture->loadFromFile("C:\\Users\\activates\\Downloads\\terrain.jpg", sf::IntRect(80, 0, 80, 80));
 	dirtSprite->setTexture(*dirtTexture);
 
 	DrawLayer *layer1 = new DrawLayer();
 
 	layer1->add(dirtSprite);
 
-	sf::Sprite *stoneSprite = new sf::Sprite();
-	sf::Texture *stoneTexture = new sf::Texture();
-	stoneTexture->loadFromFile("C:\\Users\\activates\\Downloads\\stoneblock.jpg");
-	stoneSprite->setTexture(*stoneTexture);
-
-	DrawLayer *layer2 = new DrawLayer();
-
-	layer2->add(stoneSprite);
-
-	// you can edit sprites after you have added them.. pointers are rad!
-	//stoneSprite->scale(sf::Vector2f(0.1, 0.1));
-	stoneSprite->move(173 * 0.1, 0);
-
-	// Which way you add layers depends! The last gets printed first.
-	manager->addLayer(layer2);
 	manager->addLayer(layer1);
-
-	dirtSprite->scale(sf::Vector2f(0.1, 0.1));
-	dirtSprite->move(sf::Vector2f(0, 0));
 
 	// start the thread
 	thread.launch();
@@ -80,9 +62,6 @@ int main() {
 	}
 
 	delete layer1;
-	delete layer2;
-	delete stoneSprite;
-	delete stoneTexture;
 	delete dirtSprite;
 	delete dirtTexture;
 	delete manager;
