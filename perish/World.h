@@ -11,6 +11,7 @@
 #include <string>
 
 #include "WorldTile.h"
+#include "DrawLayer.h"
 
 class World {
 
@@ -29,7 +30,7 @@ public:
 
 	// Constructors
 	World();
-	World(std::string&, int, int);
+	World(const std::string&, const int, const int);
 	~World();
 
 	// set tile by tile to build the world
@@ -41,6 +42,9 @@ public:
 	// Get world dimensions
 	int getHeight() const;
 	int getWidth() const;
+
+	// Used to build a layer
+	void buildLayer(DrawLayer*);
 
 };
 

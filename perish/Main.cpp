@@ -19,6 +19,7 @@
 
 #include "DrawManager.h"
 #include "DrawLayer.h"
+#include "World.h"
 
 // handles window events
 void eventHandler(sf::RenderWindow*, sf::Event);
@@ -34,16 +35,45 @@ int main() {
 
 	sf::Thread thread(&DrawManager::threadHandler, manager);
 
-	sf::Sprite *dirtSprite = new sf::Sprite();
-	sf::Texture *dirtTexture = new sf::Texture();
-	dirtTexture->loadFromFile("C:\\Users\\activates\\Downloads\\terrain.jpg", sf::IntRect(80, 0, 80, 80));
-	dirtSprite->setTexture(*dirtTexture);
+	DrawLayer *myLayer = new DrawLayer();
 
-	DrawLayer *layer1 = new DrawLayer();
+	// BEGIN WORLD BUILDING
 
-	layer1->add(dirtSprite);
+	// Load up the texture
+	sf::Texture *texture = new sf::Texture();
+	texture->loadFromFile("C:\\Users\\activates\\Downloads\\terrain.jpg");
 
-	manager->addLayer(layer1);
+	// Create the sprites and assign their textures
+	sf::Sprite *grass = new sf::Sprite();
+	grass->setTexture(*texture);
+	grass->setTextureRect(sf::IntRect(0, 0, 80, 80));
+
+	sf::Sprite *stone = new sf::Sprite();
+	stone->setTexture(*texture);
+	stone->setTextureRect(sf::IntRect(80, 0, 80, 80));
+
+	sf::Sprite *wood = new sf::Sprite();
+	wood->setTexture(*texture);
+	wood->setTextureRect(sf::IntRect(320, 0, 80, 80));
+
+	// build a small 5x5 world
+	World *world = new World("Test_World", 5, 5);
+
+	for (int h = 0; h < world->getHeight(); h++) {
+
+		for (int w = 0; w < world->getWidth(); w++) {
+
+			world->setTile(h, w, wood);
+
+		}
+
+	}
+
+	myLayer->add(world->getTiles()[0][0]->getSprite());
+
+	// END WORLD BUILDING
+
+	manager->addLayer(myLayer);
 
 	// start the thread
 	thread.launch();
@@ -61,9 +91,11 @@ int main() {
 
 	}
 
-	delete layer1;
-	delete dirtSprite;
-	delete dirtTexture;
+	delete grass;
+	delete stone;
+	delete wood;
+	delete world;
+	delete myLayer;
 	delete manager;
 	delete window;
 

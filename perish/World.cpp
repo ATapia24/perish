@@ -15,7 +15,7 @@ World::World() : HEIGHT(1), WIDTH(1) {
 }
 
 // The constructor you should use
-World::World(std::string &_name, int height, int width) : 
+World::World(const std::string &_name, const int height, const int width) : 
 	HEIGHT(height), WIDTH(width), name(_name) {
 
 	// instantiate the multidimensional array
@@ -23,6 +23,17 @@ World::World(std::string &_name, int height, int width) :
 
 	for (int i = 0; i < HEIGHT; i++) {
 		tiles[i] = new WorldTile*[WIDTH];
+	}
+
+	// instantiate the every, for JIC moments
+	for (int h = 0; h < HEIGHT; h++) {
+
+		for (int w = 0; w < WIDTH; w++) {
+
+			tiles[h][w] = new WorldTile();
+
+		}
+
 	}
 
 }
@@ -61,5 +72,39 @@ int World::getHeight() const {
 int World::getWidth() const {
 
 	return WIDTH;
+
+}
+
+// Builds a nice layer to be printed
+void World::buildLayer(DrawLayer *layer) {
+
+	/*
+	 * At this point, we hope all the sprites are of the same
+	 * square size.. or there will be unhappiness
+	 */
+
+	// For easiness of storing scale
+	int x, y;
+
+	// loop through each tile one at a time
+	for (int h = 0; h < HEIGHT; h++) {
+
+		for (int w = 0; w < WIDTH; w++) {
+
+			// position the sprite accordingly, then pass it too
+			// the layer
+
+			x = tiles[h][w]->getSprite()->getScale().x;
+			y = tiles[h][w]->getSprite()->getScale().y;
+
+			// position
+			tiles[h][w]->getSprite()->move(x * (h + 1), y * (w + 1));
+
+			// add to the layer
+			layer->add(tiles[h][w]->getSprite());
+
+		}
+
+	}
 
 }

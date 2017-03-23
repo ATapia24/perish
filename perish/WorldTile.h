@@ -12,6 +12,8 @@ class WorldTile : public Entity {
 
 public:
 	
+	// Construction!
+	WorldTile();
 	WorldTile(sf::Sprite*);
 	~WorldTile();
 
