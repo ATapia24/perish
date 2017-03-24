@@ -57,23 +57,20 @@ int main() {
 	wood->setTextureRect(sf::IntRect(320, 0, 80, 80));
 
 	// build a small 5x5 world
-	World *world = new World("Test_World", 5, 5);
+	World *world = new World("Test_World", 2, 2);
 
-	for (int h = 0; h < world->getHeight(); h++) {
+	world->setTile(0, 0, wood);
+	world->setTile(0, 1, stone);
+	world->setTile(1, 0, grass);
+	world->setTile(1, 1, wood);
 
-		for (int w = 0; w < world->getWidth(); w++) {
+	DrawLayer *dud = new DrawLayer();
 
-			world->setTile(h, w, wood);
+	world->buildLayer(dud);
 
-		}
-
-	}
-
-	myLayer->add(world->getTiles()[0][0]->getSprite());
+	manager->addLayer(dud);
 
 	// END WORLD BUILDING
-
-	manager->addLayer(myLayer);
 
 	// start the thread
 	thread.launch();
@@ -91,6 +88,7 @@ int main() {
 
 	}
 
+	delete dud;
 	delete grass;
 	delete stone;
 	delete wood;

@@ -47,4 +47,3 @@ public:
 	void buildLayer(DrawLayer*);
 
 };
-

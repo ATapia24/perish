@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "World.h"
 
 // Default constructor
@@ -10,6 +12,21 @@ World::World() : HEIGHT(1), WIDTH(1) {
 
 	for (int i = 0; i < HEIGHT; i++) {
 		tiles[i] = new WorldTile*[WIDTH];
+	}
+
+	for (int i = 0; i < HEIGHT; i++) {
+		tiles[i] = new WorldTile*[WIDTH];
+	}
+
+	// instantiate the every, for JIC moments
+	for (int h = 0; h < HEIGHT; h++) {
+
+		for (int w = 0; w < WIDTH; w++) {
+
+			tiles[h][w] = new WorldTile();
+
+		}
+
 	}
 
 }
