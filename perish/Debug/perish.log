@@ -1,8 +1,3 @@
-﻿  Debug.cpp
-c:\users\pc\desktop\perish\perish\debug.cpp(34): warning C4018: '>': signed/unsigned mismatch
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Main.cpp
-  GameManager.cpp
+﻿  GameManager.cpp
   perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.exe
   perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.pdb (Partial PDB)

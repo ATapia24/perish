@@ -1,58 +1,66 @@
 #include "GameManager.h"
 
+//CONSTRUCTOR
 GameManager::GameManager() {
 }
 
-GameManager::~GameManager() {
-	delete windowManager;
-	delete eventHandler;
+//CONSTRUCTOR W/ DRAW MANAGER
+GameManager::GameManager(DrawManager& _drawManager) {
+	drawManager = &_drawManager;
+	window = drawManager->getWindow();
 }
 
-void GameManager::start() {
-	windowManager = new WindowManager(1280, 720, "Game");
-	window = windowManager->getWindow();
-	eventHandler = new WindowEventHandler(window);
-	debug = new Debug(windowManager);
-	world = new World(windowManager);
-	world->load();
+//DECONSTRUCTOR
+GameManager::~GameManager() {
+}
+
+//INTIALIZE GAME
+void GameManager::initGame() {
+	//do loading stuff here
+
+
+	//start game loop
 	gameLoop();
 }
 
-sf::Font font;
 //GAME LOOP
-//main loop for the game. handle events, then go game logic, then draw
 void GameManager::gameLoop() {
-	sf::Event event;
-	font.loadFromFile("font.ttf");
-	while (window->isOpen()) {
 
-		//handle events
-		while (window->pollEvent(event)) {
-			eventHandler->handleEvent(event);
+	//temp
+	DrawLayer layer;
+	sf::RectangleShape r;
+	r.setFillColor(misc::randomColor());
+	r.setPosition(0, 0);
+	r.setSize(sf::Vector2f(10, misc::NATIVE_HEIGHT/2));
+	layer.add(&r);
+	drawManager->addLayer(&layer);
+
+	//start game tick timer
+	gameTickTimer.start();
+
+	while (window->isOpen()) { 
+		if (gameTick()) {
+		//DO GAME LOGIC HERE
+
+			//temp
+			r.move(10.f, 5.0f);
+			if (r.getPosition().x > window->getSize().x + r.getSize().x) {
+				r.setFillColor(misc::randomColor());
+				r.setPosition(0, 0);
+			}
+
 		}
-
-		//happens every tick
-		if (gameTick())
-		{
-			//do game logic here
-			debug->update();
-			world->update();
-
-			//draw methods here
-			debug->draw();
-			world->draw();
-
-			//real draw
-			windowManager->draw();
-		}
-
 	}
 }
 
 //GAME TICK
 bool GameManager::gameTick() {
-	//TODO: I need to add your tick code
-	return true;
+	if (gameTickTimer.getMilliseconds() > TICK_RATE) {
+		gameTickTimer.reset();
+		return true;
+	}
+
+	return false;
 }
 
 

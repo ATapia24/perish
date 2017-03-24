@@ -12,59 +12,52 @@
 */
 
 #include <SFML/Graphics.hpp>
-#include <list>
-#include "Shape.h"
+#include <windows.h>
 #include "DrawLayer.h"
+#include "Miscellaneous.h"
+#include "Timer.h"
+
 
 #ifndef DRAWMANAGER_H
 #define DRAWMANAGER_H
 
-// For compiler stuff..
-class DrawObject;
-class Shape;
-class DrawLayer;
-
 class DrawManager {
 public:
 
-	// construction etc
 	DrawManager(sf::RenderWindow*, const int);
 	~DrawManager();
+	void ThreadHandler();
 
-	// Getters and setters
-	sf::RenderWindow * getWindow();
 
-	// Layer management
+	//window management
+	void initWindow();
+	void resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border);
+
+	//layers
 	void addLayer(DrawLayer*);
 	void setLayer(int, DrawLayer&);
-	DrawLayer * getLayers() const;
 
-	// view management
-	void setView(sf::View*);
-	sf::View * getView();
+	//get
+	DrawLayer* getLayers() const { return *layers; };
+	sf::View* getView() { return view; };
+	sf::RenderWindow* getWindow() { return window; };
 
-	// to be called by the thread
-	void threadHandler();
+	//set
+	void setView(sf::View* _view) { view = _view; };
 
 private:
 
+	void draw();
+
+	//window management
+	HWND consoleWindow;
+	sf::RenderWindow *window;
 	sf::View *view;
 
 	// Holds the drawable layers
 	DrawLayer **layers;
 	int layersUsed = 0;
 	int MAX_LAYERS;
-
-	// The window object
-	sf::RenderWindow *window;
-
-	// Settings
-	sf::Vector2f scale,
-		position;
-	float rotation;
-
-	// Handles all the drawing
-	void draw();
 
 };
 

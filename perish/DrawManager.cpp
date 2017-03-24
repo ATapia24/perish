@@ -12,90 +12,58 @@
 */
 
 #include "DrawManager.h"
-#include <iostream>
 
-// Construction
+//CONSTRUCTOR
 DrawManager::DrawManager(sf::RenderWindow *_window, const int maxLayers) {
 
 	window = _window;
 	layers = new DrawLayer*[maxLayers];
 	MAX_LAYERS = maxLayers;
-
 }
 
+//DECONSTRUCTOR
 DrawManager::~DrawManager() {
 
 	delete[] layers;
 
 }
 
-sf::RenderWindow * DrawManager::getWindow() {
 
-	return window;
+//THREAD HANDLER - DRAW THREAD LOOP
+void DrawManager::ThreadHandler() {
 
-}
+	//initialize window
+	initWindow();
 
-void DrawManager::threadHandler() {
-
+	//draw loop
 	while (window->isOpen()) {
-
-		// clear the screen
-		window->clear(sf::Color::White);
 
 		draw();
 
-		window->display();
-
+		//while (fpsTimer.getMilliseconds() <= 16) {}
+		//fps = 1000.0f / fpsTimer.getMilliseconds();
+		//std::cout << "fps: " << fps << '\n';
+		//fpsTimer.reset();
 	}
 
 }
 
-// Layer management
-void DrawManager::addLayer(DrawLayer *layer) {
+//INITIALIZE WINDOW
+void DrawManager::initWindow() {
 
-	if (layersUsed < MAX_LAYERS) {
+	//console window
+	consoleWindow = GetConsoleWindow();
+	std::string consoleTitle = misc::GAME_NAME + " - Console";
+	SetConsoleTitle(TEXT(consoleTitle.c_str()));
 
-		layers[layersUsed] = layer;
-		layersUsed++;
-
-	} else {
-
-		// start overwriting layers since they went over
-		layers[0] = layer;
-		layersUsed = 1;
-
-	}
+	//render window TODO: read video settings from file
+	resizeWindow(1280, 720, false, false);
 }
 
-void DrawManager::setLayer(int loc, DrawLayer &layer) {
-
-	layers[loc] = &layer;
-
-}
-
-DrawLayer * DrawManager::getLayers() const {
-
-	return *layers;
-
-}
-
-// view
-void DrawManager::setView(sf::View *_view) {
-
-	view = _view;
-
-	window->setView(*view);
-
-}
-
-sf::View * DrawManager::getView() {
-
-	return view;
-
-}
-
-// Private!
+//DRAW
 void DrawManager::draw() {
+	//clear window
+	window->clear(sf::Color::Black);
 
 	int bufferSize;
 
@@ -107,7 +75,7 @@ void DrawManager::draw() {
 		// SPRITES
 		for (int sprite = 0; sprite < bufferSize; sprite++) {
 
-			if (layers[i]->getSetSprites()[sprite] == 0) {
+			if (layers[i]->getOpenSprites()[sprite] == 0) {
 
 				window->draw(layers[i]->getSprites()[sprite]);
 
@@ -118,7 +86,7 @@ void DrawManager::draw() {
 		// TEXT
 		for (int text = 0; text < bufferSize; text++) {
 
-			if (layers[i]->getSetTexts()[text] == 0) {
+			if (layers[i]->getOpenTexts()[text] == 0) {
 
 				window->draw(layers[i]->getTexts()[text]);
 
@@ -129,7 +97,7 @@ void DrawManager::draw() {
 		// CIRCLES
 		for (int circle = 0; circle < bufferSize; circle++) {
 
-			if (layers[i]->getSetCircles()[circle] == 0) {
+			if (layers[i]->getOpenCircles()[circle] == 0) {
 
 				window->draw(layers[i]->getCircles()[circle]);
 
@@ -140,7 +108,7 @@ void DrawManager::draw() {
 		// RECTANGLES
 		for (int rectangle = 0; rectangle < bufferSize; rectangle++) {
 
-			if (layers[i]->getsetRectangles()[rectangle] == 0) {
+			if (layers[i]->getOpenRectangles()[rectangle] == 0) {
 
 				window->draw(layers[i]->getRectangles()[rectangle]);
 
@@ -151,14 +119,48 @@ void DrawManager::draw() {
 		// CONVEXES
 		for (int cons = 0; cons < bufferSize; cons++) {
 
-			if (layers[i]->getSetConvexes()[cons] == 0) {
+			if (layers[i]->getOpenConvexes()[cons] == 0) {
 
 				window->draw(layers[i]->getConvexes()[cons]);
 
 			}
 
 		}
+	}
+
+	//display
+	window->display();
+}
+
+//RESIZE WINDOW
+void DrawManager::resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border) {
+	//window->setSize(sf::Vector2u(width, height));
+	//window->setPosition(sf::Vector2i(0, 0));
+	MoveWindow(consoleWindow, width + 15, 0, 300, height, true);
+}
+
+
+//ADD LAYER
+void DrawManager::addLayer(DrawLayer *layer) {
+
+	if (layersUsed < MAX_LAYERS) {
+
+		layers[layersUsed] = layer;
+		layersUsed++;
 
 	}
-	
+	else {
+
+		//layer overflow
+		layers[0] = layer;
+		layersUsed = 1;
+
+	}
+}
+
+//SET LAYER
+void DrawManager::setLayer(int loc, DrawLayer &layer) {
+
+	layers[loc] = &layer;
+
 }

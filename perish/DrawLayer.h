@@ -1,65 +1,59 @@
 #pragma once
 
-#include<SFML/Graphics.hpp>
-#include<list>
+#include <SFML/Graphics.hpp>
 
 class DrawLayer {
 public:
 
-	// Construction
 	DrawLayer();
 	~DrawLayer();
 
 	// Add convex via pointer.. You must keep track
 	// Of the sprite yourself so it can modify it
-	int addConvex(sf::ConvexShape*);
+	int add(sf::Sprite* sprite);
+	int add(sf::Text* text );
+	int add(sf::CircleShape* circle );
+	int add(sf::RectangleShape* rectangle);
+	int add(sf::ConvexShape* convex);
 
 	// Delete convexs via there index in the array
 	void deleteConvex(int);
 
-	// get the various lists
-
 	// For buffer size
-	int getBufferSize() const;
-	
-	// SPRITES
-	sf::Sprite * getSprites() const;
-	uint8_t * getSetSprites() const;
+	int getBufferSize() const { return BUFFER_SIZE; };
 
-	// TEXT
-	sf::Text * getTexts() const;
-	uint8_t * getSetTexts() const;
+	//get drawables
+	sf::Sprite* getSprites() const { return *spriteArr; };
+	sf::Text* getTexts() const { return *textArr; };
+	sf::RectangleShape* getRectangles() const { return *rectangleArr; };
+	sf::CircleShape* getCircles() const { return *circleArr; };
+	sf::ConvexShape* getConvexes() const { return *convexArr; };
 
-	// CIRCLES
-	sf::CircleShape * getCircles() const;
-	uint8_t * getSetCircles() const;
-
-	// RECTANGLES
-	sf::RectangleShape * getRectangles() const;
-	uint8_t * getsetRectangles() const;
-
-	// CONVEXES
-	sf::ConvexShape * getConvexes() const;
-	uint8_t * getSetConvexes() const;
+	//get set drawables
+	uint8_t* getOpenSprites() const { return openSpriteArr; };
+	uint8_t* getOpenTexts() const { return openTextArr; };
+	uint8_t* getOpenRectangles() const { return openRectangleArr; };
+	uint8_t* getOpenCircles() const { return openCircleArr; };
+	uint8_t* getOpenConvexes() const { return openConvexArr; };
 
 	DrawLayer& operator=(DrawLayer&);
 
 private:
 
-	const int BUFFER_SIZE = 10;
+	const unsigned int BUFFER_SIZE = 1000;
 
-	// Holds the sprites
-	sf::Sprite **sprites;
-	sf::Text **texts;
-	sf::CircleShape **cshapes;
-	sf::RectangleShape **rshapes;
-	sf::ConvexShape **cnshapes;
-
-	uint8_t *openSprites;
-	uint8_t *openTexts;
-	uint8_t *openCircs;
-	uint8_t *openRects;
-	uint8_t *openConvs;
-
+	//drawable arrays
+	sf::Sprite **spriteArr;
+	sf::Text **textArr;
+	sf::CircleShape **circleArr;
+	sf::RectangleShape **rectangleArr;
+	sf::ConvexShape **convexArr;
+	
+	//drawable open arrays
+	uint8_t *openSpriteArr;
+	uint8_t *openTextArr;
+	uint8_t *openCircleArr;
+	uint8_t *openRectangleArr;
+	uint8_t *openConvexArr;
 };
 

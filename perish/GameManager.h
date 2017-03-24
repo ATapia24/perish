@@ -4,23 +4,30 @@
 #include <iostream>
 #include "WindowManager.h"
 #include "Debug.h"
+#include "DrawManager.h"
+#include "DrawLayer.h"
 #include "WindowEventHandler.h"
+#include "DrawManager.h"
 #include "InputManager.h"
 #include "World.h"
 
 class GameManager {
 public:
 	GameManager();
+	GameManager(DrawManager& _drawManager);
 	~GameManager();
-	void start();
+	void initGame();
 
 private:
-	WindowManager* windowManager;
+	DrawManager* drawManager;
 	sf::RenderWindow* window;
-	WindowEventHandler* eventHandler;
+	
 	Debug* debug;
 	World* world;
 	void gameLoop();
+
+	const unsigned TICK_RATE = 8;
+	Timer gameTickTimer;
 	bool gameTick();
 
 };

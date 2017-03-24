@@ -9,6 +9,7 @@
 #include <iostream>
 
 namespace misc {
+	const std::string GAME_NAME = "Perish";
 	const int NATIVE_WIDTH = 1920;
 	const int NATIVE_HEIGHT = 1080;
 	const float PI = 3.14159265359f;
