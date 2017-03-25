@@ -33,6 +33,13 @@ void GameManager::gameLoop() {
 	r.setPosition(0, 0);
 	r.setSize(sf::Vector2f(10, misc::NATIVE_HEIGHT/2));
 	layer.add(&r);
+
+	sf::RectangleShape r1;
+	r1.setFillColor(misc::randomColor());
+	r1.setPosition(10, 10);
+	r1.setSize(sf::Vector2f(100, 100));
+
+	layer.add(&r1);
 	drawManager->addLayer(&layer);
 
 	//start game tick timer

@@ -77,7 +77,7 @@ void DrawManager::draw() {
 
 			if (layers[i]->getOpenSprites()[sprite] == 0) {
 
-				window->draw(layers[i]->getSprites()[sprite]);
+				window->draw(*layers[i]->getSprites()[sprite]);
 
 			}
 
@@ -88,7 +88,7 @@ void DrawManager::draw() {
 
 			if (layers[i]->getOpenTexts()[text] == 0) {
 
-				window->draw(layers[i]->getTexts()[text]);
+				window->draw(*layers[i]->getTexts()[text]);
 
 			}
 
@@ -99,7 +99,7 @@ void DrawManager::draw() {
 
 			if (layers[i]->getOpenCircles()[circle] == 0) {
 
-				window->draw(layers[i]->getCircles()[circle]);
+				window->draw(*layers[i]->getCircles()[circle]);
 
 			}
 
@@ -110,7 +110,7 @@ void DrawManager::draw() {
 
 			if (layers[i]->getOpenRectangles()[rectangle] == 0) {
 
-				window->draw(layers[i]->getRectangles()[rectangle]);
+				window->draw(*layers[i]->getRectangles()[rectangle]);
 
 			}
 
@@ -121,7 +121,7 @@ void DrawManager::draw() {
 
 			if (layers[i]->getOpenConvexes()[cons] == 0) {
 
-				window->draw(layers[i]->getConvexes()[cons]);
+				window->draw(*layers[i]->getConvexes()[cons]);
 
 			}
 

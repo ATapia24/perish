@@ -23,11 +23,11 @@ public:
 	int getBufferSize() const { return BUFFER_SIZE; };
 
 	//get drawables
-	sf::Sprite* getSprites() const { return *spriteArr; };
-	sf::Text* getTexts() const { return *textArr; };
-	sf::RectangleShape* getRectangles() const { return *rectangleArr; };
-	sf::CircleShape* getCircles() const { return *circleArr; };
-	sf::ConvexShape* getConvexes() const { return *convexArr; };
+	sf::Sprite** getSprites() const { return spriteArr; };
+	sf::Text** getTexts() const { return textArr; };
+	sf::RectangleShape** getRectangles() const { return rectangleArr; };
+	sf::CircleShape** getCircles() const { return circleArr; };
+	sf::ConvexShape** getConvexes() const { return convexArr; };
 
 	//get set drawables
 	uint8_t* getOpenSprites() const { return openSpriteArr; };
