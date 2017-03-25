@@ -1,8 +1,9 @@
-﻿  Entity.cpp
-  main.cpp
+﻿  main.cpp
+main.cpp(184): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+main.cpp(188): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   Generating code
-  35 of 121 functions (28.9%) were compiled, the rest were copied from previous compilation.
+  2 of 148 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Release\perish.exe
+  perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Release\perish.exe

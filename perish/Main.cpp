@@ -25,7 +25,7 @@
 // handles window events
 void eventHandler(sf::RenderWindow*, sf::Event);
 // handles keyboard stuff
-void keyboardHandler();
+void keyboardHandler(sf::View*, sf::Clock&);
 
 int main() {
 
@@ -37,6 +37,12 @@ int main() {
 	sf::Thread thread(&DrawManager::threadHandler, manager);
 
 	DrawLayer *myLayer = new DrawLayer();
+
+	// Create a nice view to see in our world!
+	sf::View *view = new sf::View(sf::FloatRect(200, 200, 300, 200));
+	view->setSize(1200, 800);
+
+	manager->setView(view);
 
 	// BEGIN WORLD BUILDING
 
@@ -59,12 +65,42 @@ int main() {
 
 	DrawLayer *dud = new DrawLayer();
 
-	World myWorld("World Name", 2, 2);
+	World myWorld("World Name", 20, 20);
 
-	myWorld.setTile(0, 0, *grass);
-	myWorld.setTile(0, 1, *stone);
-	myWorld.setTile(1, 0, *wood);
-	myWorld.setTile(1, 1, *grass);
+	int rand;
+	std::srand(NULL);
+
+	for (int h = 0; h < myWorld.getMaxHeight(); h++) {
+
+		for (int w = 0; w < myWorld.getMaxWidth(); w++) {
+
+			std::cout << "h: " << h << " w: " << w << '\n';
+
+			rand = std::rand() % 3 + 1;
+
+			switch (rand) {
+
+			case 1:
+
+				myWorld.setTile(h, w, *grass);
+
+				break;
+			case 2:
+
+				myWorld.setTile(h, w, *stone);
+
+				break;
+			case 3:
+
+				myWorld.setTile(h, w, *wood);
+
+				break;
+
+			}
+
+		}
+
+	}
 
 	myWorld.buildLayer(dud);
 
@@ -75,6 +111,9 @@ int main() {
 	// start the thread
 	thread.launch();
 
+	// Clock for fps timing!
+	sf::Clock clock;
+
 	// event handler on this end
 	while (window->isOpen()) {
 
@@ -84,10 +123,13 @@ int main() {
 			eventHandler(window, event);
 
 		// handle the keyboard
-		keyboardHandler();
+		keyboardHandler(view, clock);
+
+		manager->setView(view);
 
 	}
 
+	delete view;
 	delete dud;
 	delete grass;
 	delete stone;
@@ -120,11 +162,33 @@ void eventHandler(sf::RenderWindow *window, sf::Event event) {
 
 }
 
-void keyboardHandler() {
+void keyboardHandler(sf::View *view, sf::Clock &clock) {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	sf::Time elapsed = clock.getElapsedTime();
 
-		std::cout << "A has been pressed!\n";
+	const int OFFSET = 10;
+
+	if (elapsed.asMicroseconds() >= 16666) {
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			
+			view->move(0, -OFFSET);
+
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			view->move(-OFFSET, 0);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			view->move(OFFSET, 0);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			view->move(0, OFFSET);
+		}
+
+		clock.restart();
 
 	}
 

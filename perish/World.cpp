@@ -72,9 +72,10 @@ void World::buildLayer(DrawLayer *layer) {
 
 		for (int w = 0; w < WIDTH; w++) {
 
-			int x1 = 80;
-			int y1 = 80;
+			float x1 = 80 * 0.5;
+			float y1 = 80 * 0.5;
 			
+			tiles[h][w]->getSprite().scale(0.5f, 0.5f);
 			tiles[h][w]->getSprite().move(x1 * h, y1 * w);
 
 			layer->add(&tiles[h][w]->getSprite());

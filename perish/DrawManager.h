@@ -47,6 +47,8 @@ public:
 
 private:
 
+	sf::Clock clock;
+
 	sf::View *view;
 
 	// Holds the drawable layers

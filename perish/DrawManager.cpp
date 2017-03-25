@@ -29,6 +29,10 @@ DrawManager::DrawManager(sf::RenderWindow *_window, const int maxLayers) {
 	
 	MAX_LAYERS = maxLayers;
 
+	// set video options!
+	window->setVerticalSyncEnabled(true);
+
+
 }
 
 DrawManager::~DrawManager() {
@@ -104,6 +108,16 @@ sf::View * DrawManager::getView() {
 
 // Private!
 void DrawManager::draw() {
+
+	// Limit the framerate manually
+	sf::Time elapsed = clock.getElapsedTime();
+
+	/*
+	if (clock.getElapsedTime().asMicroseconds() >= 16666)
+		clock.restart();
+	else
+		return;
+	*/
 
 	int bufferSize;
 

@@ -1,3 +1,5 @@
 ﻿  main.cpp
-  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Debug\perish.exe
-  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Debug\perish.pdb (Partial PDB)
+c:\users\activates\source\repos\perish\perish\main.cpp(184): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\activates\source\repos\perish\perish\main.cpp(188): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.exe
+  perish.vcxproj -> C:\Users\activates\Source\Repos\perish\Debug\perish.pdb (Partial PDB)
