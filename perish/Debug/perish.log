@@ -1,15 +1,3 @@
 ﻿  main.cpp
-c:\users\activates\source\repos\perish2\perish\main.cpp(65): error C2065: 'layer2': undeclared identifier
-c:\users\activates\source\repos\perish2\perish\main.cpp(65): error C2541: 'delete': cannot delete objects that are not pointers
-c:\users\activates\source\repos\perish2\perish\main.cpp(66): error C2065: 'stoneSprite': undeclared identifier
-c:\users\activates\source\repos\perish2\perish\main.cpp(66): error C2541: 'delete': cannot delete objects that are not pointers
-c:\users\activates\source\repos\perish2\perish\main.cpp(67): error C2065: 'stoneTexture': undeclared identifier
-c:\users\activates\source\repos\perish2\perish\main.cpp(67): error C2541: 'delete': cannot delete objects that are not pointers
-  DrawManager.cpp
-  DrawLayer.cpp
-  Generating Code...
-c:\users\activates\source\repos\perish2\perish\drawlayer.cpp(110): warning C4715: 'DrawLayer::add': not all control paths return a value
-c:\users\activates\source\repos\perish2\perish\drawlayer.cpp(125): warning C4715: 'DrawLayer::add': not all control paths return a value
-c:\users\activates\source\repos\perish2\perish\drawlayer.cpp(95): warning C4715: 'DrawLayer::add': not all control paths return a value
-c:\users\activates\source\repos\perish2\perish\drawlayer.cpp(80): warning C4715: 'DrawLayer::add': not all control paths return a value
-c:\users\activates\source\repos\perish2\perish\drawlayer.cpp(65): warning C4715: 'DrawLayer::add': not all control paths return a value
+  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Debug\perish.exe
+  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Debug\perish.pdb (Partial PDB)

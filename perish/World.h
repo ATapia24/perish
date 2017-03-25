@@ -1,13 +1,10 @@
-/*
- * This class holds all the world tiles in a multidimensional array,
- * so it can be easily rendered. The idea is to build the world first,
- * then pass it to a class that can interperet it and render it using
- * the DrawManager class
+/* 
+ * This class holds an array of pointers to a bunch of world tiles.
+ * The world tiles can be easily converted into a layer of niceness!
  */
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <string>
 
 #include "WorldTile.h"
@@ -17,33 +14,33 @@ class World {
 
 private:
 
-	// name of the world
-	std::string name;
+	// Holds the world tiles in a 2D array
+	WorldTile *** tiles;
 
-	// holds the dimensions of the world
-	const int WIDTH, HEIGHT;
-
-	// A nice array of world tiles!
-	WorldTile*** tiles;
+	// Holds the world's dimensions
+	const int HEIGHT, WIDTH;
+	
+	// Holds the world's name
+	const std::string name;
 
 public:
 
-	// Constructors
-	World();
+	// Beautiful construction
 	World(const std::string&, const int, const int);
 	~World();
 
-	// set tile by tile to build the world
-	void setTile(int, int, sf::Sprite*);
+	// Used to get the world's dimensions
+	int getMaxHeight() const;
+	int getMaxWidth() const;
 
-	// get each tile for printing
-	WorldTile *** getTiles() const;
+	// Used to set invidual tiles
+	void setTile(const int, const int, sf::Sprite&);
 
-	// Get world dimensions
-	int getHeight() const;
-	int getWidth() const;
-
-	// Used to build a layer
+	// Builds a layer for easy use
 	void buildLayer(DrawLayer*);
 
+	// A nice getter for debugging
+	sf::Sprite & getTile(const int, const int) const;
+
 };
+

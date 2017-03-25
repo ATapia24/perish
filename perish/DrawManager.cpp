@@ -18,7 +18,15 @@
 DrawManager::DrawManager(sf::RenderWindow *_window, const int maxLayers) {
 
 	window = _window;
+
 	layers = new DrawLayer*[maxLayers];
+	
+	for (int i = 0; i < maxLayers; i++) {
+
+		layers[i] = new DrawLayer();
+
+	}
+	
 	MAX_LAYERS = maxLayers;
 
 }
@@ -40,7 +48,7 @@ void DrawManager::threadHandler() {
 	while (window->isOpen()) {
 
 		// clear the screen
-		window->clear(sf::Color::White);
+		window->clear(sf::Color::Black);
 
 		draw();
 
@@ -107,9 +115,9 @@ void DrawManager::draw() {
 		// SPRITES
 		for (int sprite = 0; sprite < bufferSize; sprite++) {
 
-			if (layers[i]->getSetSprites()[sprite] == 0) {
+			if (layers[i]->getSprites()[sprite] != NULL) {
 
-				window->draw(layers[i]->getSprites()[sprite]);
+				window->draw(*layers[i]->getSprites()[sprite]);
 
 			}
 
@@ -118,9 +126,9 @@ void DrawManager::draw() {
 		// TEXT
 		for (int text = 0; text < bufferSize; text++) {
 
-			if (layers[i]->getSetTexts()[text] == 0) {
+			if (layers[i]->getTexts()[text] != NULL) {
 
-				window->draw(layers[i]->getTexts()[text]);
+				window->draw(*layers[i]->getTexts()[text]);
 
 			}
 
@@ -129,9 +137,9 @@ void DrawManager::draw() {
 		// CIRCLES
 		for (int circle = 0; circle < bufferSize; circle++) {
 
-			if (layers[i]->getSetCircles()[circle] == 0) {
+			if (layers[i]->getCircles()[circle] != NULL) {
 
-				window->draw(layers[i]->getCircles()[circle]);
+				window->draw(*layers[i]->getCircles()[circle]);
 
 			}
 
@@ -140,9 +148,9 @@ void DrawManager::draw() {
 		// RECTANGLES
 		for (int rectangle = 0; rectangle < bufferSize; rectangle++) {
 
-			if (layers[i]->getsetRectangles()[rectangle] == 0) {
+			if (layers[i]->getRectangles()[rectangle] != NULL) {
 
-				window->draw(layers[i]->getRectangles()[rectangle]);
+				window->draw(*layers[i]->getRectangles()[rectangle]);
 
 			}
 
@@ -151,9 +159,9 @@ void DrawManager::draw() {
 		// CONVEXES
 		for (int cons = 0; cons < bufferSize; cons++) {
 
-			if (layers[i]->getSetConvexes()[cons] == 0) {
+			if (layers[i]->getConvexes()[cons] != NULL) {
 
-				window->draw(layers[i]->getConvexes()[cons]);
+				window->draw(*layers[i]->getConvexes()[cons]);
 
 			}
 

@@ -1,7 +1,8 @@
 #pragma once
 
-#include<SFML/Graphics.hpp>
-#include<list>
+#include <SFML/Graphics.hpp>
+#include <list>
+#include <cstdlib>
 
 class DrawLayer {
 public:
@@ -31,24 +32,19 @@ public:
 	int getBufferSize() const;
 	
 	// SPRITES
-	sf::Sprite * getSprites() const;
-	uint8_t * getSetSprites() const;
+	sf::Sprite ** getSprites() const;
 
 	// TEXT
-	sf::Text * getTexts() const;
-	uint8_t * getSetTexts() const;
+	sf::Text ** getTexts() const;
 
 	// CIRCLES
-	sf::CircleShape * getCircles() const;
-	uint8_t * getSetCircles() const;
+	sf::CircleShape ** getCircles() const;
 
 	// RECTANGLES
-	sf::RectangleShape * getRectangles() const;
-	uint8_t * getsetRectangles() const;
+	sf::RectangleShape ** getRectangles() const;
 
 	// CONVEXES
-	sf::ConvexShape * getConvexes() const;
-	uint8_t * getSetConvexes() const;
+	sf::ConvexShape ** getConvexes() const;
 
 	DrawLayer& operator=(DrawLayer&);
 
@@ -62,12 +58,6 @@ private:
 	sf::CircleShape **cshapes;
 	sf::RectangleShape **rshapes;
 	sf::ConvexShape **cnshapes;
-
-	uint8_t *openSprites;
-	uint8_t *openTexts;
-	uint8_t *openCircs;
-	uint8_t *openRects;
-	uint8_t *openConvs;
 
 };
 

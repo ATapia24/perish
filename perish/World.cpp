@@ -1,53 +1,25 @@
-#include <iostream>
-
 #include "World.h"
 
-// Default constructor
-World::World() : HEIGHT(1), WIDTH(1) {
 
-	name = "Default";
 
-	// instantiate the multidimensional array
-	tiles = new WorldTile**[HEIGHT];
+World::World(const std::string &_name, const int height, const int width) :
+	name(_name), HEIGHT(height), WIDTH(width) {
 
-	for (int i = 0; i < HEIGHT; i++) {
-		tiles[i] = new WorldTile*[WIDTH];
-	}
+	// initialize the array
+	tiles = new WorldTile**[height];
 
-	for (int i = 0; i < HEIGHT; i++) {
-		tiles[i] = new WorldTile*[WIDTH];
-	}
+	for (int i = 0; i < height; i++) {
 
-	// instantiate the every, for JIC moments
-	for (int h = 0; h < HEIGHT; h++) {
-
-		for (int w = 0; w < WIDTH; w++) {
-
-			tiles[h][w] = new WorldTile();
-
-		}
+		tiles[i] = new WorldTile*[width];
 
 	}
 
-}
+	// fill it with values
+	for (int h = 0; h < height; h++) {
 
-// The constructor you should use
-World::World(const std::string &_name, const int height, const int width) : 
-	HEIGHT(height), WIDTH(width), name(_name) {
+		for (int w = 0; w < width; w++) {
 
-	// instantiate the multidimensional array
-	tiles = new WorldTile**[HEIGHT];
-
-	for (int i = 0; i < HEIGHT; i++) {
-		tiles[i] = new WorldTile*[WIDTH];
-	}
-
-	// instantiate the every, for JIC moments
-	for (int h = 0; h < HEIGHT; h++) {
-
-		for (int w = 0; w < WIDTH; w++) {
-
-			tiles[h][w] = new WorldTile();
+			tiles[w][h] = new WorldTile();
 
 		}
 
@@ -57,71 +29,64 @@ World::World(const std::string &_name, const int height, const int width) :
 
 World::~World() {
 
-	// Delete the multidimensional array
-	for (int i = 0; i < HEIGHT; i++) {
-		delete[] tiles[i];
+	// Deconstruct that massive array
+
+	for (int h = 0; h < HEIGHT; h++) {
+		for (int w = 0; w < WIDTH; w++) {
+			delete tiles[w][h];
+		}
 	}
+
+	for (int h = 0; h < HEIGHT; h++) {
+		delete[] tiles[h];
+	}
+	
 	delete[] tiles;
 
 }
 
-// control the tiles
-void World::setTile(int height, int width, sf::Sprite *sprite) {
-
-	tiles[height][width]->setSprite(sprite);
-
-}
-
-// get the tiles
-WorldTile *** World::getTiles() const {
-
-	return tiles;
-
-}
-
-// get the dimensions
-int World::getHeight() const {
+int World::getMaxHeight() const {
 
 	return HEIGHT;
 
 }
 
-int World::getWidth() const {
+int World::getMaxWidth() const {
 
 	return WIDTH;
 
 }
 
-// Builds a nice layer to be printed
+void World::setTile(const int x, const int y, sf::Sprite &_sprite) {
+
+	tiles[x][y]->setSprite(_sprite);
+
+}
+
 void World::buildLayer(DrawLayer *layer) {
 
-	/*
-	 * At this point, we hope all the sprites are of the same
-	 * square size.. or there will be unhappiness
-	 */
+	sf::Sprite *dud;
 
-	// For easiness of storing scale
-	int x, y;
-
-	// loop through each tile one at a time
+	// Loop through the sprites and space them out accordingly
 	for (int h = 0; h < HEIGHT; h++) {
 
 		for (int w = 0; w < WIDTH; w++) {
 
-			// position the sprite accordingly, then pass it too
-			// the layer
+			int x1 = 80;
+			int y1 = 80;
+			
+			tiles[h][w]->getSprite().move(x1 * h, y1 * w);
 
-			x = tiles[h][w]->getSprite()->getScale().x;
-			y = tiles[h][w]->getSprite()->getScale().y;
-
-			// position
-			tiles[h][w]->getSprite()->move(x * (h + 1), y * (w + 1));
-
-			// add to the layer
-			layer->add(tiles[h][w]->getSprite());
+			layer->add(&tiles[h][w]->getSprite());
 
 		}
 
 	}
+
+}
+
+sf::Sprite & World::getTile(const int x, const int y) const {
+
+	return tiles[x][y]->getSprite();
 
 }

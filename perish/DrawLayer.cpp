@@ -8,19 +8,13 @@ DrawLayer::DrawLayer() {
 	rshapes = new sf::RectangleShape*[BUFFER_SIZE];
 	cnshapes = new sf::ConvexShape*[BUFFER_SIZE];
 
-	openSprites = new uint8_t[BUFFER_SIZE];
-	openTexts = new uint8_t[BUFFER_SIZE];
-	openCircs = new uint8_t[BUFFER_SIZE];
-	openRects = new uint8_t[BUFFER_SIZE];
-	openConvs = new uint8_t[BUFFER_SIZE];
-
 	for (int i = 0; i < BUFFER_SIZE; i++) {
 
-		openSprites[i] = 1;
-		openTexts[i] = 1;
-		openCircs[i] = 1;
-		openRects[i] = 1;
-		openConvs[i] = 1;
+		sprites[i] = NULL;
+		texts[i] = NULL;
+		cshapes[i] = NULL;
+		rshapes[i] = NULL;
+		cnshapes[i] = NULL;
 
 	}
 
@@ -35,12 +29,6 @@ DrawLayer::~DrawLayer() {
 	delete[] rshapes;
 	delete[] cnshapes;
 
-	delete[] openSprites;
-	delete[] openTexts;
-	delete[] openCircs;
-	delete[] openRects;
-	delete[] openConvs;
-
 }
 
 int DrawLayer::getBufferSize() const {
@@ -54,9 +42,8 @@ int DrawLayer::add(sf::Sprite *sprite) {
 	// loop through the openSprites to see the first open section
 	for (int i = 0; i < BUFFER_SIZE; i++) {
 
-		if (openSprites[i] == 1) {
+		if (sprites[i] == NULL) {
 			sprites[i] = sprite;
-			openSprites[i] = 0;
 			return i;
 		}
 
@@ -69,9 +56,8 @@ int DrawLayer::add(sf::Text *text) {
 	// loop through the openSprites to see the first open section
 	for (int i = 0; i < BUFFER_SIZE; i++) {
 
-		if (openTexts[i] == 1) {
+		if (texts[i] == NULL) {
 			texts[i] = text;
-			openTexts[i] = 0;
 			return i;
 		}
 
@@ -84,9 +70,8 @@ int DrawLayer::add(sf::CircleShape *circle) {
 	// loop through the openSprites to see the first open section
 	for (int i = 0; i < BUFFER_SIZE; i++) {
 
-		if (openCircs[i] == 1) {
+		if (cshapes[i] == NULL) {
 			cshapes[i] = circle;
-			openCircs[i] = 0;
 			return i;
 		}
 
@@ -99,9 +84,8 @@ int DrawLayer::add(sf::RectangleShape *rectangle) {
 	// loop through the openSprites to see the first open section
 	for (int i = 0; i < BUFFER_SIZE; i++) {
 
-		if (openRects[i] == 1) {
+		if (rshapes[i] == NULL) {
 			rshapes[i] = rectangle;
-			openRects[i] = 0;
 			return i;
 		}
 
@@ -114,9 +98,8 @@ int DrawLayer::add(sf::ConvexShape *convex) {
 	// loop through the openSprites to see the first open section
 	for (int i = 0; i < BUFFER_SIZE; i++) {
 
-		if (openConvs[i] == 1) {
+		if (cnshapes[i] == NULL) {
 			cnshapes[i] = convex;
-			openConvs[i] = 0;
 			return i;
 		}
 
@@ -126,92 +109,62 @@ int DrawLayer::add(sf::ConvexShape *convex) {
 
 void DrawLayer::deleteSprite(int loc) {
 
-	openSprites[loc] = 1;
+	sprites[loc] = NULL;
 
 }
 
 void DrawLayer::deleteText(int loc) {
 
-	openTexts[loc] = 1;
+	texts[loc] = NULL;
 
 }
 
 void DrawLayer::deleteCircle(int loc) {
 
-	openCircs[loc] = 1;
+	cshapes[loc] = NULL;
 
 }
 
 void DrawLayer::deleteRectangle(int loc) {
 
-	openRects[loc] = 1;
+	rshapes[loc] = NULL;
 
 }
 
 void DrawLayer::deleteConvex(int loc) {
 
-	openConvs[loc] = 1;
+	cnshapes[loc] = NULL;
 
 }
 
 // Useful getters!
-sf::Sprite * DrawLayer::getSprites() const {
+sf::Sprite ** DrawLayer::getSprites() const {
 
-	return *sprites;
-
-}
-
-uint8_t * DrawLayer::getSetSprites() const {
-
-	return openSprites;
+	return sprites;
 
 }
 
-sf::Text * DrawLayer::getTexts() const {
+sf::Text ** DrawLayer::getTexts() const {
 
-	return *texts;
-
-}
-
-uint8_t * DrawLayer::getSetTexts() const {
-
-	return openTexts;
+	return texts;
 
 }
 
-sf::CircleShape * DrawLayer::getCircles() const {
+sf::CircleShape ** DrawLayer::getCircles() const {
 
-	return *cshapes;
-
-}
-
-uint8_t * DrawLayer::getSetCircles() const {
-
-	return openCircs;
+	return cshapes;
 
 }
 
-sf::RectangleShape * DrawLayer::getRectangles() const {
+sf::RectangleShape ** DrawLayer::getRectangles() const {
 
-	return *rshapes;
-
-}
-
-uint8_t * DrawLayer::getsetRectangles() const {
-
-	return openRects;
+	return rshapes;
 
 }
 
-sf::ConvexShape * DrawLayer::getConvexes() const {
+sf::ConvexShape ** DrawLayer::getConvexes() const {
 
-	return *cnshapes;
-
-}
-
-uint8_t * DrawLayer::getSetConvexes() const {
-
-	return openConvs;
+	return cnshapes;
 
 }
 
@@ -224,12 +177,6 @@ DrawLayer& DrawLayer::operator=(DrawLayer &layer) {
 		cshapes[i] = layer.cshapes[i];
 		rshapes[i] = layer.rshapes[i];
 		cnshapes[i] = layer.cnshapes[i];
-
-		openSprites[i] = layer.openSprites[i];
-		openTexts[i] = layer.openTexts[i];
-		openRects[i] = layer.openRects[i];
-		openCircs[i] = layer.openCircs[i];
-		openConvs[i] = layer.openConvs[i];
 
 	}
 

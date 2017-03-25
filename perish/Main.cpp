@@ -19,6 +19,7 @@
 
 #include "DrawManager.h"
 #include "DrawLayer.h"
+#include "Entity.h"
 #include "World.h"
 
 // handles window events
@@ -56,17 +57,16 @@ int main() {
 	wood->setTexture(*texture);
 	wood->setTextureRect(sf::IntRect(320, 0, 80, 80));
 
-	// build a small 5x5 world
-	World *world = new World("Test_World", 2, 2);
-
-	world->setTile(0, 0, wood);
-	world->setTile(0, 1, stone);
-	world->setTile(1, 0, grass);
-	world->setTile(1, 1, wood);
-
 	DrawLayer *dud = new DrawLayer();
 
-	world->buildLayer(dud);
+	World myWorld("World Name", 2, 2);
+
+	myWorld.setTile(0, 0, *grass);
+	myWorld.setTile(0, 1, *stone);
+	myWorld.setTile(1, 0, *wood);
+	myWorld.setTile(1, 1, *grass);
+
+	myWorld.buildLayer(dud);
 
 	manager->addLayer(dud);
 
@@ -92,7 +92,6 @@ int main() {
 	delete grass;
 	delete stone;
 	delete wood;
-	delete world;
 	delete myLayer;
 	delete manager;
 	delete window;
