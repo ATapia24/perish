@@ -34,13 +34,13 @@ int main() {
 
 	window->setActive(false);
 
-	sf::Thread thread(&DrawManager::threadHandler, manager);
+	// sf::Thread thread(&DrawManager::threadHandler, manager);
 
 	DrawLayer *myLayer = new DrawLayer();
 
 	// Create a nice view to see in our world!
 	sf::View *view = new sf::View(sf::FloatRect(200, 200, 300, 200));
-	view->setSize(1200, 800);
+	view->setSize(800, 600);
 
 	manager->setView(view);
 
@@ -48,24 +48,25 @@ int main() {
 
 	// Load up the texture
 	sf::Texture *texture = new sf::Texture();
-	texture->loadFromFile("C:\\Users\\activates\\Downloads\\terrain.jpg");
+	texture->loadFromFile("C:\\Users\\activates\\Downloads\\terrain.png");
+	texture->setSmooth(true);
 
 	// Create the sprites and assign their textures
 	sf::Sprite *grass = new sf::Sprite();
 	grass->setTexture(*texture);
-	grass->setTextureRect(sf::IntRect(0, 0, 80, 80));
+	grass->setTextureRect(sf::IntRect(0, 0, 32, 32));
 
 	sf::Sprite *stone = new sf::Sprite();
 	stone->setTexture(*texture);
-	stone->setTextureRect(sf::IntRect(80, 0, 80, 80));
+	stone->setTextureRect(sf::IntRect(80, 0, 32, 32));
 
 	sf::Sprite *wood = new sf::Sprite();
 	wood->setTexture(*texture);
-	wood->setTextureRect(sf::IntRect(320, 0, 80, 80));
+	wood->setTextureRect(sf::IntRect(320, 0, 32, 32));
 
 	DrawLayer *dud = new DrawLayer();
 
-	World myWorld("World Name", 20, 20);
+	World myWorld("World Name", 100, 100);
 
 	int rand;
 	std::srand(NULL);
@@ -102,14 +103,14 @@ int main() {
 
 	}
 
-	myWorld.buildLayer(dud);
+	myWorld.buildLayer(dud, 32, 32);
 
 	manager->addLayer(dud);
 
 	// END WORLD BUILDING
 
 	// start the thread
-	thread.launch();
+	// thread.launch();
 
 	// Clock for fps timing!
 	sf::Clock clock;
@@ -126,6 +127,12 @@ int main() {
 		keyboardHandler(view, clock);
 
 		manager->setView(view);
+
+		window->clear(sf::Color::Black);
+
+		manager->draw();
+
+		window->display();
 
 	}
 

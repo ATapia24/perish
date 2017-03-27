@@ -50,7 +50,7 @@ public:
 
 private:
 
-	const int BUFFER_SIZE = 5000;
+	const unsigned long int BUFFER_SIZE = 250000;
 
 	// Holds the sprites
 	sf::Sprite **sprites;

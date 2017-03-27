@@ -45,6 +45,10 @@ public:
 	// to be called by the thread
 	void threadHandler();
 
+	// Handles all the drawing
+	// -- Should be private, but needed for testing
+	void draw();
+
 private:
 
 	sf::Clock clock;
@@ -63,9 +67,6 @@ private:
 	sf::Vector2f scale,
 		position;
 	float rotation;
-
-	// Handles all the drawing
-	void draw();
 
 };
 

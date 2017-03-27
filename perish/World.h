@@ -37,7 +37,7 @@ public:
 	void setTile(const int, const int, sf::Sprite&);
 
 	// Builds a layer for easy use
-	void buildLayer(DrawLayer*);
+	void buildLayer(DrawLayer*, const int, const int);
 
 	// A nice getter for debugging
 	sf::Sprite & getTile(const int, const int) const;

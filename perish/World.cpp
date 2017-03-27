@@ -63,7 +63,7 @@ void World::setTile(const int x, const int y, sf::Sprite &_sprite) {
 
 }
 
-void World::buildLayer(DrawLayer *layer) {
+void World::buildLayer(DrawLayer *layer, const int x, const int y) {
 
 	sf::Sprite *dud;
 
@@ -72,8 +72,8 @@ void World::buildLayer(DrawLayer *layer) {
 
 		for (int w = 0; w < WIDTH; w++) {
 
-			float x1 = 80 * 0.5;
-			float y1 = 80 * 0.5;
+			float x1 = x * 0.5;
+			float y1 = y * 0.5;
 			
 			tiles[h][w]->getSprite().scale(0.5f, 0.5f);
 			tiles[h][w]->getSprite().move(x1 * h, y1 * w);
