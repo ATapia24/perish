@@ -28,18 +28,27 @@ void GameManager::gameLoop() {
 
 	//temp
 	DrawLayer layer;
-	sf::RectangleShape r;
-	r.setFillColor(misc::randomColor());
-	r.setPosition(0, 0);
-	r.setSize(sf::Vector2f(10, misc::NATIVE_HEIGHT/2));
-	layer.add(&r);
+	const int n = 3500;
+	sf::RectangleShape s[n];
+	for (int i = 0; i < n; i++)
+	{
+		s[i].setFillColor(misc::randomColor());
+		s[i].setPosition(misc::random(0, 1280), misc::random(0, 720));
+		int size = misc::random(0, 10);
+		s[i].setSize(sf::Vector2f(20, 20));
+		layer.add(&s[i]);
+	}
 
-	sf::RectangleShape r1;
-	r1.setFillColor(misc::randomColor());
-	r1.setPosition(10, 10);
-	r1.setSize(sf::Vector2f(100, 100));
+	/*
+	for (int i = 0; i < n; i++)
+	{
+		if (i % misc::random(1, 3) == -3)
+			layer.remove(i);
+	}
 
-	layer.add(&r1);
+	layer.cleanup();*/
+
+
 	drawManager->addLayer(&layer);
 
 	//start game tick timer
@@ -48,13 +57,6 @@ void GameManager::gameLoop() {
 	while (window->isOpen()) { 
 		if (gameTick()) {
 		//DO GAME LOGIC HERE
-
-			//temp
-			r.move(10.f, 5.0f);
-			if (r.getPosition().x > window->getSize().x + r.getSize().x) {
-				r.setFillColor(misc::randomColor());
-				r.setPosition(0, 0);
-			}
 
 		}
 	}

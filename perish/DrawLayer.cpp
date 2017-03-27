@@ -2,91 +2,76 @@
 
 DrawLayer::DrawLayer() {
 
-	spriteArr = new sf::Sprite*[BUFFER_SIZE];
-	textArr = new sf::Text*[BUFFER_SIZE];
-	circleArr = new sf::CircleShape*[BUFFER_SIZE];
-	rectangleArr = new sf::RectangleShape*[BUFFER_SIZE];
-	convexArr = new sf::ConvexShape*[BUFFER_SIZE];
-
-	openSpriteArr = new uint8_t[BUFFER_SIZE];
-	openTextArr = new uint8_t[BUFFER_SIZE];
-	openCircleArr = new uint8_t[BUFFER_SIZE];
-	openRectangleArr = new uint8_t[BUFFER_SIZE];
-	openConvexArr = new uint8_t[BUFFER_SIZE];
-
+	drawObjects = new DrawObject*[BUFFER_SIZE];
+	
 	for (int i = 0; i < BUFFER_SIZE; i++) {
-
-		openSpriteArr[i] = 1;
-		openTextArr[i] = 1;
-		openCircleArr[i] = 1;
-		openRectangleArr[i] = 1;
-		openConvexArr[i] = 1;
+		drawObjects[i] = new DrawObject;
+		drawObjects[i]->type = DrawType::EMPTY;
 	}
 
-}
+	size = 0;
 
+}
 
 DrawLayer::~DrawLayer() {
 
 	// housekeeping !
-	delete[] spriteArr;
-	delete[] textArr;
-	delete[] circleArr;
-	delete[] rectangleArr;
-	delete[] convexArr;
-
-	delete[] openSpriteArr;
-	delete[] openTextArr;
-	delete[] openCircleArr;
-	delete[] openRectangleArr;
-	delete[] openConvexArr;
+	delete[] drawObjects;
 }
 
 //ADD SPRITE
 int DrawLayer::add(sf::Sprite *sprite) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
-		if (openSpriteArr[i] == 1) {
-			spriteArr[i] = sprite;
-			openSpriteArr[i] = 0;
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::SPRITE;
+			drawObjects[i]->sprite = sprite;
+			size++;
 			return i;
 		}
-
+	}
 	return -1;
 }
 
 //ADD RECTANGLE
 int DrawLayer::add(sf::RectangleShape *rectangle) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
-		if (openRectangleArr[i] == 1) {
-			rectangleArr[i] = rectangle;
-			openRectangleArr[i] = 0;
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::RECTANGLE;
+			drawObjects[i]->rectangle = rectangle;
+			size++;
 			return i;
 		}
-
+	}
 	return -1;
 }
 
 //ADD TEXT
 int DrawLayer::add(sf::Text *text) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
-		if (openTextArr[i] == 1) {
-			textArr[i] = text;
-			openTextArr[i] = 0;
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::TEXT;
+			drawObjects[i]->text = text;
+			size++;
 			return i;
 		}
-
+	}
 	return -1;
 }
 
 //ADD CIRCLE
 int DrawLayer::add(sf::CircleShape *circle) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
-		if (openCircleArr[i] == 1) {
-			circleArr[i] = circle;
-			openCircleArr[i] = 0;
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::CIRCLE;
+			drawObjects[i]->circle = circle;
+			size++;
 			return i;
 		}
-
+	}
 	return -1;
 }
 
@@ -94,37 +79,77 @@ int DrawLayer::add(sf::CircleShape *circle) {
 int DrawLayer::add(sf::ConvexShape *convex)
 {
 	for (int i = 0; i < BUFFER_SIZE; i++)
-		if (openConvexArr[i] == 1) {
-			convexArr[i] = convex;
-			openConvexArr[i] = 0;
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::CONVEX;
+			drawObjects[i]->convex = convex;
+			size++;
 			return i;
 		}
-
+	}
 	return -1;
 }
 
-void DrawLayer::deleteConvex(int loc) {
-
-	openConvexArr[loc] = 1;
-
+//REMOVE
+void DrawLayer::remove(int index)
+{
+	if (index < BUFFER_SIZE)
+	{
+		drawObjects[index]->type = DrawType::EMPTY;
+		size--;
+	}
 }
 
+//CLEANUP 
+//Desc. removes gaps in drawObjects array for faster drawing
+//TODO: CAN BE FASTER
+void DrawLayer::cleanup()
+{
+	//tmp
+	/*
+	std::cout << "b: ";
+	for (int i = 0; i < 25; i++)
+		std::cout << drawObjects[i]->type;
+	std::cout << '\n';*/
 
+	int emptyIndex=1, n_empty = 0, efound = 0;
+	for (int i = 0; i < BUFFER_SIZE; i++) {
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			emptyIndex = i;
+			
+
+			for (int j = i + 1; j < BUFFER_SIZE; j++)
+			{
+				if (drawObjects[j]->type != DrawType::EMPTY)
+				{
+					drawObjects[emptyIndex]->type = drawObjects[j]->type;
+					drawObjects[emptyIndex]->rectangle = drawObjects[j]->rectangle;
+					drawObjects[emptyIndex]->circle = drawObjects[j]->circle;
+					drawObjects[emptyIndex]->convex = drawObjects[j]->convex;
+					drawObjects[emptyIndex]->sprite = drawObjects[j]->sprite;
+					drawObjects[emptyIndex]->text = drawObjects[j]->text;
+					drawObjects[emptyIndex]->vertexArray = drawObjects[j]->vertexArray;
+					drawObjects[j]->type = DrawType::EMPTY;
+					j = BUFFER_SIZE;
+				}
+			}
+
+		}
+	}
+
+	/*
+	std::cout << "a : ";
+	for (int i = 0; i < 25; i++)
+		std::cout << drawObjects[i]->type;
+	std::cout << '\n';*/
+}
+
+// OPERATOR =
 DrawLayer& DrawLayer::operator=(DrawLayer &layer) {
 
 	for (int i = 0; i < BUFFER_SIZE; i++) {
 
-		spriteArr[i] = layer.spriteArr[i];
-		textArr[i] = layer.textArr[i];
-		circleArr[i] = layer.circleArr[i];
-		rectangleArr[i] = layer.rectangleArr[i];
-		convexArr[i] = layer.convexArr[i];
-
-		openSpriteArr[i] = layer.openSpriteArr[i];
-		openTextArr[i] = layer.openTextArr[i];
-		openRectangleArr[i] = layer.openRectangleArr[i];
-		openCircleArr[i] = layer.openCircleArr[i];
-		openConvexArr[i] = layer.openConvexArr[i];
+		drawObjects[i] = layer.drawObjects[i];
 
 	}
 

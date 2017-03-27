@@ -34,16 +34,23 @@ void DrawManager::ThreadHandler() {
 
 	//initialize window
 	initWindow();
+	long count=0;
+	unsigned long sum=0;
+	float avg=0;
 
 	//draw loop
+	fpsTimer.start();
 	while (window->isOpen()) {
 
+		
 		draw();
 
+		//temp fps counter
 		//while (fpsTimer.getMilliseconds() <= 16) {}
-		//fps = 1000.0f / fpsTimer.getMilliseconds();
-		//std::cout << "fps: " << fps << '\n';
-		//fpsTimer.reset();
+		std::cout << "ms: " << fpsTimer.getMilliseconds() << '\n';
+		fpsTimer.reset();
+
+
 	}
 
 }
@@ -65,66 +72,41 @@ void DrawManager::draw() {
 	//clear window
 	window->clear(sf::Color::Black);
 
-	int bufferSize;
-
-	// TODO
+	//draw objects in layer
 	for (int i = 0; i < layersUsed; i++) {
 		
-		bufferSize = layers[i]->getBufferSize();
-
-		// SPRITES
-		for (int sprite = 0; sprite < bufferSize; sprite++) {
-
-			if (layers[i]->getOpenSprites()[sprite] == 0) {
-
-				window->draw(*layers[i]->getSprites()[sprite]);
-
+		
+		//stops looping when every DrawObject has been drawn
+		int drawCount = 0;
+		for (int j = 0; layers[i]->getSize() != drawCount; j++) {
+			//draw based on type
+			switch (layers[i]->getDrawObjects()[j]->type) {
+			case DrawType::EMPTY: break; // do nothing
+			case DrawType::SPRITE:
+				window->draw(*layers[i]->getDrawObjects()[j]->rectangle);
+				drawCount++;
+				break;
+			case DrawType::VERTEX_ARRAY:
+				window->draw(*layers[i]->getDrawObjects()[j]->vertexArray);
+				drawCount++;
+				break;
+			case DrawType::TEXT:
+				window->draw(*layers[i]->getDrawObjects()[j]->text);
+				drawCount++;
+				break;
+			case DrawType::RECTANGLE:
+				window->draw(*layers[i]->getDrawObjects()[j]->rectangle);
+				drawCount++;
+				break;
+			case DrawType::CIRCLE:
+				window->draw(*layers[i]->getDrawObjects()[j]->circle);
+				drawCount++;
+				break;
+			case DrawType::CONVEX:
+				window->draw(*layers[i]->getDrawObjects()[j]->convex);
+				drawCount++;
+				break;
 			}
-
-		}
-
-		// TEXT
-		for (int text = 0; text < bufferSize; text++) {
-
-			if (layers[i]->getOpenTexts()[text] == 0) {
-
-				window->draw(*layers[i]->getTexts()[text]);
-
-			}
-
-		}
-
-		// CIRCLES
-		for (int circle = 0; circle < bufferSize; circle++) {
-
-			if (layers[i]->getOpenCircles()[circle] == 0) {
-
-				window->draw(*layers[i]->getCircles()[circle]);
-
-			}
-
-		}
-
-		// RECTANGLES
-		for (int rectangle = 0; rectangle < bufferSize; rectangle++) {
-
-			if (layers[i]->getOpenRectangles()[rectangle] == 0) {
-
-				window->draw(*layers[i]->getRectangles()[rectangle]);
-
-			}
-
-		}
-
-		// CONVEXES
-		for (int cons = 0; cons < bufferSize; cons++) {
-
-			if (layers[i]->getOpenConvexes()[cons] == 0) {
-
-				window->draw(*layers[i]->getConvexes()[cons]);
-
-			}
-
 		}
 	}
 

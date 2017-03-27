@@ -59,6 +59,10 @@ private:
 	int layersUsed = 0;
 	int MAX_LAYERS;
 
+	//temp
+	Timer t;
+	Timer fpsTimer;
+	float fps;
 };
 
 #endif /* DRAWMANAGER_H */
