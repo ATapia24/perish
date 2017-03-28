@@ -23,7 +23,9 @@ struct Animation {
 	// The last ran texture
 	int lastRan;
 	// the textures that are partaking in the animation!
-	sf::Texture *textures;
+	sf::Texture *texture;
+	// the textures rect
+	sf::IntRect *rects;
 
 };
 
@@ -56,8 +58,5 @@ public:
 	// Used to delete an animation.. Pass it the number the add
 	// animation function returned
 	void removeAnimation(const int);
-
-	// Used to build an animation
-	Animation & buildAnimation(sf::Sprite*, sf::Texture*, const int, long int);
 
 };

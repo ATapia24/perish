@@ -21,6 +21,7 @@
 #include "DrawLayer.h"
 #include "Entity.h"
 #include "World.h"
+#include "Animator.h"
 
 // handles window events
 void eventHandler(sf::RenderWindow*, sf::Event);
@@ -32,6 +33,9 @@ int main() {
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(800, 500), "Perish");
 	DrawManager *manager = new DrawManager(window, 5);
 
+	// for the animator setup to have a max of 10 animations
+	Animator animator(10);
+
 	window->setActive(false);
 
 	// sf::Thread thread(&DrawManager::threadHandler, manager);
@@ -39,8 +43,8 @@ int main() {
 	DrawLayer *myLayer = new DrawLayer();
 
 	// Create a nice view to see in our world!
-	sf::View *view = new sf::View(sf::FloatRect(200, 200, 300, 200));
-	view->setSize(800, 600);
+	sf::View *view = new sf::View(sf::FloatRect(0, 0, 200, 200));
+	view->setSize(80, 50);
 
 	manager->setView(view);
 
@@ -49,65 +53,73 @@ int main() {
 	// Load up the texture
 	sf::Texture *texture = new sf::Texture();
 	texture->loadFromFile("C:\\Users\\activates\\Downloads\\terrain.png");
-	texture->setSmooth(true);
+	texture->setSmooth(false);
 
 	// Create the sprites and assign their textures
-	sf::Sprite *grass = new sf::Sprite();
-	grass->setTexture(*texture);
-	grass->setTextureRect(sf::IntRect(0, 0, 32, 32));
-
-	sf::Sprite *stone = new sf::Sprite();
-	stone->setTexture(*texture);
-	stone->setTextureRect(sf::IntRect(80, 0, 32, 32));
-
-	sf::Sprite *wood = new sf::Sprite();
-	wood->setTexture(*texture);
-	wood->setTextureRect(sf::IntRect(320, 0, 32, 32));
+	sf::Sprite *water = new sf::Sprite();
+	water->setTexture(*texture);
+	water->setTextureRect(sf::IntRect(416, 384, 32, 32));
 
 	DrawLayer *dud = new DrawLayer();
 
-	World myWorld("World Name", 100, 100);
+	World myWorld("World Name", 2, 2);
 
-	int rand;
-	std::srand(NULL);
-
-	for (int h = 0; h < myWorld.getMaxHeight(); h++) {
-
-		for (int w = 0; w < myWorld.getMaxWidth(); w++) {
-
-			std::cout << "h: " << h << " w: " << w << '\n';
-
-			rand = std::rand() % 3 + 1;
-
-			switch (rand) {
-
-			case 1:
-
-				myWorld.setTile(h, w, *grass);
-
-				break;
-			case 2:
-
-				myWorld.setTile(h, w, *stone);
-
-				break;
-			case 3:
-
-				myWorld.setTile(h, w, *wood);
-
-				break;
-
-			}
-
-		}
-
-	}
+	myWorld.setTile(0, 0, *water);
+	myWorld.setTile(0, 1, *water);
 
 	myWorld.buildLayer(dud, 32, 32);
 
 	manager->addLayer(dud);
 
 	// END WORLD BUILDING
+
+	// BEGIN animation
+
+	// make array of textures
+
+	sf::Texture grassTexture;
+	grassTexture.loadFromFile("C:\\Users\\activates\\Downloads\\terrain.png", sf::IntRect(0, 0, 32, 32));
+
+	sf::Texture stoneTexture;
+	grassTexture.loadFromFile("C:\\Users\\activates\\Downloads\\terrain.png", sf::IntRect(32, 0, 32, 32));
+
+	sf::Texture woodTexture;
+	grassTexture.loadFromFile("C:\\Users\\activates\\Downloads\\terrain.png", sf::IntRect(128, 0, 32, 32));
+
+	sf::IntRect textureSizes[8];
+
+	textureSizes[0] = sf::IntRect(256, 160, 32, 32);
+	textureSizes[1] = sf::IntRect(288, 160, 32, 32);
+	textureSizes[2] = sf::IntRect(320, 160, 32, 32);
+	textureSizes[3] = sf::IntRect(352, 160, 32, 32);
+	textureSizes[4] = sf::IntRect(384, 160, 32, 32);
+	textureSizes[5] = sf::IntRect(416, 160, 32, 32);
+	textureSizes[6] = sf::IntRect(448, 160, 32, 32);
+	textureSizes[7] = sf::IntRect(480, 160, 32, 32);
+
+	Animation testAnimation;
+
+	testAnimation.delay = 500;
+	testAnimation.lastRan = 0;
+	testAnimation.texture = texture;
+	testAnimation.rects = textureSizes;
+	testAnimation.sprite = &myWorld.getTile(0, 0);
+	testAnimation.animations = 8;
+
+	animator.addAnimation(testAnimation);
+
+	Animation testAnimation2;
+
+	testAnimation2.delay = 500;
+	testAnimation2.lastRan = 0;
+	testAnimation2.texture = texture;
+	testAnimation2.rects = textureSizes;
+	testAnimation2.sprite = &myWorld.getTile(0, 1);
+	testAnimation2.animations = 8;
+
+	animator.addAnimation(testAnimation2);
+
+	// END animation
 
 	// start the thread
 	// thread.launch();
@@ -130,6 +142,8 @@ int main() {
 
 		window->clear(sf::Color::Black);
 
+		animator.play();
+
 		manager->draw();
 
 		window->display();
@@ -138,9 +152,7 @@ int main() {
 
 	delete view;
 	delete dud;
-	delete grass;
-	delete stone;
-	delete wood;
+	delete water;
 	delete myLayer;
 	delete manager;
 	delete window;
@@ -173,7 +185,7 @@ void keyboardHandler(sf::View *view, sf::Clock &clock) {
 
 	sf::Time elapsed = clock.getElapsedTime();
 
-	const int OFFSET = 10;
+	const int OFFSET = 5;
 
 	if (elapsed.asMicroseconds() >= 16666) {
 

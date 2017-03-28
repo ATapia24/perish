@@ -1,5 +1,7 @@
 #include "Animator.h"
 
+#include <iostream>
+
 Animator::Animator(const int size) : 
 	MAX_ANIMATIONS(size) {
 
@@ -39,50 +41,27 @@ void Animator::play() {
 		// find an open slot
 		if (openSlots[i] == 0) {
 
-			// check to see if any delay has been set in place
-			if (lastRan[i] == -1) {
+			// check to see if the clock works
+			if (animations[i].clock.getElapsedTime().asMilliseconds() >= animations[i].delay) {
 
-				// check to make sure that delay isn't just zero (which would be stupid but whatever)
-				if (animations[i].delay >= 1) {
-					// no animation has been set, so set the delay time right off the bat
-					lastRan[i] = animations[i].delay;
-
-					// start its clock
-					animations[i].clock.restart();
-				}
-
-			} else {
-					
-				// delay has been set, so work with that.
-				if (animations[i].clock.getElapsedTime().asMilliseconds() >= animations[i].delay) {
-
-					// increment the last ran animation
+				// increment the animation to the next one
+				if (animations[i].lastRan + 1 >= animations[i].animations)
+					animations[i].lastRan = 0;
+				else
 					animations[i].lastRan++;
 
-					// this will run if the amount of time has been achieved or past
-					if (animations[i].lastRan >= animations[i].animations) {
+				std::cout << animations[i].lastRan << '\n';
 
-						animations[i].sprite->setTexture(animations[i].textures[0]);
+				animations[i].sprite->setTexture(*animations[i].texture);
+				animations[i].sprite->setTextureRect(animations[i].rects[animations[i].lastRan]);
 
-						// set it to one because we will run animation zero now
-						animations[i].lastRan = 0;
-
-					} else {
-
-						// run the next animation
-						animations[i].sprite->setTexture(animations[i].textures[animations[i].lastRan]);
-
-					}
-
-				}
+				animations[i].clock.restart();
 
 			}
 
 		}
 
 	}
-
-	// TODO
 
 }
 
@@ -109,20 +88,5 @@ void Animator::removeAnimation(const int i) {
 
 	// "delete" it, so it will be overidden later
 	openSlots[i] = 1;
-
-}
-
-Animation & Animator::buildAnimation(sf::Sprite *sprite, sf::Texture *textures, const int animationAmount, long int delay) {
-
-	// build the struct!
-	Animation animation;
-
-	animation.sprite = sprite;
-	animation.textures = textures;
-	animation.animations = animationAmount;
-	animation.delay = delay;
-	animation.lastRan = 0;
-
-	return animation;
 
 }
