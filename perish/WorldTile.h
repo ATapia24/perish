@@ -1,26 +1,26 @@
 /*
- * This class is just for holding world tiles.. It gains most of its
- * functionality from the Entity class, so check that class to learn
- * this class' inner workings!
- */
+
+An extention of the WorldObject type. This object type must snap
+to a location on the grid whilst the WorldFloat can go anywhere it
+wants.
+
+*/
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "WorldObject.h"
 
-#include "Entity.h"
+class WorldTile : public WorldObject {
 
-class WorldTile : public Entity {
+private:
+
+
 
 public:
 
-	// A default constructor for the instances when we don't know
-	// what sprite will be used as the tile!
 	WorldTile();
-
-	// Just some good ol' construction
-	WorldTile(sf::Sprite&);
 	~WorldTile();
+
 
 };
 

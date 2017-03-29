@@ -22,17 +22,21 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="DrawLayer.cpp" />
     <ClCompile Include="DrawManager.cpp" />
-    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldFloat.cpp" />
+    <ClCompile Include="WorldObject.cpp" />
     <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animator.h" />
     <ClInclude Include="DrawLayer.h" />
     <ClInclude Include="DrawManager.h" />
-    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="WorldFloat.h" />
+    <ClInclude Include="WorldObject.h" />
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
