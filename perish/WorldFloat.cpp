@@ -2,8 +2,8 @@
 
 WorldFloat::WorldFloat() : WorldObject(sf::Sprite(), WorldObjectType::FLOATING) {}
 
-WorldFloat::WorldFloat(sf::Sprite &_sprite, const float _x, const float _y) :
-	WorldObject(_sprite, WorldObjectType::FLOATING), x(_x), y(_y) {}
+WorldFloat::WorldFloat(sf::Sprite &_sprite) :
+	WorldObject(_sprite, WorldObjectType::FLOATING) {}
 
 
 WorldFloat::~WorldFloat() {}

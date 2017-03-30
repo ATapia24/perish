@@ -22,7 +22,7 @@ private:
 public:
 
 	WorldFloat();
-	WorldFloat(sf::Sprite&, const float, const float);
+	WorldFloat(sf::Sprite&);
 	~WorldFloat();
 
 	float getX() const;
