@@ -1,9 +1,10 @@
-﻿  main.cpp
-main.cpp(203): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-main.cpp(207): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  Generating code
-  1 of 144 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Release\perish.exe
+﻿  Game.cpp
+  main.cpp
+  World.cpp
+  WorldFloat.cpp
+WorldFloat.cpp(6): error C2512: 'WorldObject': no appropriate default constructor available
+  c:\users\activates\source\repos\perish2\perish\WorldObject.h(19): note: see declaration of 'WorldObject'
+  WorldObject.cpp
+  WorldTile.cpp
+WorldTile.cpp(3): error C2512: 'WorldObject': no appropriate default constructor available
+  c:\users\activates\source\repos\perish2\perish\WorldObject.h(19): note: see declaration of 'WorldObject'

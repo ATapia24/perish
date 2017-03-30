@@ -15,10 +15,18 @@ class WorldFloat : public WorldObject {
 
 private:
 
+	// stores the location on the screen.. not within the
+	// array
+	float x, y;
+
 public:
 
 	WorldFloat();
+	WorldFloat(sf::Sprite&, const float, const float);
 	~WorldFloat();
+
+	float getX() const;
+	float getY() const;
 
 };
 
