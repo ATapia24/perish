@@ -1,7 +1,7 @@
 #include "World.h"
 
-World::World(std::string &_name, const int maxX, const int maxY, const int maxFloats) :
-	NAME(_name), MAX_X(maxX), MAX_Y(maxY), MAX_FLOATS(maxFloats) {
+World::World(const std::string &_name, const int maxX, const int maxY, const int maxFloats, const int dimX, const int dimY) :
+	NAME(_name), MAX_X(maxX), MAX_Y(maxY), MAX_FLOATS(maxFloats), DIM_X(dimX), DIM_Y(dimY) {
 
 	// fill up the max tiles
 	worldTiles = new WorldTile*[maxX];
@@ -42,6 +42,14 @@ int World::getMaxY() const {
 	return MAX_Y;
 }
 
+int World::getDimX() const {
+	return DIM_X;
+}
+
+int World::getDimY() const {
+	return DIM_Y;
+}
+
 void World::setTile(const int x, const int y, sf::Sprite &sprite) {
 
 	worldTiles[x][y] = WorldTile(sprite, x, y);
@@ -67,6 +75,12 @@ WorldTile ** World::getWorldTiles() const {
 
 }
 
+int World::getMaxFloats() const {
+
+	return MAX_FLOATS;
+
+}
+
 WorldFloat * World::getWorldFloats() const {
 
 	return worldFloats;
@@ -76,5 +90,39 @@ WorldFloat * World::getWorldFloats() const {
 uint8_t * World::getOpenFloats() const {
 
 	return openFloats;
+
+}
+
+std::string World::getName() const {
+	
+	return NAME;
+	
+}
+
+World World::operator=(const World &world) {
+
+	World temp(world.getName(), world.getMaxX(), world.getMaxY(), world.getMaxFloats(), world.getDimX(), world.getDimY());
+
+	// set the world tiles
+	for (int x = 0; x < world.MAX_X; x++) {
+
+		for (int y = 0; y < world.MAX_Y; y++) {
+
+			temp.setTile(x, y, world.getWorldTiles()[x][y].getSprite());
+
+		}
+
+	}
+
+	// set the world floats
+	for (int i = 0; i < world.getMaxFloats(); i++) {
+
+		if (world.getOpenFloats()[i] == 0) {
+
+			temp.addFloat(world.getWorldFloats()[i].getSprite());
+
+		}
+
+	}
 
 }

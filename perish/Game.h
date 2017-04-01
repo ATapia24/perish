@@ -10,6 +10,9 @@ variables in scope.
 
 #include <SFML/Graphics.hpp>
 
+#include "World.h"
+#include "WorldRenderer.h"
+
 class Game {
 
 private:
@@ -19,6 +22,10 @@ private:
 
 	// Used to store if the game is paused or not
 	bool paused = false;
+
+	// A nice world renderer for whatever I need it for.. Which is
+	// obviously rendering a world! ;)
+	WorldRenderer wRenderer;
 
 	// For the game loop (keep it nice and private!)
 	// Simulates a game "tick"
@@ -32,6 +39,9 @@ private:
 
 	// For handling mouse input
 	void handleMouse();
+
+	// Main texture file to grab from
+	sf::Texture mainTexture;
 
 public:
 

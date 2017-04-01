@@ -27,6 +27,7 @@
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldFloat.cpp" />
     <ClCompile Include="WorldObject.cpp" />
+    <ClCompile Include="WorldRenderer.cpp" />
     <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +38,7 @@
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldFloat.h" />
     <ClInclude Include="WorldObject.h" />
+    <ClInclude Include="WorldRenderer.h" />
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

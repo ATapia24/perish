@@ -10,6 +10,9 @@ Game::~Game() {}
 // Main loop
 void Game::start() {
 
+	// Load the texture here
+	// TODO (Time for class!)
+
 	while (window->isOpen()) {
 
 		// Handle key input
@@ -30,7 +33,20 @@ void Game::start() {
 
 // Private function for rendering
 void Game::render() {
+
 	//  TODO
+	
+	const int MAX_X = 50,
+		MAX_Y = 50,
+		MAX_FLOATS = 50,
+		TILE_HEIGHT = 32,
+		TILE_WIDTH = 32;
+
+	// Build a cheap world real quick
+	World testWorld("Test", MAX_X, MAX_Y, MAX_FLOATS, TILE_HEIGHT, TILE_WIDTH);
+
+
+
 }
 
 // Private function for keyboard input
