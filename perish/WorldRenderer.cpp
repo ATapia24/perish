@@ -1,7 +1,7 @@
 #include "WorldRenderer.h"
 
 // Default constructor
-WorldRenderer::WorldRenderer() : world(World("Default", 1, 1, 1)) {}
+WorldRenderer::WorldRenderer() : world(World("Default", 1, 1, 1, 1, 1)) {}
 
 // Better constructor
 WorldRenderer::WorldRenderer(World &_world) :

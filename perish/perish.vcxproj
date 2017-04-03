@@ -25,6 +25,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldBuilder.cpp" />
     <ClCompile Include="WorldFloat.cpp" />
     <ClCompile Include="WorldObject.cpp" />
     <ClCompile Include="WorldRenderer.cpp" />
@@ -36,10 +37,17 @@
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="WorldBuilder.h" />
     <ClInclude Include="WorldFloat.h" />
     <ClInclude Include="WorldObject.h" />
     <ClInclude Include="WorldRenderer.h" />
     <ClInclude Include="WorldTile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="F:\TomFoolery-Resources\Textures\assembled1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="F:\TomFoolery-Resources\Fonts\Napo-Regular.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

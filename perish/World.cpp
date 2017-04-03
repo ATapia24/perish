@@ -125,4 +125,6 @@ World World::operator=(const World &world) {
 
 	}
 
+	return temp;
+
 }

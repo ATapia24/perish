@@ -34,7 +34,7 @@ public:
 	sf::RenderWindow * getWindow();
 
 	// Layer management
-	void addLayer(DrawLayer*);
+	int addLayer(DrawLayer*);
 	void setLayer(int, DrawLayer&);
 	DrawLayer * getLayers() const;
 

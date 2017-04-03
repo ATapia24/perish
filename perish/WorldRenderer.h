@@ -8,6 +8,7 @@ that builds/managers layers that can be passed to the DrawManager!
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 #include "World.h"
 #include "DrawLayer.h"

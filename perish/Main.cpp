@@ -20,13 +20,19 @@
 #include "DrawManager.h"
 #include "DrawLayer.h"
 #include "Animator.h"
+#include "Game.h"
+
+// Set the amount of sprites in the sheet
+const int SPRITE_AMOUNT = 8;
 
 int main() {
 
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(800, 500), "Perish");
-	DrawManager *manager = new DrawManager(window, 5);
+	
+	Game game(window, SPRITE_AMOUNT);
 
-	delete manager;
+	game.start();
+
 	delete window;
 
 	return 0;

@@ -63,20 +63,29 @@ void DrawManager::threadHandler() {
 }
 
 // Layer management
-void DrawManager::addLayer(DrawLayer *layer) {
+int DrawManager::addLayer(DrawLayer *layer) {
+
+	int usedLayer;
 
 	if (layersUsed < MAX_LAYERS) {
+
+		usedLayer = layersUsed;
 
 		layers[layersUsed] = layer;
 		layersUsed++;
 
 	} else {
 
+		usedLayer = 0;
+
 		// start overwriting layers since they went over
 		layers[0] = layer;
 		layersUsed = 1;
 
 	}
+
+	return usedLayer;
+
 }
 
 void DrawManager::setLayer(int loc, DrawLayer &layer) {
