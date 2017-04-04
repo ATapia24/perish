@@ -43,12 +43,6 @@
     <ClInclude Include="WorldRenderer.h" />
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="F:\TomFoolery-Resources\Textures\assembled1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="F:\TomFoolery-Resources\Fonts\Napo-Regular.ttf" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{2C596C96-11B0-452E-B64F-23A65810F007}</ProjectGuid>

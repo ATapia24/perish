@@ -29,13 +29,19 @@ void WorldBuilder::tick() {
 
 }
 
+void WorldBuilder::handleKeyboard() {
+
+	// TODO
+
+}
+
 // Used for displaying the setup 
 void WorldBuilder::displaySetup() {
 
 	// keep from printing twice
 	if (setupDisplayed)
 		return;
-
+	
 	sf::Text *header = new sf::Text;
 
 	header->setString("World Builder");
@@ -47,6 +53,10 @@ void WorldBuilder::displaySetup() {
 	header->setPosition(sf::Vector2f(window->getSize().x / 2.0f, window->getSize().y / 2.0f));
 
 	baseLayer.add(header);
+
+	sf::Text *worldTag = new sf::Text;
+	worldTag.setString("World Size: ");
+	world
 
 	setupDisplayed = true;
 

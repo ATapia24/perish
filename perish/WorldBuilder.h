@@ -54,6 +54,9 @@ private:
 	void displaySetup();
 	bool setupDisplayed = false;
 
+	// They keyboard tick
+	void handleKeyboard();
+
 public:
 
 	WorldBuilder(Game*, sf::RenderWindow*, DrawManager*);

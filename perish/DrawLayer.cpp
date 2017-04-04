@@ -183,3 +183,23 @@ DrawLayer& DrawLayer::operator=(DrawLayer &layer) {
 	return *this;
 
 }
+
+void DrawLayer::flush() {
+
+	for (int i = 0; i < BUFFER_SIZE; i++) {
+
+		delete sprites[i];
+		delete texts[i];
+		delete cshapes[i];
+		delete rshapes[i];
+		delete cnshapes[i];
+
+		sprites[i] = NULL;
+		texts[i] = NULL;
+		cshapes[i] = NULL;
+		rshapes[i] = NULL;
+		cnshapes[i] = NULL;
+
+	}
+
+}

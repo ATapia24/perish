@@ -28,10 +28,10 @@ void Game::start() {
 	// largest scope!
 
 	// Load the texture here
-	loadTexture("f:\\TomFoolery-Resources\\Textures\\assembled1.png");
+	loadTexture("C:\\Users\\activates\\Downloads\\assembled1.png");
 
 	// load the default cont
-	loadFont("f:\\TomFoolery-Resources\\Fonts\\Napo-Regular.ttf");
+	loadFont("C:\\Users\\activates\\Downloads\\Napo-Regular.ttf");
 
 	// instructions!
 	sf::Text instructions;
@@ -115,6 +115,12 @@ void Game::handleKeyboard() {
 			state = GameMode::WORLD_BUILDER;
 		}
 	}
+	
+	if (state == GameMode::WORLD_BUILDER) {
+
+
+
+	}
 
 }
 
@@ -169,10 +175,10 @@ void Game::implementDefaultLayer() {
 
 }
 
-// Used to remove the default alyer
+// Used to remove the default layer
 void Game::removeDefaultLayer() {
 
-	manager->setLayer(defaultLayerLoc, DrawLayer());
+	defaultLayer.flush();
 
 }
 

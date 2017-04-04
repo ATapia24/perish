@@ -46,7 +46,11 @@ public:
 	// CONVEXES
 	sf::ConvexShape ** getConvexes() const;
 
+	// Obvious
 	DrawLayer& operator=(DrawLayer&);
+
+	// DELETE ITEMS
+	void flush();
 
 private:
 
