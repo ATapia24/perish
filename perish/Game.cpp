@@ -31,7 +31,7 @@ void Game::start() {
 	loadTexture("C:\\Users\\activates\\Downloads\\assembled1.png");
 
 	// load the default cont
-	loadFont("C:\\Users\\activates\\Downloads\\Napo-Regular.ttf");
+	loadFont("C:\\Users\\activates\\Downloads\\morris_roman\\MorrisRomanBlack.ttf");
 
 	// instructions!
 	sf::Text instructions;
