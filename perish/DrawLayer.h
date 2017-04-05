@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <list>
 #include <cstdlib>
+#include <iostream>
 
 class DrawLayer {
 public:

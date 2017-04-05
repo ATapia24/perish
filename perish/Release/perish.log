@@ -1,13 +1,28 @@
-﻿  WorldBuilder.cpp
+﻿  DrawLayer.cpp
+DrawLayer.cpp(11): warning C4018: '<': signed/unsigned mismatch
+DrawLayer.cpp(43): warning C4018: '<': signed/unsigned mismatch
+DrawLayer.cpp(57): warning C4018: '<': signed/unsigned mismatch
+DrawLayer.cpp(71): warning C4018: '<': signed/unsigned mismatch
+DrawLayer.cpp(85): warning C4018: '<': signed/unsigned mismatch
+DrawLayer.cpp(99): warning C4018: '<': signed/unsigned mismatch
+DrawLayer.cpp(173): warning C4018: '<': signed/unsigned mismatch
+DrawLayer.cpp(189): warning C4018: '<': signed/unsigned mismatch
+  DrawManager.cpp
+  Game.cpp
+  WorldBuilder.cpp
 WorldBuilder.cpp(76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 WorldBuilder.cpp(84): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 WorldBuilder.cpp(92): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 WorldBuilder.cpp(107): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 WorldBuilder.cpp(115): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 WorldBuilder.cpp(123): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  WorldRenderer.cpp
+WorldRenderer.cpp(39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
   Generating code
-  1 of 157 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+c:\users\activates\source\repos\perish2\perish\drawlayer.cpp(66): warning C4715: 'DrawLayer::add': not all control paths return a value
+  37 of 157 functions (23.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    10 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   perish.vcxproj -> C:\Users\activates\Source\Repos\perish2\Release\perish.exe

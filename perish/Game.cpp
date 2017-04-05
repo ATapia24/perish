@@ -115,12 +115,6 @@ void Game::handleKeyboard() {
 			state = GameMode::WORLD_BUILDER;
 		}
 	}
-	
-	if (state == GameMode::WORLD_BUILDER) {
-
-
-
-	}
 
 }
 
