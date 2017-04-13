@@ -31,7 +31,7 @@ void Game::start() {
 	loadTexture("C:\\Users\\activates\\Downloads\\assembled1.png");
 
 	// load the default cont
-	loadFont("C:\\Users\\activates\\Downloads\\morris_roman\\MorrisRomanBlack.ttf");
+	loadFont("C:\\Users\\activates\\Downloads\\MorrisRomanBlack.ttf");
 
 	// instructions!
 	sf::Text instructions;
@@ -91,13 +91,6 @@ void Game::handleEvents() {
 
 			window->close();
 
-		} else if (e.type == sf::Event::MouseButtonPressed) {
-
-			// for debugging
-			std::cout << "Mouse clicked:\n";
-			std::cout << "X: " << e.mouseButton.x << '\n';
-			std::cout << "Y: " << e.mouseButton.y << '\n';
-			 
 		}
 
 	}
@@ -125,7 +118,18 @@ void Game::animate() {
 
 // Private function for handling mouse input
 void Game::handleMouse() {
-	// TOD
+	
+	// handling any mouse button click
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+		if (state == GameMode::WORLD_BUILDER) {
+
+			worldBuilder->mouseClicked(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
+
+		}
+
+	}
+
 }
 
 // Private function for loading the default font

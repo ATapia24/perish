@@ -1,6 +1,7 @@
 #include "WorldBuilder.h"
 
-WorldBuilder::WorldBuilder(Game *_game, sf::RenderWindow *_window, DrawManager *_manager) {
+WorldBuilder::WorldBuilder(Game *_game, sf::RenderWindow *_window, DrawManager *_manager) :
+	clickHandler(ClickParser(50)) {
 
 	window = _window;
 	manager = _manager;
@@ -35,6 +36,22 @@ void WorldBuilder::tick() {
 void WorldBuilder::handleKeyboard() {
 
 	// TODO
+
+}
+
+void WorldBuilder::mouseClicked(float x, float y) {
+
+	// parse any and all clicks!
+	clickHandler.parseClick(x, y);
+
+	// check to see if we are in setup
+	if (state == BuilderState::SETUP) {
+
+		if (clickHandler.wasClicked(labelID)) {
+			std::cout << "Default was clicked!\n";
+		}
+
+	}
 
 }
 
@@ -105,6 +122,18 @@ void WorldBuilder::displaySetup() {
 	sf::FloatRect nameInputBounds = nameInput->getLocalBounds();
 	nameInput->setOrigin(nameInputBounds.left + nameInputBounds.width / 2.0f, nameInputBounds.top + nameInputBounds.height / 2.0f);
 	nameInput->setPosition(sf::Vector2f(nameLabel->getPosition().x + nameInputBounds.width + X_OFFSET, nameLabel->getPosition().y));
+
+	// used to store the coordinate ranges for the clickable lables
+	float x1, y1, x2, y2;
+
+	x1 = nameInput->getPosition().x - (nameInputBounds.width / 2.0f);
+	y1 = nameInput->getPosition().y - (nameInputBounds.height / 2.0f);
+
+	x2 = nameInput->getPosition().x + (nameInputBounds.width / 2.0f);
+	y2 = nameInput->getPosition().y + (nameInputBounds.height / 2.0f);
+
+	// add it to the click listener
+	labelID = clickHandler.addClick(x1, y1, x2, y2);
 
 	// x input
 	xInput->setString("50");

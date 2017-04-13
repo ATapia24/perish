@@ -14,6 +14,7 @@ can read the world!
 #include "Game.h"
 #include "DrawManager.h"
 #include "DrawLayer.h"
+#include "ClickParser.h"
 
 /*
 Keeps track of the current state of the builder.
@@ -48,6 +49,12 @@ private:
 	// Holds the state of the game
 	BuilderState state;
 
+	// for handling the clicks etc
+	ClickParser clickHandler;
+
+	// for holding the basic menu items that have been clicked
+	int labelID, xID, yID;
+
 	// used to see if the layer needs to be updated
 	bool changesMade = false;
 
@@ -66,6 +73,10 @@ public:
 	// the main function of this class.. It should be called
 	// repeatedly
 	void tick();
+
+	// the basic mouse listener for the class. This should be called
+	// everytime the mouse is clicked, and the coords should be passed
+	void mouseClicked(float, float);
 
 };
 
