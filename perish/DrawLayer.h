@@ -27,14 +27,21 @@ class DrawLayer {
 public:
 
 	DrawLayer();
+	DrawLayer(sf::View& _view);
 	~DrawLayer();
 
 	//int is the position of the DrawObject in the array, keep track of it
 	int add(sf::Sprite* sprite);
-	int add(sf::Text* text );
-	int add(sf::CircleShape* circle );
+	int add(sf::Sprite& sprite);
+	int add(sf::Text* text);
+	int add(sf::Text& text);
+	int add(sf::CircleShape* circle);
+	int add(sf::CircleShape& circle);
 	int add(sf::RectangleShape* rectangle);
+	int add(sf::RectangleShape& rectangle);
 	int add(sf::ConvexShape* convex);
+	int add(sf::ConvexShape& convex);
+	sf::View* getView();
 	void remove(int index);
 	unsigned int getSize() { return size; };
 	void cleanup();
@@ -48,5 +55,7 @@ private:
 	const unsigned int BUFFER_SIZE = 5000;
 	DrawObject **drawObjects;
 	unsigned int size;
+	sf::View* view;
+	bool createdNewView;
 };
 

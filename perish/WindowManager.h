@@ -3,7 +3,6 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "WindowEventHandler.h"
 #include "Miscellaneous.h"
 
 

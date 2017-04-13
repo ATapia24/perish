@@ -1,21 +1,8 @@
-﻿  DrawLayer.cpp
-DrawLayer.cpp(7): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(24): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(38): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(52): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(66): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(81): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(96): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(116): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(121): warning C4018: '<': signed/unsigned mismatch
-DrawLayer.cpp(150): warning C4018: '<': signed/unsigned mismatch
-  DrawManager.cpp
-  GameManager.cpp
-GameManager.cpp(36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Main.cpp
+﻿  GameManager.cpp
+GameManager.cpp(67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  15 of 195 functions ( 7.7%) were compiled, the rest were copied from previous compilation.
+  2 of 772 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   perish.vcxproj -> C:\Users\pc\Desktop\perish\Release\perish.exe

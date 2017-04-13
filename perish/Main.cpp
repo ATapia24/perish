@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "DrawManager.h"
 #include "Miscellaneous.h"
+#include <thread>
 #include <ctime>
 
 int main() {
@@ -14,11 +15,10 @@ int main() {
 
 	//create and launch drawThread
 	window.setActive(false);
-	sf::Thread drawThread(&DrawManager::ThreadHandler, &drawManager);
-	drawThread.launch();
+	std::thread drawThread(&DrawManager::ThreadHandler, &drawManager);
 
 	//initialize game
 	gameManager.initGame();
-
+	
 	return 0;
 }

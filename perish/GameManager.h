@@ -2,14 +2,18 @@
 #define GAMEMANAGER_H
 
 #include <iostream>
+#include <thread>
 #include "WindowManager.h"
 #include "Debug.h"
 #include "DrawManager.h"
 #include "DrawLayer.h"
-#include "WindowEventHandler.h"
-#include "DrawManager.h"
 #include "InputManager.h"
 #include "World.h"
+#include "Menu.h"
+#include "Entity.h"
+#include "Box2D.h"
+#include "Player.h"
+#include "Box.h"
 
 class GameManager {
 public:
@@ -24,11 +28,14 @@ private:
 	
 	Debug* debug;
 	World* world;
+	b2World* physWorld;
 	void gameLoop();
 
-	const unsigned TICK_RATE = 8;
+	const unsigned TICK_RATE = 16;
+	float tick_delta;
 	Timer gameTickTimer;
 	bool gameTick();
+	std::string fpsString;
 
 };
 

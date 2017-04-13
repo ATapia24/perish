@@ -42,12 +42,11 @@ void DrawManager::ThreadHandler() {
 	fpsTimer.start();
 	while (window->isOpen()) {
 
-		
 		draw();
 
-		//temp fps counter
-		//while (fpsTimer.getMilliseconds() <= 16) {}
-		std::cout << "ms: " << fpsTimer.getMilliseconds() << '\n';
+		//limit fps
+		while (fpsTimer.getMilliseconds() <= 15) {}
+	//	std::cout << "ms: " << fpsTimer.getMilliseconds() << '\n';
 		fpsTimer.reset();
 
 
@@ -69,6 +68,7 @@ void DrawManager::initWindow() {
 
 //DRAW
 void DrawManager::draw() {
+	
 	//clear window
 	window->clear(sf::Color::Black);
 
@@ -78,12 +78,14 @@ void DrawManager::draw() {
 		
 		//stops looping when every DrawObject has been drawn
 		int drawCount = 0;
+		window->setView(*layers[i]->getView());
+
 		for (int j = 0; layers[i]->getSize() != drawCount; j++) {
 			//draw based on type
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; // do nothing
 			case DrawType::SPRITE:
-				window->draw(*layers[i]->getDrawObjects()[j]->rectangle);
+				window->draw(*layers[i]->getDrawObjects()[j]->sprite);
 				drawCount++;
 				break;
 			case DrawType::VERTEX_ARRAY:
@@ -122,19 +124,41 @@ void DrawManager::resizeWindow(unsigned int width, unsigned int height, bool _fu
 }
 
 
-//ADD LAYER
+//ADD LAYER - by pointer
 void DrawManager::addLayer(DrawLayer *layer) {
 
 	if (layersUsed < MAX_LAYERS) {
 
 		layers[layersUsed] = layer;
+		layers[layersUsed]->getView()->reset((sf::FloatRect(0, 0, window->getSize().x, window->getSize().y)));
 		layersUsed++;
 
 	}
 	else {
 
 		//layer overflow
+		std::cout << "Layer overlow, see DrawManager.cpp - addLayer\n";
 		layers[0] = layer;
+		layersUsed = 1;
+
+	}
+}
+
+//ADD LAYER - by reference
+void DrawManager::addLayer(DrawLayer& layer) {
+
+	if (layersUsed < MAX_LAYERS) {
+
+		layers[layersUsed] = &layer;
+		layers[layersUsed]->getView()->reset((sf::FloatRect(0, 0, window->getSize().x, window->getSize().y)));
+		layersUsed++;
+
+	}
+	else {
+
+		//layer overflow
+		std::cout << "Layer overlow, see DrawManager.cpp - addLayer\n";
+		layers[0] = &layer;
 		layersUsed = 1;
 
 	}
@@ -142,7 +166,5 @@ void DrawManager::addLayer(DrawLayer *layer) {
 
 //SET LAYER
 void DrawManager::setLayer(int loc, DrawLayer &layer) {
-
 	layers[loc] = &layer;
-
 }

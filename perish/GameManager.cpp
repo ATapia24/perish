@@ -17,7 +17,7 @@ GameManager::~GameManager() {
 //INTIALIZE GAME
 void GameManager::initGame() {
 	//do loading stuff here
-
+	physWorld = new b2World(b2Vec2(0, 0));
 
 	//start game loop
 	gameLoop();
@@ -27,43 +27,84 @@ void GameManager::initGame() {
 void GameManager::gameLoop() {
 
 	//temp
-	DrawLayer layer;
-	const int n = 3500;
-	sf::RectangleShape s[n];
-	for (int i = 0; i < n; i++)
-	{
-		s[i].setFillColor(misc::randomColor());
-		s[i].setPosition(misc::random(0, 1280), misc::random(0, 720));
-		int size = misc::random(0, 10);
-		s[i].setSize(sf::Vector2f(20, 20));
-		layer.add(&s[i]);
+	sf::View camera, gui;
+	DrawLayer layer(camera), guiLayer(gui), floor(camera);
+
+
+
+	Player player;
+	player.load(&camera, physWorld, layer);
+	player.spawn();
+
+	const int b = 100;
+	Box* boxes = new Box[b];
+
+	for (int i = 0; i < b; i++) {
+		boxes[i].load(physWorld, layer);
 	}
 
-	/*
-	for (int i = 0; i < n; i++)
-	{
-		if (i % misc::random(1, 3) == -3)
-			layer.remove(i);
+	Key spawn;
+	spawn.set(sf::Keyboard::Tab, KeyType::SINGLE);
+
+	Menu menu(guiLayer, 10, 10, 500);
+	menu.add(fpsString);
+	menu.addLiteral("press \"tab\"");
+	menu.reshape();
+
+	Key up(sf::Keyboard::Up, KeyType::SINGLE), down(sf::Keyboard::Down, KeyType::SINGLE);
+
+	sf::Texture texture;
+	texture.loadFromFile("assets/dirty_grass.png");
+
+	const int x = 10;
+	sf::Sprite** sprite = new sf::Sprite*[x];
+	for (int i = 0; i < x; i++) {
+		sprite[i] = new sf::Sprite[x];
 	}
 
-	layer.cleanup();*/
+	for (int i = 0; i < x; i++) {
+		for (int j = 0; j < x; j++) {
+			sprite[i][j].setPosition(i * 100 - (x*100/2), j * 100 - (x*100/2));
+			sprite[i][j].setTexture(texture);
+			floor.add(sprite[i][j]);
+		}
+	}
 
-
-	drawManager->addLayer(&layer);
+	drawManager->addLayer(floor);
+	drawManager->addLayer(layer);
+	drawManager->addLayer(guiLayer);
 
 	//start game tick timer
 	gameTickTimer.start();
-
-	while (window->isOpen()) { 
+	int count = 0;
+	int sOffset = 0;
+	while (window->isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { 
 		if (gameTick()) {
-		//DO GAME LOGIC HERE
 
+			menu.update();
+			player.update();
+
+			for (int i = 0; i < b; i++)
+				boxes[i].update();
+
+			physWorld->Step(1.0f/60.f, 8, 3);
+
+			if (spawn.getValue() && count < b) {
+				boxes[count].setSpawnPoint(misc::pointLocation(player.getPosition(), player.getBody()->GetAngle(), 0.5f), player.getBody()->GetAngle());
+				boxes[count].spawn();
+				count++;
+			}
+		
+		
 		}
 	}
 }
 
 //GAME TICK
 bool GameManager::gameTick() {
+
+	fpsString = "logic fps: " + misc::floatToString(1.f / ((float)gameTickTimer.getMilliseconds() / 1000.f));
+
 	if (gameTickTimer.getMilliseconds() > TICK_RATE) {
 		gameTickTimer.reset();
 		return true;

@@ -19,32 +19,87 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="DrawLayer.h" />
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="Location.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Miscellaneous.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="WindowEventHandler.h" />
+    <ClInclude Include="UserController.h" />
     <ClInclude Include="WindowManager.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldNode.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Box2D\b2BlockAllocator.cpp" />
+    <ClCompile Include="..\Box2D\b2Body.cpp" />
+    <ClCompile Include="..\Box2D\b2BroadPhase.cpp" />
+    <ClCompile Include="..\Box2D\b2ChainAndCircleContact.cpp" />
+    <ClCompile Include="..\Box2D\b2ChainAndPolygonContact.cpp" />
+    <ClCompile Include="..\Box2D\b2ChainShape.cpp" />
+    <ClCompile Include="..\Box2D\b2CircleContact.cpp" />
+    <ClCompile Include="..\Box2D\b2CircleShape.cpp" />
+    <ClCompile Include="..\Box2D\b2CollideCircle.cpp" />
+    <ClCompile Include="..\Box2D\b2CollideEdge.cpp" />
+    <ClCompile Include="..\Box2D\b2CollidePolygon.cpp" />
+    <ClCompile Include="..\Box2D\b2Collision.cpp" />
+    <ClCompile Include="..\Box2D\b2Contact.cpp" />
+    <ClCompile Include="..\Box2D\b2ContactManager.cpp" />
+    <ClCompile Include="..\Box2D\b2ContactSolver.cpp" />
+    <ClCompile Include="..\Box2D\b2Distance.cpp" />
+    <ClCompile Include="..\Box2D\b2DistanceJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2Draw.cpp" />
+    <ClCompile Include="..\Box2D\b2DynamicTree.cpp" />
+    <ClCompile Include="..\Box2D\b2EdgeAndCircleContact.cpp" />
+    <ClCompile Include="..\Box2D\b2EdgeAndPolygonContact.cpp" />
+    <ClCompile Include="..\Box2D\b2EdgeShape.cpp" />
+    <ClCompile Include="..\Box2D\b2Fixture.cpp" />
+    <ClCompile Include="..\Box2D\b2FrictionJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2GearJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2Island.cpp" />
+    <ClCompile Include="..\Box2D\b2Joint.cpp" />
+    <ClCompile Include="..\Box2D\b2Math.cpp" />
+    <ClCompile Include="..\Box2D\b2MotorJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2MouseJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2PolygonAndCircleContact.cpp" />
+    <ClCompile Include="..\Box2D\b2PolygonContact.cpp" />
+    <ClCompile Include="..\Box2D\b2PolygonShape.cpp" />
+    <ClCompile Include="..\Box2D\b2PrismaticJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2PulleyJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2RevoluteJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2Rope.cpp" />
+    <ClCompile Include="..\Box2D\b2RopeJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2Settings.cpp" />
+    <ClCompile Include="..\Box2D\b2StackAllocator.cpp" />
+    <ClCompile Include="..\Box2D\b2TimeOfImpact.cpp" />
+    <ClCompile Include="..\Box2D\b2Timer.cpp" />
+    <ClCompile Include="..\Box2D\b2WeldJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2WheelJoint.cpp" />
+    <ClCompile Include="..\Box2D\b2World.cpp" />
+    <ClCompile Include="..\Box2D\b2WorldCallbacks.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DrawLayer.cpp" />
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Location.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Miscellaneous.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Miscellaneous.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\pc\Desktop\perish\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\pc\Desktop\perish\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="WindowEventHandler.cpp" />
+    <ClCompile Include="UserController.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldNode.cpp" />
@@ -131,7 +186,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.4.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\pc\Desktop\perish\Box2D;$(SolutionDir)\SFML-2.4.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

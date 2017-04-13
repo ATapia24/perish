@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
+#include "b2Math.h"
 
 namespace misc {
 	const std::string GAME_NAME = "Perish";
@@ -21,6 +22,7 @@ namespace misc {
 	const float PI7d4 = 5.49778714378f;
 	const float RAD2DEG = 57.2957795131f;
 	const float DEG2RAD = 0.0174532925f;
+	const float PHYSICS_SCALE = 64.0f;
 
 	std::string floatToString(float num);
 	std::string intToString(int num);
@@ -32,6 +34,7 @@ namespace misc {
 	float lineAngle(const sf::Vector2f centerpoint, const sf::Vector2f endpoint);
 	sf::Vector2f midpoint(const sf::Vector2f a, const sf::Vector2f b);
 	sf::Vector2f pointLocation(const sf::Vector2f point, const float angle, const float distance);
+	b2Vec2 pointLocation(const b2Vec2 point, const float angle, const float distance);
 	bool intersects(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Vector2f p3, const sf::Vector2f p4);
 	int random(int min, int max);
 	sf::Color randomColor();

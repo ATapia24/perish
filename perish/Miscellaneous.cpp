@@ -122,10 +122,16 @@ float misc::lineAngle(const sf::Vector2f centerpoint, const sf::Vector2f endpoin
 	return ((atan2f((-centerpoint.y + endpoint.y), (centerpoint.x - endpoint.x)))) + PI;
 }
 
-//POINT LOCATION
+//POINT LOCATION w/ Vector2f
 //returns a new point location given starting point, angle, and distance
 sf::Vector2f misc::pointLocation(const sf::Vector2f point, const float angle, const float distance) {
 	return sf::Vector2f(point.x + distance * cos(angle), point.y + -distance * sin(angle));
+}
+
+//POINT LOCATION w/ b2Vec2
+//returns a new point location given starting point, angle, and distance
+b2Vec2 misc::pointLocation(const b2Vec2 point, const float angle, const float distance) {
+	return b2Vec2(point.x + distance * sin(angle), point.y + -distance * cos(angle));
 }
 
 //GET AREA POINTS

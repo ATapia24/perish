@@ -34,16 +34,13 @@ public:
 	void resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border);
 
 	//layers
-	void addLayer(DrawLayer*);
-	void setLayer(int, DrawLayer&);
+	void addLayer(DrawLayer* layer);
+	void addLayer(DrawLayer& layer);
+	void setLayer(int, DrawLayer& layer);
 
 	//get
 	DrawLayer* getLayers() const { return *layers; };
-	sf::View* getView() { return view; };
 	sf::RenderWindow* getWindow() { return window; };
-
-	//set
-	void setView(sf::View* _view) { view = _view; };
 
 private:
 
@@ -52,7 +49,6 @@ private:
 	//window management
 	HWND consoleWindow;
 	sf::RenderWindow *window;
-	sf::View *view;
 
 	// Holds the drawable layers
 	DrawLayer **layers;
