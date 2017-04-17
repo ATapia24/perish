@@ -47,6 +47,10 @@ public:
 	// used to remove a click listener
 	void removeClick(int);
 
+	// used for editing a click that already exists..
+	// so use this to edit bounds
+	void editClick(int, float, float, float, float);
+
 	// used to check if a specific section was clicked
 	// will return true if the specific one was clicked
 	bool wasClicked(int) const;

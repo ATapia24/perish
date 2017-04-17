@@ -15,7 +15,14 @@ WorldBuilder::WorldBuilder(Game *_game, sf::RenderWindow *_window, DrawManager *
 }
 
 
-WorldBuilder::~WorldBuilder() {}
+WorldBuilder::~WorldBuilder() {
+	
+	// delete some basic stuff
+	delete nameInput;
+	delete xInput;
+	delete yInput;
+
+}
 
 // main function
 void WorldBuilder::tick() {
@@ -28,14 +35,146 @@ void WorldBuilder::tick() {
 
 	}
 
-	// always call the keyboard handler
-	handleKeyboard();
+}
+
+void WorldBuilder::calculateBounds(const sf::Text &txt, float &x1, float &y1, float &x2, float &y2) {
+
+	// edit the bounds, so it can be easily clicked on
+	sf::FloatRect txtInputBounds = txt.getLocalBounds();
+
+	x1 = txt.getPosition().x - (txtInputBounds.width / 2.0f);
+	y1 = txt.getPosition().y - (txtInputBounds.height / 2.0f);
+
+	x2 = txt.getPosition().x + (txtInputBounds.width / 2.0f);
+	y2 = txt.getPosition().y + (txtInputBounds.height / 2.0f);
 
 }
 
-void WorldBuilder::handleKeyboard() {
+void WorldBuilder::keyTyped(char c) {
 
-	// TODO
+	// check to see if a certain item is currently clicked, and
+	// then edit the typing there
+
+	// check to see if we are in the setup stage
+	if (state == BuilderState::SETUP) {
+
+		// World name input check
+		if (clickHandler.wasClicked(clickLocations[TextBoxes::NAME_INPUT])) {
+			// make sure it's not already too big
+			if (nameInput->getString().getSize() < 25) {
+				nameInput->setString(nameInput->getString() + c);
+
+				// edit the bounds, so it can be easily clicked on
+				float x1, y1, x2, y2;
+				calculateBounds(*nameInput, x1, y1, x2, y2);
+
+				clickHandler.editClick(clickLocations[TextBoxes::NAME_INPUT], x1, y1, x2, y2);
+
+			}
+		}
+
+		// X size input check
+		if (clickHandler.wasClicked(clickLocations[TextBoxes::X_INPUT])) {
+
+			// make sure it's not already too big and that a digit was passed
+			if (xInput->getString().getSize() < 4 && isdigit(c)) {
+				xInput->setString(xInput->getString() + c);
+
+				// edit the bounds, so it can be easily clicked on
+				float x1, y1, x2, y2;
+				calculateBounds(*xInput, x1, y1, x2, y2);
+
+				clickHandler.editClick(clickLocations[TextBoxes::X_INPUT], x1, y1, x2, y2);
+			}
+
+		}
+
+		// Y size input check
+		if (clickHandler.wasClicked(clickLocations[TextBoxes::Y_INPUT])) {
+
+			// make sure it's not already too big and that a digit was passed
+			if (yInput->getString().getSize() < 4 && isdigit(c)) {
+				yInput->setString(yInput->getString() + c);
+
+				// edit the bounds, so it can be easily clicked on
+				float x1, y1, x2, y2;
+				calculateBounds(*yInput, x1, y1, x2, y2);
+
+				clickHandler.editClick(clickLocations[TextBoxes::Y_INPUT], x1, y1, x2, y2);
+			}
+
+		}
+
+	}
+}
+
+void WorldBuilder::backspace() {
+
+	// check to see if we are in the setup stage
+	if (state == BuilderState::SETUP) {
+
+		// World name input check
+		if (clickHandler.wasClicked(clickLocations[TextBoxes::NAME_INPUT])) {
+
+			int size = nameInput->getString().getSize();
+
+			// prevening errors!
+			if (size < 1)
+				return;
+
+			std::string modified = nameInput->getString();
+			modified.erase(modified.end() - 1, modified.end());
+
+			nameInput->setString(modified);
+
+			float x1, y1, x2, y2;
+			calculateBounds(*nameInput, x1, y1, x2, y2);
+
+			clickHandler.editClick(clickLocations[TextBoxes::X_INPUT], x1, y1, x2, y2);
+
+		}
+
+		if (clickHandler.wasClicked(clickLocations[TextBoxes::X_INPUT])) {
+
+			int size = xInput->getString().getSize();
+
+			// prevening errors!
+			if (size < 1)
+				return;
+
+			std::string modified = xInput->getString();
+			modified.erase(modified.end() - 1, modified.end());
+
+			xInput->setString(modified);
+
+			float x1, y1, x2, y2;
+			calculateBounds(*xInput, x1, y1, x2, y2);
+
+			clickHandler.editClick(clickLocations[TextBoxes::X_INPUT], x1, y1, x2, y2);
+
+		}
+	
+		if (clickHandler.wasClicked(clickLocations[TextBoxes::Y_INPUT])) {
+
+			int size = yInput->getString().getSize();
+
+			// prevening errors!
+			if (size < 1)
+				return;
+
+			std::string modified = yInput->getString();
+			modified.erase(modified.end() - 1, modified.end());
+
+			yInput->setString(modified);
+
+			float x1, y1, x2, y2;
+			calculateBounds(*yInput, x1, y1, x2, y2);
+
+			clickHandler.editClick(clickLocations[TextBoxes::Y_INPUT], x1, y1, x2, y2);
+
+		}
+
+	}
 
 }
 
@@ -47,7 +186,7 @@ void WorldBuilder::mouseClicked(float x, float y) {
 	// check to see if we are in setup
 	if (state == BuilderState::SETUP) {
 
-		if (clickHandler.wasClicked(labelID)) {
+		if (clickHandler.wasClicked(clickLocations[TextBoxes::NAME_INPUT])) {
 			std::cout << "Default was clicked!\n";
 		}
 
@@ -111,9 +250,9 @@ void WorldBuilder::displaySetup() {
 	// END input labels
 
 	// Beging input sections
-	sf::Text *nameInput = new sf::Text;
-	sf::Text *xInput = new sf::Text;
-	sf::Text *yInput = new sf::Text;
+	nameInput = new sf::Text;
+	xInput = new sf::Text;
+	yInput = new sf::Text;
 
 	// name input
 	nameInput->setString("Default");
@@ -133,7 +272,7 @@ void WorldBuilder::displaySetup() {
 	y2 = nameInput->getPosition().y + (nameInputBounds.height / 2.0f);
 
 	// add it to the click listener
-	labelID = clickHandler.addClick(x1, y1, x2, y2);
+	clickLocations[TextBoxes::NAME_INPUT] = clickHandler.addClick(x1, y1, x2, y2);
 
 	// x input
 	xInput->setString("50");
@@ -143,13 +282,33 @@ void WorldBuilder::displaySetup() {
 	xInput->setOrigin(xInputBounds.left + xInputBounds.width / 2.0f, xInputBounds.top + xInputBounds.height / 2.0f);
 	xInput->setPosition(sf::Vector2f(xLabel->getPosition().x + xInputBounds.width + X_OFFSET, xLabel->getPosition().y));
 
-	// y label
+	// calculate all the bounds
+	x1 = xInput->getPosition().x - (xInputBounds.width / 2.0f);
+	y1 = xInput->getPosition().y - (xInputBounds.height / 2.0f);
+
+	x2 = xInput->getPosition().x + (xInputBounds.width / 2.0f);
+	y2 = xInput->getPosition().y + (xInputBounds.height / 2.0f);
+
+	// add it to the click listener
+	clickLocations[TextBoxes::X_INPUT] = clickHandler.addClick(x1, y1, x2, y2);
+
+	// y input
 	yInput->setString("50");
 	yInput->setCharacterSize(20);
 	yInput->setFont(game->getDefaultFont());
 	sf::FloatRect yInputBounds = yInput->getLocalBounds();
 	yInput->setOrigin(yInputBounds.left + yInputBounds.width / 2.0f, yInputBounds.top + yInputBounds.height / 2.0f);
 	yInput->setPosition(sf::Vector2f(yLabel->getPosition().x + yInputBounds.width + X_OFFSET, yLabel->getPosition().y));
+
+	// last calculation of the bounds
+	x1 = yInput->getPosition().x - (yInputBounds.width / 2.0f);
+	y1 = yInput->getPosition().y - (yInputBounds.height / 2.0f);
+
+	x2 = yInput->getPosition().x + (yInputBounds.width / 2.0f);
+	y2 = yInput->getPosition().y + (yInputBounds.height / 2.0f);
+
+	// add it to the click listener
+	clickLocations[TextBoxes::Y_INPUT] = clickHandler.addClick(x1, y1, x2, y2);
 
 	// END input sections
 

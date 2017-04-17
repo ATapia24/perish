@@ -91,6 +91,43 @@ void Game::handleEvents() {
 
 			window->close();
 
+		} else if (e.type == sf::Event::MouseButtonPressed) {
+
+			if (e.mouseButton.button == sf::Mouse::Left) {
+
+				/*
+				For the world builder's needed clicking!
+				*/
+				if (state == GameMode::WORLD_BUILDER) {
+					worldBuilder->mouseClicked(e.mouseButton.x, e.mouseButton.y);
+				}
+
+			}
+
+		} else if (e.type == sf::Event::TextEntered) {
+
+			if (e.text.unicode < 128 && e.text.unicode != 8 && e.text.unicode != 13) {
+
+				/*
+				For the world builder's needed typing
+				*/
+				if (state == GameMode::WORLD_BUILDER) {
+					worldBuilder->keyTyped(static_cast<char>(e.text.unicode));
+				}
+
+			} else if (e.text.unicode == 8) {
+
+				// BACKSPACE EVENT
+
+				/*
+				For the world builder's needed backspace
+				*/
+				if (state == GameMode::WORLD_BUILDER) {
+					worldBuilder->backspace();
+				}
+
+			}
+
 		}
 
 	}
@@ -118,17 +155,6 @@ void Game::animate() {
 
 // Private function for handling mouse input
 void Game::handleMouse() {
-	
-	// handling any mouse button click
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-
-		if (state == GameMode::WORLD_BUILDER) {
-
-			worldBuilder->mouseClicked(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
-
-		}
-
-	}
 
 }
 

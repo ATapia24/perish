@@ -54,6 +54,15 @@ void ClickParser::removeClick(int loc) {
 
 }
 
+void ClickParser::editClick(int loc, float x1, float y1, float x2, float y2) {
+
+	coords[loc]->x1 = x1;
+	coords[loc]->y1 = y1;
+	coords[loc]->x2 = x2;
+	coords[loc]->y2 = y2;
+
+}
+
 bool ClickParser::wasClicked(int loc) const {
 
 	if (loc >= 0 && loc < MAX_CLICK_EVENTS) {
