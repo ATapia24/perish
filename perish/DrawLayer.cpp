@@ -1,5 +1,6 @@
 #include "DrawLayer.h"
 
+//CONSTRUCTOR
 DrawLayer::DrawLayer() {
 
 	drawObjects = new DrawObject*[BUFFER_SIZE];
@@ -15,6 +16,7 @@ DrawLayer::DrawLayer() {
 	createdNewView = true;
 }
 
+//CONSTRUCTOR w/ view
 DrawLayer::DrawLayer(sf::View& _view) {
 	view = &_view;
 	createdNewView = false;
@@ -28,6 +30,7 @@ DrawLayer::DrawLayer(sf::View& _view) {
 	size = 0;
 }
 
+//DECONSTRUCTOR
 DrawLayer::~DrawLayer() {
 	delete[] drawObjects;
 	
@@ -35,13 +38,14 @@ DrawLayer::~DrawLayer() {
 		delete view;
 }
 
-//ADD SPRITE
+//ADD SPRITE BY POINTER
 int DrawLayer::add(sf::Sprite *sprite) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::SPRITE;
 			drawObjects[i]->sprite = sprite;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -49,13 +53,14 @@ int DrawLayer::add(sf::Sprite *sprite) {
 	return -1;
 }
 
-//ADD SPRITE
+//ADD SPRITE BY REFERENCE
 int DrawLayer::add(sf::Sprite &sprite) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::SPRITE;
 			drawObjects[i]->sprite = &sprite;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -63,13 +68,44 @@ int DrawLayer::add(sf::Sprite &sprite) {
 	return -1;
 }
 
-//ADD RECTANGLE
+//ADD SPRITE BY POINTER w/ shader
+int DrawLayer::add(sf::Sprite* sprite, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::SPRITE;
+			drawObjects[i]->sprite = sprite;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD SPRITE BY REFERENCE w/ shader
+int DrawLayer::add(sf::Sprite& sprite, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::SPRITE;
+			drawObjects[i]->sprite = &sprite;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD RECTANGLE BY POINTER
 int DrawLayer::add(sf::RectangleShape *rectangle) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::RECTANGLE;
 			drawObjects[i]->rectangle = rectangle;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -77,13 +113,14 @@ int DrawLayer::add(sf::RectangleShape *rectangle) {
 	return -1;
 }
 
-//ADD RECTANGLE
+//ADD RECTANGLE BY REFERENCE
 int DrawLayer::add(sf::RectangleShape &rectangle) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::RECTANGLE;
 			drawObjects[i]->rectangle = &rectangle;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -91,13 +128,44 @@ int DrawLayer::add(sf::RectangleShape &rectangle) {
 	return -1;
 }
 
-//ADD TEXT
+//ADD RECTANGLE BY POINTER w/ shader
+int DrawLayer::add(sf::RectangleShape* rectangle, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::RECTANGLE;
+			drawObjects[i]->rectangle = rectangle;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD RECTANGLE BY REFERENCE w/ shader
+int DrawLayer::add(sf::RectangleShape& rectangle, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::RECTANGLE;
+			drawObjects[i]->rectangle = &rectangle;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD TEXT BY POINTER
 int DrawLayer::add(sf::Text *text) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::TEXT;
 			drawObjects[i]->text = text;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -105,13 +173,14 @@ int DrawLayer::add(sf::Text *text) {
 	return -1;
 }
 
-//ADD TEXT
+//ADD TEXT BY REFERENCE
 int DrawLayer::add(sf::Text& text) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::TEXT;
 			drawObjects[i]->text = &text;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -119,13 +188,44 @@ int DrawLayer::add(sf::Text& text) {
 	return -1;
 }
 
-//ADD CIRCLE
+//ADD TEXT BY POINTER w/ shader
+int DrawLayer::add(sf::Text* text, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::TEXT;
+			drawObjects[i]->text = text;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD TEXT BY REFERENCE w/ shader
+int DrawLayer::add(sf::Text& text, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::TEXT;
+			drawObjects[i]->text = &text;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD CIRCLE BY POINTER
 int DrawLayer::add(sf::CircleShape *circle) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::CIRCLE;
 			drawObjects[i]->circle = circle;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -133,13 +233,14 @@ int DrawLayer::add(sf::CircleShape *circle) {
 	return -1;
 }
 
-//ADD CIRCLE
+//ADD CIRCLE BY REFERENCE
 int DrawLayer::add(sf::CircleShape &circle) {
 	for (int i = 0; i < BUFFER_SIZE; i++)
 	{
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::CIRCLE;
 			drawObjects[i]->circle = &circle;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -147,7 +248,37 @@ int DrawLayer::add(sf::CircleShape &circle) {
 	return -1;
 }
 
-//ADD CONVEX
+//ADD CIRCLE BY POINTER w/ shader
+int DrawLayer::add(sf::CircleShape* circle, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::CIRCLE;
+			drawObjects[i]->circle = circle;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD CIRCLE BY REFERENCE w/ shader
+int DrawLayer::add(sf::CircleShape& circle, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::CIRCLE;
+			drawObjects[i]->circle = &circle;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD CONVEX BY POINTER
 int DrawLayer::add(sf::ConvexShape *convex)
 {
 	for (int i = 0; i < BUFFER_SIZE; i++)
@@ -155,6 +286,7 @@ int DrawLayer::add(sf::ConvexShape *convex)
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::CONVEX;
 			drawObjects[i]->convex = convex;
+			drawObjects[i]->shader = NULL;
 			size++;
 			return i;
 		}
@@ -162,7 +294,7 @@ int DrawLayer::add(sf::ConvexShape *convex)
 	return -1;
 }
 
-//ADD CONVEX
+//ADD CONVEX BY REFERENCE
 int DrawLayer::add(sf::ConvexShape& convex)
 {
 	for (int i = 0; i < BUFFER_SIZE; i++)
@@ -170,6 +302,97 @@ int DrawLayer::add(sf::ConvexShape& convex)
 		if (drawObjects[i]->type == DrawType::EMPTY) {
 			drawObjects[i]->type = DrawType::CONVEX;
 			drawObjects[i]->convex = &convex;
+			drawObjects[i]->shader = NULL;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD CONVEX BY POINTER w/ shader
+int DrawLayer::add(sf::ConvexShape* convex, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::CONVEX;
+			drawObjects[i]->convex = convex;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD CONVEX BY REFERENCE w/ shader
+int DrawLayer::add(sf::ConvexShape& convex, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::CONVEX;
+			drawObjects[i]->convex = &convex;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD VERTEX ARRAY BY POINTER
+int DrawLayer::add(sf::VertexArray* vertexArray) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::VERTEX_ARRAY;
+			drawObjects[i]->vertexArray = vertexArray;
+			drawObjects[i]->shader = NULL;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD VERTEX ARRAY BY REFERENCE
+int DrawLayer::add(sf::VertexArray& vertexArray) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::VERTEX_ARRAY;
+			drawObjects[i]->vertexArray = &vertexArray;
+			drawObjects[i]->shader = NULL;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD VERTEX ARRAY BY POINTER w/ shader
+int DrawLayer::add(sf::VertexArray* vertexArray, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::VERTEX_ARRAY;
+			drawObjects[i]->vertexArray = vertexArray;
+			drawObjects[i]->shader = shader;
+			size++;
+			return i;
+		}
+	}
+	return -1;
+}
+
+//ADD VERTEX ARRAY BY REFERENCE w/ shader
+int DrawLayer::add(sf::VertexArray& vertexArray, sf::Shader* shader) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::VERTEX_ARRAY;
+			drawObjects[i]->vertexArray = &vertexArray;
+			drawObjects[i]->shader = shader;
 			size++;
 			return i;
 		}

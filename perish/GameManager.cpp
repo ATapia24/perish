@@ -30,8 +30,6 @@ void GameManager::gameLoop() {
 	sf::View camera, gui;
 	DrawLayer layer(camera), guiLayer(gui), floor(camera);
 
-
-
 	Player player;
 	player.load(&camera, physWorld, layer);
 	player.spawn();
@@ -40,7 +38,7 @@ void GameManager::gameLoop() {
 	Box* boxes = new Box[b];
 
 	for (int i = 0; i < b; i++) {
-		boxes[i].load(physWorld, layer);
+		//boxes[i].load(physWorld, layer);
 	}
 
 	Key spawn;
@@ -78,6 +76,9 @@ void GameManager::gameLoop() {
 	gameTickTimer.start();
 	int count = 0;
 	int sOffset = 0;
+
+	Timer clk;
+	clk.start();
 	while (window->isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { 
 		if (gameTick()) {
 
@@ -88,6 +89,7 @@ void GameManager::gameLoop() {
 				boxes[i].update();
 
 			physWorld->Step(1.0f/60.f, 8, 3);
+
 
 			if (spawn.getValue() && count < b) {
 				boxes[count].setSpawnPoint(misc::pointLocation(player.getPosition(), player.getBody()->GetAngle(), 0.5f), player.getBody()->GetAngle());

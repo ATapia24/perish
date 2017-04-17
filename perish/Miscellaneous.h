@@ -32,6 +32,7 @@ namespace misc {
 	bool isLetter(const char c);
 	float distance(const sf::Vector2f a, const sf::Vector2f b);
 	float lineAngle(const sf::Vector2f centerpoint, const sf::Vector2f endpoint);
+	float lineAngle(const b2Vec2 centerpoint, const b2Vec2 endpoint);
 	sf::Vector2f midpoint(const sf::Vector2f a, const sf::Vector2f b);
 	sf::Vector2f pointLocation(const sf::Vector2f point, const float angle, const float distance);
 	b2Vec2 pointLocation(const b2Vec2 point, const float angle, const float distance);

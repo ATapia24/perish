@@ -101,8 +101,8 @@ bool misc::intersects(const sf::Vector2f a, const sf::Vector2f b, const sf::Vect
 	float u2 = num2 / den;
 
 	if (u1 < 0 || u1 > 1 || u2 < 0 || u2 > 1)
-		return 0;
-	return 1;
+		return true;
+	return false;
 }
 
 //RANDOM
@@ -116,22 +116,28 @@ sf::Color misc::randomColor()
 	return sf::Color(random(0, 255), random(0, 255), random(0, 255), 255);
 }
 
-//GET LINE ANGLE
+//GET LINE ANGLE w/ Vector2f
 //returns the angle of line
 float misc::lineAngle(const sf::Vector2f centerpoint, const sf::Vector2f endpoint) {
+	return ((atan2f((-centerpoint.y + endpoint.y), (centerpoint.x - endpoint.x)))) + PI;
+}
+
+//GET LINE ANGLE w/ b2Vec2
+//desc. returns the angle between two points
+float misc::lineAngle(const b2Vec2 centerpoint, const b2Vec2 endpoint) {
 	return ((atan2f((-centerpoint.y + endpoint.y), (centerpoint.x - endpoint.x)))) + PI;
 }
 
 //POINT LOCATION w/ Vector2f
 //returns a new point location given starting point, angle, and distance
 sf::Vector2f misc::pointLocation(const sf::Vector2f point, const float angle, const float distance) {
-	return sf::Vector2f(point.x + distance * cos(angle), point.y + -distance * sin(angle));
+	return sf::Vector2f(point.x + distance * sin(angle), point.y + distance * -cos(angle));
 }
 
 //POINT LOCATION w/ b2Vec2
 //returns a new point location given starting point, angle, and distance
 b2Vec2 misc::pointLocation(const b2Vec2 point, const float angle, const float distance) {
-	return b2Vec2(point.x + distance * sin(angle), point.y + -distance * cos(angle));
+	return b2Vec2(point.x + distance * sin(angle), point.y + distance * -cos(angle));
 }
 
 //GET AREA POINTS

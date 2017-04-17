@@ -37,18 +37,17 @@ void DrawManager::ThreadHandler() {
 	long count=0;
 	unsigned long sum=0;
 	float avg=0;
+	window->setFramerateLimit(100);
 
 	//draw loop
 	fpsTimer.start();
 	while (window->isOpen()) {
-
 		draw();
 
 		//limit fps
-		while (fpsTimer.getMilliseconds() <= 15) {}
-	//	std::cout << "ms: " << fpsTimer.getMilliseconds() << '\n';
+		//while (fpsTimer.getMilliseconds() <= 15) {}
+		//std::cout << "ms: " << (1000000000.0f / (float)fpsTimer.getNanoseconds()) << '\n';
 		fpsTimer.reset();
-
 
 	}
 
@@ -71,7 +70,6 @@ void DrawManager::draw() {
 	
 	//clear window
 	window->clear(sf::Color::Black);
-
 	//draw objects in layer
 	for (int i = 0; i < layersUsed; i++) {
 		
@@ -85,27 +83,27 @@ void DrawManager::draw() {
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; // do nothing
 			case DrawType::SPRITE:
-				window->draw(*layers[i]->getDrawObjects()[j]->sprite);
+				window->draw(*layers[i]->getDrawObjects()[j]->sprite, layers[i]->getDrawObjects()[j]->shader);
 				drawCount++;
 				break;
 			case DrawType::VERTEX_ARRAY:
-				window->draw(*layers[i]->getDrawObjects()[j]->vertexArray);
+				window->draw(*layers[i]->getDrawObjects()[j]->vertexArray, layers[i]->getDrawObjects()[j]->shader);
 				drawCount++;
 				break;
 			case DrawType::TEXT:
-				window->draw(*layers[i]->getDrawObjects()[j]->text);
+				window->draw(*layers[i]->getDrawObjects()[j]->text, layers[i]->getDrawObjects()[j]->shader);
 				drawCount++;
 				break;
 			case DrawType::RECTANGLE:
-				window->draw(*layers[i]->getDrawObjects()[j]->rectangle);
+				window->draw(*layers[i]->getDrawObjects()[j]->rectangle, layers[i]->getDrawObjects()[j]->shader);
 				drawCount++;
 				break;
 			case DrawType::CIRCLE:
-				window->draw(*layers[i]->getDrawObjects()[j]->circle);
+				window->draw(*layers[i]->getDrawObjects()[j]->circle, layers[i]->getDrawObjects()[j]->shader);
 				drawCount++;
 				break;
 			case DrawType::CONVEX:
-				window->draw(*layers[i]->getDrawObjects()[j]->convex);
+				window->draw(*layers[i]->getDrawObjects()[j]->convex, layers[i]->getDrawObjects()[j]->shader);
 				drawCount++;
 				break;
 			}
@@ -130,7 +128,7 @@ void DrawManager::addLayer(DrawLayer *layer) {
 	if (layersUsed < MAX_LAYERS) {
 
 		layers[layersUsed] = layer;
-		layers[layersUsed]->getView()->reset((sf::FloatRect(0, 0, window->getSize().x, window->getSize().y)));
+		layers[layersUsed]->getView()->reset((sf::FloatRect(0, 0, (float)window->getSize().x, (float)window->getSize().y)));
 		layersUsed++;
 
 	}
@@ -150,7 +148,7 @@ void DrawManager::addLayer(DrawLayer& layer) {
 	if (layersUsed < MAX_LAYERS) {
 
 		layers[layersUsed] = &layer;
-		layers[layersUsed]->getView()->reset((sf::FloatRect(0, 0, window->getSize().x, window->getSize().y)));
+		layers[layersUsed]->getView()->reset((sf::FloatRect(0, 0, (float)window->getSize().x, (float)window->getSize().y)));
 		layersUsed++;
 
 	}

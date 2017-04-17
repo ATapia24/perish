@@ -44,7 +44,7 @@ void Player::update() {
 		controller.update();
 		circleHitbox.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
 		circleHitbox.setRotation(body->GetAngle() * misc::RAD2DEG);
-		view->setCenter(misc::pointLocation(circleHitbox.getPosition(), -body->GetAngle() + misc::PIh, (float)VIEW_OFFSET));
+		view->setCenter(misc::pointLocation(circleHitbox.getPosition(), body->GetAngle(), (float)VIEW_OFFSET));
 		view->setRotation(circleHitbox.getRotation());
 	}
 }
