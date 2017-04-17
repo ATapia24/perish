@@ -38,7 +38,7 @@ void GameManager::gameLoop() {
 	Box* boxes = new Box[b];
 
 	for (int i = 0; i < b; i++) {
-		//boxes[i].load(physWorld, layer);
+		boxes[i].load(physWorld, layer);
 	}
 
 	Key spawn;
@@ -72,7 +72,6 @@ void GameManager::gameLoop() {
 	drawManager->addLayer(layer);
 	drawManager->addLayer(guiLayer);
 
-	//start game tick timer
 	gameTickTimer.start();
 	int count = 0;
 	int sOffset = 0;
