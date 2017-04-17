@@ -46,7 +46,7 @@ void DrawManager::ThreadHandler() {
 
 		//limit fps
 		//while (fpsTimer.getMilliseconds() <= 15) {}
-		//std::cout << "ms: " << (1000000000.0f / (float)fpsTimer.getNanoseconds()) << '\n';
+		std::cout << "ms: " << (1000000000.0f / (float)fpsTimer.getNanoseconds()) << '\n';
 		fpsTimer.reset();
 
 	}

@@ -58,6 +58,7 @@ Menu::Menu(DrawLayer & _layer, unsigned int _x, unsigned int _y, unsigned int _w
 //DECONSTRUCTOR
 Menu::~Menu() {
 	delete[] textArr;
+	delete[] stringArr;
 }
 
 //ADD
@@ -89,30 +90,6 @@ void Menu::addLiteral(std::string text) {
 		indexChange(0);
 }
 
-//ADD LITERAL W/ V_ARGS
-void Menu::addLiteral(int n_items, ...) {
-	/*va_list vl;
-	va_start(vl, n_items);
-
-	for (int i = 0; i<n_items; i++)
-	{
-		std::string text = va_arg(vl, std::string);
-		textArr[size].setFont(font);
-		textArr[size].setString(text);
-		textArr[size].setPosition(sf::Vector2f(x + leftPadding, y + topPadding + (size * (height + spacing))));
-		textArr[size].setFillColor(fontColor);
-		textArr[size].setCharacterSize(fontSize);
-		layer->add(textArr[size]);
-		size++;
-
-		if (size == 1)
-			indexChange(0);
-	}
-
-	va_end(vl);*/
-}
-
-
 //NEXT
 void Menu::next() {
 	lastIndex = index;
@@ -141,14 +118,15 @@ unsigned int Menu::selected() {
 
 //RESHAPE
 void Menu::reshape() {
-	unsigned int longestLine = 0;
+	float width = 0.0f, height = 0.0f;
 	for (int i = 0; i < size; i++) {
-		textArr[i].getString().getSize() > longestLine ? longestLine = textArr[i].getString().getSize() : longestLine;
+		textArr[i].getLocalBounds().width > width ? width = textArr[i].getLocalBounds().width : width;
+		textArr[i].setPosition(sf::Vector2f(x + leftPadding, y + topPadding + (i * (textArr[i].getLocalBounds().height + (i != size-1 || i != 0? spacing : 0)))));
+		height += textArr[i].getLocalBounds().height;
 	}
 
-	width = longestLine * 10;
-
-	background.setSize(sf::Vector2f(width + leftPadding + rightPadding, (height + spacing)*size + topPadding + bottomPadding));
+	height += spacing * (size-1);
+	background.setSize(sf::Vector2f(width + leftPadding + rightPadding, height + bottomPadding + topPadding));
 }
 
 //UPDATE

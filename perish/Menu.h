@@ -15,7 +15,6 @@ public:
 	~Menu();
 	void add(std::string& text);
 	void addLiteral(std::string text);
-	void addLiteral(int n, ...);
 	void next();
 	void prev();
 	void indexChange(int select);

@@ -1,8 +1,8 @@
-﻿  GameManager.cpp
-GameManager.cpp(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Box.cpp
+  Player.cpp
   Generating code
-  33 of 772 functions ( 4.3%) were compiled, the rest were copied from previous compilation.
+  4 of 778 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    14 functions had inline decision re-evaluated but remain unchanged
+    10 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   perish.vcxproj -> C:\Users\pc\Desktop\perish\Release\perish.exe

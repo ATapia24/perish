@@ -20,13 +20,14 @@ void Box::load(b2World* _physWorld, DrawLayer& _layer) {
 	loadDefaults();
 
 	//physics setup
+	size = (float)misc::random(5, 30);
 	physicsBodySetup();
-	physicsBoxSetup(25, 25);
+	physicsBoxSetup(size, size);
 
 	texture.loadFromFile("assets/box.png");
 	sprite.setTexture(texture);
 	sprite.setOrigin(sf::Vector2f(250/2, 250/2));
-	sprite.setScale(0.1f, 0.1f);
+	sprite.setScale(size/250.f, size/250.f);
 }
 
 void Box::update() {

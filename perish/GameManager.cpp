@@ -34,19 +34,22 @@ void GameManager::gameLoop() {
 	player.load(&camera, physWorld, layer);
 	player.spawn();
 
-	const int b = 100;
+	const int b = 100000;
 	Box* boxes = new Box[b];
 
 	for (int i = 0; i < b; i++) {
-		boxes[i].load(physWorld, layer);
+	//	boxes[i].load(physWorld, layer);
 	}
 
 	Key spawn;
-	spawn.set(sf::Keyboard::Tab, KeyType::SINGLE);
+	spawn.set(sf::Keyboard::Tab, KeyType::REPEATED);
 
-	Menu menu(guiLayer, 10, 10, 500);
+	Menu menu(guiLayer, 10, 10, 0);
+	menu.setSelectedFontColot(sf::Color::White);
+	fpsString = "UPS: 00";
 	menu.add(fpsString);
-	menu.addLiteral("press \"tab\"");
+	menu.addLiteral("testtstetsetstetsetset");
+	menu.addLiteral("esetstetsettetettett");
 	menu.reshape();
 
 	Key up(sf::Keyboard::Up, KeyType::SINGLE), down(sf::Keyboard::Down, KeyType::SINGLE);
@@ -91,6 +94,7 @@ void GameManager::gameLoop() {
 
 
 			if (spawn.getValue() && count < b) {
+				boxes[count].load(physWorld, layer);
 				boxes[count].setSpawnPoint(misc::pointLocation(player.getPosition(), player.getBody()->GetAngle(), 0.5f), player.getBody()->GetAngle());
 				boxes[count].spawn();
 				count++;
@@ -104,7 +108,7 @@ void GameManager::gameLoop() {
 //GAME TICK
 bool GameManager::gameTick() {
 
-	fpsString = "logic fps: " + misc::floatToString(1.f / ((float)gameTickTimer.getMilliseconds() / 1000.f));
+	fpsString = "UPS: " + misc::intToString((int)(1.f / (float)(gameTickTimer.getMilliseconds() / 1000.f)));
 
 	if (gameTickTimer.getMilliseconds() > TICK_RATE) {
 		gameTickTimer.reset();

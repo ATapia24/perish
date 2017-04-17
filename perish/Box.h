@@ -13,5 +13,6 @@ private:
 	void _spawn();
 	sf::Sprite sprite;
 	sf::Texture texture;
+	float size;
 };
 
