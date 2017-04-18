@@ -31,8 +31,13 @@ void GameManager::gameLoop() {
 	DrawLayer layer(camera), guiLayer(gui), floor(camera);
 
 	Player player;
+	Bot bot;
+	bot.load(physWorld, layer);
 	player.load(&camera, physWorld, layer);
 	player.spawn();
+
+	bot.setTarget(player.getBody());
+	bot.spawn();
 
 	const int b = 100000;
 	Box* boxes = new Box[b];
@@ -48,8 +53,7 @@ void GameManager::gameLoop() {
 	menu.setSelectedFontColot(sf::Color::White);
 	fpsString = "UPS: 00";
 	menu.add(fpsString);
-	menu.addLiteral("testtstetsetstetsetset");
-	menu.addLiteral("esetstetsettetettett");
+	menu.addLiteral("hit \'tab\' to spawn a box");
 	menu.reshape();
 
 	Key up(sf::Keyboard::Up, KeyType::SINGLE), down(sf::Keyboard::Down, KeyType::SINGLE);
@@ -86,7 +90,7 @@ void GameManager::gameLoop() {
 
 			menu.update();
 			player.update();
-
+			bot.update();
 			for (int i = 0; i < b; i++)
 				boxes[i].update();
 
@@ -95,7 +99,7 @@ void GameManager::gameLoop() {
 
 			if (spawn.getValue() && count < b) {
 				boxes[count].load(physWorld, layer);
-				boxes[count].setSpawnPoint(misc::pointLocation(player.getPosition(), player.getBody()->GetAngle(), 0.5f), player.getBody()->GetAngle());
+				boxes[count].setSpawnPoint(misc::pointLocation(player.getPosition(), player.getBody()->GetAngle(), 1.0f), player.getBody()->GetAngle());
 				boxes[count].spawn();
 				count++;
 			}

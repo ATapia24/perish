@@ -13,6 +13,7 @@
 #include "Entity.h"
 #include "Box2D.h"
 #include "Player.h"
+#include "Bot.h"
 #include "Box.h"
 
 class GameManager {

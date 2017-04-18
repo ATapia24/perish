@@ -15,8 +15,7 @@ Box::~Box()
 void Box::load(b2World* _physWorld, DrawLayer& _layer) {
 	physWorld = _physWorld;
 	layer = &_layer;
-	type = PLAYER;
-	layerIndex = layer->add(sprite);
+	type = OTHER;
 	loadDefaults();
 
 	//physics setup
@@ -43,5 +42,8 @@ void Box::unload() {
 
 //SPAWN
 void Box::_spawn() {
+	body->SetTransform(spawnPoint, spawnRotation);
+	update();
 	layerIndex = layer->add(sprite);
+	spawned = true;
 }
