@@ -40,7 +40,9 @@ void WorldBuilder::tick() {
 void WorldBuilder::calculateBounds(const sf::Text &txt, float &x1, float &y1, float &x2, float &y2) {
 
 	// edit the bounds, so it can be easily clicked on
-	sf::FloatRect txtInputBounds = txt.getLocalBounds();
+	sf::FloatRect txtInputBounds = txt.getGlobalBounds();
+
+	int width = txt.findCharacterPos(txt.getString().getSize() - 1).x - txt.findCharacterPos(0).x;
 
 	x1 = txt.getPosition().x - (txtInputBounds.width / 2.0f);
 	y1 = txt.getPosition().y - (txtInputBounds.height / 2.0f);
@@ -130,7 +132,7 @@ void WorldBuilder::backspace() {
 			float x1, y1, x2, y2;
 			calculateBounds(*nameInput, x1, y1, x2, y2);
 
-			clickHandler.editClick(clickLocations[TextBoxes::X_INPUT], x1, y1, x2, y2);
+			clickHandler.editClick(clickLocations[TextBoxes::NAME_INPUT], x1, y1, x2, y2);
 
 		}
 
@@ -265,11 +267,7 @@ void WorldBuilder::displaySetup() {
 	// used to store the coordinate ranges for the clickable lables
 	float x1, y1, x2, y2;
 
-	x1 = nameInput->getPosition().x - (nameInputBounds.width / 2.0f);
-	y1 = nameInput->getPosition().y - (nameInputBounds.height / 2.0f);
-
-	x2 = nameInput->getPosition().x + (nameInputBounds.width / 2.0f);
-	y2 = nameInput->getPosition().y + (nameInputBounds.height / 2.0f);
+	this->calculateBounds(*nameInput, x1, y1, x2, y2);
 
 	// add it to the click listener
 	clickLocations[TextBoxes::NAME_INPUT] = clickHandler.addClick(x1, y1, x2, y2);
@@ -283,11 +281,7 @@ void WorldBuilder::displaySetup() {
 	xInput->setPosition(sf::Vector2f(xLabel->getPosition().x + xInputBounds.width + X_OFFSET, xLabel->getPosition().y));
 
 	// calculate all the bounds
-	x1 = xInput->getPosition().x - (xInputBounds.width / 2.0f);
-	y1 = xInput->getPosition().y - (xInputBounds.height / 2.0f);
-
-	x2 = xInput->getPosition().x + (xInputBounds.width / 2.0f);
-	y2 = xInput->getPosition().y + (xInputBounds.height / 2.0f);
+	this->calculateBounds(*xInput, x1, y1, x2, y2);
 
 	// add it to the click listener
 	clickLocations[TextBoxes::X_INPUT] = clickHandler.addClick(x1, y1, x2, y2);
@@ -301,16 +295,25 @@ void WorldBuilder::displaySetup() {
 	yInput->setPosition(sf::Vector2f(yLabel->getPosition().x + yInputBounds.width + X_OFFSET, yLabel->getPosition().y));
 
 	// last calculation of the bounds
-	x1 = yInput->getPosition().x - (yInputBounds.width / 2.0f);
-	y1 = yInput->getPosition().y - (yInputBounds.height / 2.0f);
-
-	x2 = yInput->getPosition().x + (yInputBounds.width / 2.0f);
-	y2 = yInput->getPosition().y + (yInputBounds.height / 2.0f);
+	this->calculateBounds(*yInput, x1, y1, x2, y2);
 
 	// add it to the click listener
 	clickLocations[TextBoxes::Y_INPUT] = clickHandler.addClick(x1, y1, x2, y2);
 
 	// END input sections
+
+	// BEGIN submit message
+
+	submit = new sf::Text;
+
+	submit->setString("Press ENTER to submit!");
+	submit->setCharacterSize(30);
+	submit->setFont(game->getDefaultFont());
+	sf::FloatRect submitBounds = submit->getLocalBounds();
+	submit->setOrigin(submitBounds.left + submitBounds.width / 2.0f, submitBounds.top + submitBounds.height / 2.0f);
+	submit->setPosition(sf::Vector2f(window->getSize().x / 2.0f, yLabel->getPosition().y + submitBounds.height * 1.5));
+
+	// END submit message
 
 	// add all the items
 	baseLayer.add(header);
@@ -320,6 +323,7 @@ void WorldBuilder::displaySetup() {
 	baseLayer.add(nameInput);
 	baseLayer.add(xInput);
 	baseLayer.add(yInput);
+	baseLayer.add(submit);
 
 	setupDisplayed = true;
 

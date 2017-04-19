@@ -66,6 +66,7 @@ private:
 	sf::Text *nameInput;
 	sf::Text *xInput;
 	sf::Text *yInput;
+	sf::Text *submit;
 
 	// Used to calculate bounds of a textbox!
 	void calculateBounds(const sf::Text&, float&, float&, float&, float&);
