@@ -23,6 +23,7 @@ public:
 	virtual void load(b2World* _physWorld, DrawLayer& _layer);
 	virtual void update();
 	virtual void unload();
+	virtual void kill();
 	b2Body* getBody();
 	void setPosition(float x, float y);
 	b2Vec2 getPosition();
@@ -30,8 +31,12 @@ public:
 	void spawn();
 	void setSpawnPoint(float x, float y, float rotation);
 	void setSpawnPoint(b2Vec2 _spawnPoint, float roatation);
+	void physicsParameters(float _density, float _friction, float _angularDamping, float _linearDamping);
+	virtual void beginContact(Entity* entity);
+	virtual void endContact(Entity* entity);
 	b2Vec2 getSpawnPoint();
 	float getSpawnRotation();
+	EntityType getType() { return type; };
 
 protected:
 	DrawLayer* layer;
@@ -39,6 +44,7 @@ protected:
 	unsigned int layerIndex;
 	EntityType type;
 	virtual void loadDefaults();
+	bool loaded;
 	
 	//physics
 	b2Body* body;
@@ -50,7 +56,6 @@ protected:
 	virtual void physicsCircleSetup(float radius);
 	virtual void physicsBoxSetup(float width, float height);
 	virtual void physicsDelete();
-	void physicsParameters(float _density, float _friction, float _angularDamping, float _linearDamping);
 	float density;
 	float friction;
 	float angularDamping;

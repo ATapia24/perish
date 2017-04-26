@@ -19,12 +19,13 @@ DrawManager::DrawManager(sf::RenderWindow *_window, const int maxLayers) {
 	window = _window;
 	layers = new DrawLayer*[maxLayers];
 	MAX_LAYERS = maxLayers;
+	layersUsed = 0;
 }
 
 //DECONSTRUCTOR
 DrawManager::~DrawManager() {
 
-	delete[] layers;
+	//delete[] layers;
 
 }
 
@@ -34,19 +35,15 @@ void DrawManager::ThreadHandler() {
 
 	//initialize window
 	initWindow();
-	long count=0;
-	unsigned long sum=0;
-	float avg=0;
-	//window->setFramerateLimit(100);
+
+	fpsTimer.start();
 
 	//draw loop
-	fpsTimer.start();
 	while (window->isOpen()) {
 		draw();
 
-		//limit fps
-		//while (fpsTimer.getMilliseconds() <= 15) {}
-		//std::cout << "fps: " << (1000000000.0f / (float)fpsTimer.getNanoseconds()) << '\n';
+		//calculate fps
+		fps = (1000000000.0f / (float)fpsTimer.getNanoseconds());
 		fpsTimer.reset();
 
 	}
@@ -54,7 +51,7 @@ void DrawManager::ThreadHandler() {
 }
 
 //INITIALIZE WINDOW
-void DrawManager::initWindow() {
+void DrawManager::initWindow() { 
 
 	//console window
 	consoleWindow = GetConsoleWindow();
@@ -63,62 +60,60 @@ void DrawManager::initWindow() {
 
 	//render window TODO: read video settings from file
 	resizeWindow(1280, 720, false, false);
+	window->setFramerateLimit(100);
 }
 
 //DRAW
 void DrawManager::draw() {
-	
+
 	//clear window
 	window->clear(sf::Color::Black);
 	//draw objects in layer
 	for (int i = 0; i < layersUsed; i++) {
-		
-		
+
 		//stops looping when every DrawObject has been drawn
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
-
-		for (int j = 0; layers[i]->getSize() != drawCount; j++) {
-			//draw based on type
+		// TODO FIX DRAWCOUNT: for (int j = 0; drawCount < layers[i]->getSize(); j++) {
+		for(int j=0; j < layers[i]->getSize(); j++) {
 			switch (layers[i]->getDrawObjects()[j]->type) {
-			case DrawType::EMPTY: break; // do nothing
+			case DrawType::EMPTY: break; //do nothing
 			case DrawType::SPRITE:
 				window->draw(*layers[i]->getDrawObjects()[j]->sprite, layers[i]->getDrawObjects()[j]->shader);
-				drawCount++;
+				//drawCount++;
 				break;
 			case DrawType::VERTEX_ARRAY:
 				window->draw(*layers[i]->getDrawObjects()[j]->vertexArray, layers[i]->getDrawObjects()[j]->shader);
-				drawCount++;
+				//drawCount++;
 				break;
 			case DrawType::TEXT:
 				window->draw(*layers[i]->getDrawObjects()[j]->text, layers[i]->getDrawObjects()[j]->shader);
-				drawCount++;
+				//drawCount++;
 				break;
 			case DrawType::RECTANGLE:
 				window->draw(*layers[i]->getDrawObjects()[j]->rectangle, layers[i]->getDrawObjects()[j]->shader);
-				drawCount++;
+				//drawCount++;
 				break;
 			case DrawType::CIRCLE:
 				window->draw(*layers[i]->getDrawObjects()[j]->circle, layers[i]->getDrawObjects()[j]->shader);
-				drawCount++;
+				//drawCount++;
 				break;
 			case DrawType::CONVEX:
 				window->draw(*layers[i]->getDrawObjects()[j]->convex, layers[i]->getDrawObjects()[j]->shader);
-				drawCount++;
+				//drawCount++;
 				break;
 			}
 		}
 	}
-
-	//display
-	window->display();
+		//display
+		window->display();
 }
 
 //RESIZE WINDOW
 void DrawManager::resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border) {
 	//window->setSize(sf::Vector2u(width, height));
 	//window->setPosition(sf::Vector2i(0, 0));
-	MoveWindow(consoleWindow, width + 15, 0, 300, height, true);
+	//MoveWindow(consoleWindow, width + 15, 0, 300, height, true);
 }
 
 
@@ -136,7 +131,6 @@ void DrawManager::addLayer(DrawLayer *layer) {
 
 		//layer overflow
 		std::cout << "Layer overlow, see DrawManager.cpp - addLayer\n";
-		layers[0] = layer;
 		layersUsed = 1;
 
 	}
@@ -165,4 +159,9 @@ void DrawManager::addLayer(DrawLayer& layer) {
 //SET LAYER
 void DrawManager::setLayer(int loc, DrawLayer &layer) {
 	layers[loc] = &layer;
+}
+
+//GET FPS
+float DrawManager::getFps() {
+	return fps;
 }

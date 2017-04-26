@@ -23,7 +23,8 @@ void UserController::load(sf::View* _view, b2Body* _body, float _speed, float _r
 	rightKey.set(sf::Keyboard::D, KeyType::REPEATED);
 	turnLeftKey.set(sf::Keyboard::Left, KeyType::REPEATED);
 	turnRightKey.set(sf::Keyboard::Right, KeyType::REPEATED);
-	sprintKey.set(sf::Keyboard::LShift, KeyType::REPEATED);
+	sprintKey1.set(sf::Keyboard::LShift, KeyType::REPEATED);
+	sprintKey2.set(XboxButton::L3, KeyType::REPEATED);
 	m_forward = 0;
 	m_backward = 0;
 	m_left = 0;
@@ -32,40 +33,39 @@ void UserController::load(sf::View* _view, b2Body* _body, float _speed, float _r
 	isSprinting = 0;
 }
 
-//UPDATE
-void UserController::update() {
-	input();
-
-	//movement
-	diagonalAdjust();
-	body->SetLinearVelocity(forwardVel + backwardVel + leftVel + rightVel);
-}
-
 //INPUT
 void UserController::input() {
+	
 	//forward
 	if (forwardKey.getValue())
 		walkForward();
-	else if (m_forward && !forwardKey.getValue())
+	else if (m_forward && !forwardKey.getValue() && wasDirectionalInput) {
 		stopWalkForward();
-
+	}
 	//backward
 	if (backwardKey.getValue())
 		walkBackward();
-	else if (m_backward && !backwardKey.getValue())
+	else if (m_backward && !backwardKey.getValue() && wasDirectionalInput)
 		stopWalkBackwards();
 
 	//left
 	if (leftKey.getValue())
 		walkLeft();
-	else if (m_left && !leftKey.getValue())
+	else if (m_left && !leftKey.getValue() && wasDirectionalInput)
 		stopWalkLeft();
 
 	//right
 	if (rightKey.getValue())
 		walkRight();
-	else if (m_right && !rightKey.getValue())
+	else if (m_right && !rightKey.getValue() && wasDirectionalInput)
 		stopWalkRight();
+	
+	
+	move(joystick.leftX(), -joystick.leftY(), true);
+	turn(joystick.rightX());
+
+	
+
 
 	//turn left
 	if (turnLeftKey.getValue())
@@ -73,5 +73,5 @@ void UserController::input() {
 	else if (turnRightKey.getValue())
 		turnRight();
 
-	isSprinting = sprintKey.getValue();
+	isSprinting = sprintKey1.getValue() || sprintKey2.getValue();
 }

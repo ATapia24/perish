@@ -6,7 +6,7 @@ Debug::Debug() {
 }
 
 //CONSTRUCTOR W/ WINDOW MGR
-Debug::Debug(WindowManager * _window) {
+/*Debug::Debug(WindowManager * _window) {
 	window = _window;
 	font.loadFromFile("./assets/font.ttf");
 	fpsText.setPosition(5.0f, 5.0f);
@@ -16,7 +16,7 @@ Debug::Debug(WindowManager * _window) {
 
 	updateTimer.start();
 	fpsTimer.start();
-}
+}*/
 
 //DECONSTRUCTOR
 Debug::~Debug() {
@@ -40,7 +40,7 @@ void Debug::update() {
 
 //DRAW
 void Debug::draw() {
-	window->addGui(fpsText);
+	//window->addGui(fpsText);
 }
 
 void Debug::updateFps()

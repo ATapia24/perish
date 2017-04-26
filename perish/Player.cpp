@@ -18,15 +18,16 @@ void Player::load(sf::View* _view, b2World* _physWorld, DrawLayer& _layer) {
 	layer = &_layer;
 	loadDefaults();
 
-	circleHitbox.setFillColor(sf::Color::Red);
-	circleHitbox.setPosition(0, 0);
-	circleHitbox.setRadius(15);
-	circleHitbox.setOrigin(sf::Vector2f(circleHitbox.getRadius(), circleHitbox.getRadius()));
+	float size = 30.f;
+	texture.loadFromFile("assets/redball.png");
+	circleHitbox.setTexture(texture);
+	circleHitbox.setOrigin(sf::Vector2f(texture.getSize().x / 2, texture.getSize().y / 2));
+	circleHitbox.setScale(size / texture.getSize().x, size / texture.getSize().y);
 
 	type = PLAYER;
-
+	density = 10.0f;
 	physicsBodySetup();
-	physicsCircleSetup(circleHitbox.getRadius());
+	physicsCircleSetup(size/2.f);
 
 	controller.load(view, body, speed, rotationSpeed);
 }
@@ -52,4 +53,11 @@ void Player::update() {
 //spawn
 void Player::_spawn() {
 	layerIndex = layer->add(circleHitbox);
+}
+
+
+//START CONTACT
+void Player::beginContact(Entity* entity) {
+	std::cout << "entity begin contact\n";
+	entity->kill();
 }

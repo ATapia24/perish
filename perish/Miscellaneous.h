@@ -31,6 +31,7 @@ namespace misc {
 	std::string extractBetween(std::string& string, char token, char replace);
 	bool isLetter(const char c);
 	float distance(const sf::Vector2f a, const sf::Vector2f b);
+	float distance(const b2Vec2 a, const b2Vec2 b);
 	float lineAngle(const sf::Vector2f centerpoint, const sf::Vector2f endpoint);
 	float lineAngle(const b2Vec2 centerpoint, const b2Vec2 endpoint);
 	sf::Vector2f midpoint(const sf::Vector2f a, const sf::Vector2f b);

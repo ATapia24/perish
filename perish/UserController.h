@@ -11,13 +11,13 @@ public:
 	UserController();
 	~UserController();
 	void load(sf::View* _view, b2Body* _body, float _speed, float _rotationSpeed);
-	void update();
 private:
 	void input();
 	sf::View* view;
+	Joystick joystick;
 	Key forwardKey, backwardKey, leftKey, rightKey;
 	Key turnLeftKey, turnRightKey;
-	Key sprintKey;
+	Key sprintKey1;
+	Key sprintKey2;
 
 };
-

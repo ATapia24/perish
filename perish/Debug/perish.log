@@ -1,3 +1,84 @@
-﻿  GameManager.cpp
-  perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.exe
-  perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.pdb (Partial PDB)
+﻿  UserController.cpp
+c:\users\pc\desktop\perish\perish\controller.h(4): fatal error C1083: Cannot open include file: 'Box2D.h': No such file or directory
+  Timer.cpp
+c:\users\pc\desktop\perish\perish\timer.cpp(39): warning C4244: '=': conversion from '__int64' to 'unsigned long', possible loss of data
+c:\users\pc\desktop\perish\perish\timer.cpp(45): warning C4244: '=': conversion from '__int64' to 'unsigned long', possible loss of data
+  Player.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  Menu.cpp
+c:\users\pc\desktop\perish\perish\menu.cpp(21): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\pc\desktop\perish\perish\menu.cpp(22): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\pc\desktop\perish\perish\menu.cpp(30): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\pc\desktop\perish\perish\menu.cpp(122): warning C4018: '<': signed/unsigned mismatch
+c:\users\pc\desktop\perish\perish\menu.cpp(135): warning C4018: '<': signed/unsigned mismatch
+  Main.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  InputManager.cpp
+c:\users\pc\desktop\perish\perish\inputmanager.cpp(60): warning C4018: '>': signed/unsigned mismatch
+c:\users\pc\desktop\perish\perish\inputmanager.cpp(157): warning C4018: '>': signed/unsigned mismatch
+  GameManager.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  Entity.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  DrawManager.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  DrawLayer.cpp
+  Debug.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  Controller.cpp
+c:\users\pc\desktop\perish\perish\controller.h(4): fatal error C1083: Cannot open include file: 'Box2D.h': No such file or directory
+  Box.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  Bot.cpp
+c:\users\pc\desktop\perish\perish\miscellaneous.h(10): fatal error C1083: Cannot open include file: 'b2Math.h': No such file or directory
+  b2WorldCallbacks.cpp
+  b2World.cpp
+  b2WheelJoint.cpp
+  b2WeldJoint.cpp
+  b2Timer.cpp
+  b2TimeOfImpact.cpp
+  Generating Code...
+  Compiling...
+  b2StackAllocator.cpp
+  b2Settings.cpp
+  b2RopeJoint.cpp
+  b2Rope.cpp
+  b2RevoluteJoint.cpp
+  b2PulleyJoint.cpp
+  b2PrismaticJoint.cpp
+  b2PolygonShape.cpp
+  b2PolygonContact.cpp
+  b2PolygonAndCircleContact.cpp
+  b2MouseJoint.cpp
+  b2MotorJoint.cpp
+  b2Math.cpp
+  b2Joint.cpp
+  b2Island.cpp
+  b2GearJoint.cpp
+  b2FrictionJoint.cpp
+  b2Fixture.cpp
+  b2EdgeShape.cpp
+  b2EdgeAndPolygonContact.cpp
+  Generating Code...
+  Compiling...
+  b2EdgeAndCircleContact.cpp
+  b2DynamicTree.cpp
+  b2Draw.cpp
+  b2DistanceJoint.cpp
+  b2Distance.cpp
+  b2ContactSolver.cpp
+  b2ContactManager.cpp
+  b2Contact.cpp
+  b2Collision.cpp
+  b2CollidePolygon.cpp
+  b2CollideEdge.cpp
+  b2CollideCircle.cpp
+  b2CircleShape.cpp
+  b2CircleContact.cpp
+  b2ChainShape.cpp
+  b2ChainAndPolygonContact.cpp
+  b2ChainAndCircleContact.cpp
+  b2BroadPhase.cpp
+  b2Body.cpp
+  b2BlockAllocator.cpp
+  Generating Code...

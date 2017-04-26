@@ -85,6 +85,11 @@ float misc::distance(const sf::Vector2f a, const sf::Vector2f b) {
 	return sqrt(pow((b.x - a.x), 2) + pow((b.y - a.y), 2));
 }
 
+//DISTANCE
+float misc::distance(const b2Vec2 a, const b2Vec2 b) {
+	return sqrt(pow((b.x - a.x), 2) + pow((b.y - a.y), 2));
+}
+
 //MIDPOINT
 //Returns the midpoint of line a->b
 sf::Vector2f misc::midpoint(const sf::Vector2f a, const sf::Vector2f b) {

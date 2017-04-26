@@ -10,7 +10,7 @@ int main() {
 
 	//initilize window, drawManager, and gameManager
 	sf::RenderWindow window(sf::VideoMode(misc::NATIVE_WIDTH/2, misc::NATIVE_HEIGHT/2), misc::GAME_NAME, sf::Style::Titlebar);
-	DrawManager drawManager(&window, 500);
+	DrawManager drawManager(&window, 20);
 	GameManager gameManager(drawManager);
 
 	//create and launch drawThread

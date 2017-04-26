@@ -41,6 +41,7 @@ public:
 	//get
 	DrawLayer* getLayers() const { return *layers; };
 	sf::RenderWindow* getWindow() { return window; };
+	float getFps();
 
 private:
 

@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
 
 enum DrawType {
 	EMPTY,
@@ -26,7 +27,6 @@ struct DrawObject {
 
 class DrawLayer {
 public:
-
 	DrawLayer();
 	DrawLayer(sf::View& _view);
 	~DrawLayer();
@@ -65,10 +65,11 @@ public:
 	int getBufferSize() const { return BUFFER_SIZE; };
 	DrawObject** getDrawObjects() const { return drawObjects; };
 	DrawLayer& operator=(DrawLayer&);
+	std::vector<DrawObject*> removeVect;
 
 private:
 
-	const int BUFFER_SIZE = 5000;
+	const int BUFFER_SIZE = 10000;
 	DrawObject **drawObjects;
 	unsigned int size;
 	sf::View* view;

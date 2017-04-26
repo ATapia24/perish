@@ -397,17 +397,16 @@ int DrawLayer::add(sf::VertexArray& vertexArray, sf::Shader* shader) {
 			return i;
 		}
 	}
+
 	return -1;
 }
 
 //REMOVE
 void DrawLayer::remove(int index)
 {
-	if (index < BUFFER_SIZE)
-	{
-		drawObjects[index]->type = DrawType::EMPTY;
-		size--;
-	}
+	//removeVect.push_back(drawObjects[index]);
+	drawObjects[index]->type = DrawType::EMPTY;
+	//size--;
 }
 
 //CLEANUP 

@@ -14,6 +14,7 @@ Entity::~Entity() {
 void Entity::load(b2World* _physWorld, DrawLayer& _layer) {
 	physWorld = _physWorld;
 	layer = &_layer;
+	loaded = true;
 }
 
 //UNLOAD
@@ -23,6 +24,11 @@ void Entity::unload() {
 
 //UPDATE
 void Entity::update() {
+	//empty
+}
+
+//KILL
+void Entity::kill() {
 	//empty
 }
 
@@ -63,6 +69,7 @@ void Entity::physicsBoxSetup(float width, float height) {
 	polyShape = new b2PolygonShape();
 	polyShape->SetAsBox((width / 2) / misc::PHYSICS_SCALE, (height / 2) / misc::PHYSICS_SCALE);
 	fixtureDef->shape = polyShape;
+	//fixtureDef->restitution = 2.f;
 	body->CreateFixture(fixtureDef);
 }
 
@@ -78,6 +85,13 @@ void Entity::physicsCircleSetup(float radius) {
 //UNLOAD PHYSICS
 //Desc. delete all new allocations related to box2d physics
 void Entity::physicsDelete() {
+
+	std::cout << "address before - \n";
+	std::cout << ": " << bodyDef << '\n';
+	std::cout << ": " << polyShape << '\n';
+	std::cout << ": " << circleShape << '\n';
+	std::cout << ": " << fixtureDef << '\n';
+
 	physWorld->DestroyBody(body);
 	delete bodyDef;
 	delete fixtureDef;
@@ -85,6 +99,23 @@ void Entity::physicsDelete() {
 		delete polyShape;
 	if (circleShape != NULL)
 		delete circleShape;
+
+	std::cout << "address after - \n";
+	std::cout << ": " << bodyDef << '\n';
+	std::cout << ": " << polyShape << '\n';
+	std::cout << ": " << circleShape << '\n';
+	std::cout << ": " << fixtureDef << '\n';
+}
+
+
+//START CONTACT
+void Entity::beginContact(Entity* entity) {
+	//empty
+}
+
+//END CONTACT
+void Entity::endContact(Entity* entity) {
+	//empty
 }
 
 //PHYSICS PARAMTERS
@@ -108,10 +139,12 @@ b2Vec2 Entity::getPosition() {
 
 //SPAWN
 void Entity::spawn() {
-	spawned = true;
-	body->SetActive(true);
-	body->SetTransform(spawnPoint, spawnRotation);
-	_spawn(); //call entity specific spawns function
+	if (!spawned) {
+		spawned = true;
+		body->SetActive(true);
+		body->SetTransform(spawnPoint, spawnRotation);
+		_spawn(); //call entity specific spawns function
+	}
 }
 
 //_SPAWN

@@ -3,13 +3,12 @@
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
-#include "WindowManager.h"
 #include "Timer.h"
 #include "Miscellaneous.h"
 
 class Debug {
 private:
-	WindowManager* window;
+	//WindowManager* window;
 	sf::Font font;
 	Timer updateTimer;
 	const int UPDATE_RATE = 250;
@@ -21,7 +20,7 @@ private:
 	void updateFps();
 public:
 	Debug();
-	Debug(WindowManager* _window);
+	//Debug(WindowManager* _window);
 	~Debug();
 	void input();
 	void update();
