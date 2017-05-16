@@ -14,6 +14,7 @@
 #include "Bot.h"
 #include "CollisionHandler.h"
 #include "Box.h"
+#include "PerfArray.h"
 
 class GameManager {
 public:

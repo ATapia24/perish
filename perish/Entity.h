@@ -14,12 +14,11 @@ enum EntityType {
 	OTHER
 };
 
-//CLASS IS ABSTRACT
 class Entity {
 public:
 
 	Entity();
-	virtual ~Entity() = 0;
+	virtual ~Entity();
 	virtual void load(b2World* _physWorld, DrawLayer& _layer);
 	virtual void update();
 	virtual void unload();
@@ -32,8 +31,10 @@ public:
 	void setSpawnPoint(float x, float y, float rotation);
 	void setSpawnPoint(b2Vec2 _spawnPoint, float roatation);
 	void physicsParameters(float _density, float _friction, float _angularDamping, float _linearDamping);
-	virtual void beginContact(Entity* entity);
-	virtual void endContact(Entity* entity);
+	virtual bool beginContact(Entity* entity, b2Contact* contact);
+	virtual bool endContact(Entity* entity, b2Contact* contact);
+	virtual bool preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold);
+	virtual bool postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse);
 	b2Vec2 getSpawnPoint();
 	float getSpawnRotation();
 	EntityType getType() { return type; };

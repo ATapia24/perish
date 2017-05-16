@@ -53,9 +53,7 @@ void Bot::update() {
 
 		if (true) {
 			float32 angle = body->GetAngle() + misc::PI;
-			body->ApplyLinearImpulseToCenter(0.0000053f * b2Vec2(-sin(angle), cos(angle)), true);
-			angle += misc::PIh;
-			//body->ApplyLinearImpulseToCenter(0.000033f * b2Vec2(-sin(angle), cos(angle)), true);
+			body->ApplyLinearImpulseToCenter(0.00005f * b2Vec2(-sin(angle), cos(angle)), true);
 		}
 
 		sprite.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
@@ -92,12 +90,35 @@ void Bot::kill() {
 	}
 }
 
-//START CONTACT
-/*void Bot::beginContact(Entity* entity) {
-	std::cout << "entity start contact\n";
+//BEGIN CONTACT
+bool Bot::beginContact(Entity* entity, b2Contact* contact) {
+	if (entity->getType() == PLAYER)
+	{
+		sprite.setColor(sf::Color::Green);
+	}
+	return false;
 }
 
 //END CONTACT
-void Bot::endContact(Entity* entity) {
-	std::cout << "entity end contact\n";
-}*/
+bool Bot::endContact(Entity* entity, b2Contact* contact) {
+	if (entity->getType() == PLAYER) {
+		sprite.setColor(sf::Color::White);
+	}
+	return false;
+}
+
+//PRE-SOLVE
+bool Bot::preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold) {
+	
+	/*if (static_cast<Entity*>(contact->GetFixtureB()->GetUserData())->getType() == EntityType::ENEMY) {
+		//contact->SetEnabled(false);
+		Bot* bot = static_cast<Bot*>(contact->GetFixtureB()->GetUserData());
+		std::cout << bot->getType() << '\n';
+	}*/
+	return false;
+}
+
+//POST-SOLVE
+bool Bot::postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse) {
+	return false;
+}

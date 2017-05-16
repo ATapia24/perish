@@ -99,13 +99,32 @@ void GameManager::gameLoop() {
 
 	Timer clk;
 	clk.start();
-	while (window->isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !quit.getValue()) {
-		if (gameTick()) {
 
+
+	int* an = new int(1);
+	int* bn = new int(2);
+	int* cn = new int(3);
+	int* dn = new int(4);
+
+
+
+	PerfArray<int*> arr;
+	arr.add(an);
+	arr.add(bn);
+	arr.add(cn);
+	arr.add(dn);
+	arr.remove(0);
+
+	for (int i = 0; i < arr.getSize(); i++) {
+		std::cout << "perf:" << (*arr[i]-1) << '\n';
+	}
+
+	while (drawManager->isWindowOpen()) {
+
+		if (gameTick()) {
 			//update active controller
 			if (sf::Joystick::isConnected(0))
 				sf::Joystick::update();
-
 
 			menu.update();
 			player.update();
@@ -117,9 +136,9 @@ void GameManager::gameLoop() {
 				boxes[i].update();
 
 			physWorld->Step(1.0f / 60.f, 8, 3);
+			collisionHandler.update(); //always call after a physics step
 
-
-			if (spawn.getValue() || count < 500) {
+			if (spawn.getValue()|| count < 1000) {
 
 				for (int i = 0; i < 2 ; i++) {
 					boxes[count].load(physWorld, layer);
@@ -137,13 +156,17 @@ void GameManager::gameLoop() {
 			}
 			}
 			else if (kill.getValue()) {
-				bot.kill();
+				//bot.kill();
+				//count = 0;
 			}
 			
-				if (kill.getValue())
-					for (int i = 0; i < count; i++) {
-						boxes[i].kill();
-					}
+			if (kill.getValue()) {
+				for (int i = 0; i < count; i++) {
+					boxes[i].kill();
+				}
+
+	
+			}
 
 				//std::cout << sf::Joystick::isConnected(0) << '\n';
 				//for (int i = 0; i < count; i++)

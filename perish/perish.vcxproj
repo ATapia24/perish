@@ -32,6 +32,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Miscellaneous.h" />
+    <ClInclude Include="PerfArray.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UserController.h" />

@@ -109,13 +109,23 @@ void Entity::physicsDelete() {
 
 
 //START CONTACT
-void Entity::beginContact(Entity* entity) {
-	//empty
+bool Entity::beginContact(Entity* entity, b2Contact* contact) {
+	return false;
 }
 
 //END CONTACT
-void Entity::endContact(Entity* entity) {
-	//empty
+bool Entity::endContact(Entity* entity, b2Contact* contact) {
+	return false;
+}
+
+//PRE-SOLVE
+bool Entity::preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold) {
+	return false;
+}
+
+//POST SOLVE
+bool Entity::postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse) {
+	return false;
 }
 
 //PHYSICS PARAMTERS

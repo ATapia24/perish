@@ -404,9 +404,8 @@ int DrawLayer::add(sf::VertexArray& vertexArray, sf::Shader* shader) {
 //REMOVE
 void DrawLayer::remove(int index)
 {
-	//removeVect.push_back(drawObjects[index]);
 	drawObjects[index]->type = DrawType::EMPTY;
-	//size--;
+	size--;
 }
 
 //CLEANUP 
@@ -457,9 +456,7 @@ void DrawLayer::cleanup()
 DrawLayer& DrawLayer::operator=(DrawLayer &layer) {
 
 	for (int i = 0; i < BUFFER_SIZE; i++) {
-
 		drawObjects[i] = layer.drawObjects[i];
-
 	}
 
 	return *this;

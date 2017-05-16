@@ -9,12 +9,10 @@ int main() {
 	srand((unsigned)time(NULL));
 
 	//initilize window, drawManager, and gameManager
-	sf::RenderWindow window(sf::VideoMode(misc::NATIVE_WIDTH/2, misc::NATIVE_HEIGHT/2), misc::GAME_NAME, sf::Style::Titlebar);
-	DrawManager drawManager(&window, 20);
+	DrawManager drawManager;
 	GameManager gameManager(drawManager);
 
 	//create and launch drawThread
-	window.setActive(false);
 	std::thread drawThread(&DrawManager::ThreadHandler, &drawManager);
 
 	//initialize game

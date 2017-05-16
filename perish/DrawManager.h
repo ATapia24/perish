@@ -24,7 +24,7 @@
 class DrawManager {
 public:
 
-	DrawManager(sf::RenderWindow*, const int);
+	DrawManager();
 	~DrawManager();
 	void ThreadHandler();
 
@@ -32,6 +32,9 @@ public:
 	//window management
 	void initWindow();
 	void resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border);
+	bool isWindowReady() const { return windowReady; };
+	bool isWindowOpen() const { return windowOpen; };
+	void close();
 
 	//layers
 	void addLayer(DrawLayer* layer);
@@ -50,11 +53,14 @@ private:
 	//window management
 	HWND consoleWindow;
 	sf::RenderWindow *window;
+	bool windowReady;
+	sf::Event event;
+	bool windowOpen;
 
 	// Holds the drawable layers
 	DrawLayer **layers;
+	const int MAX_LAYERS = 50;
 	int layersUsed = 0;
-	int MAX_LAYERS;
 
 	//temp
 	Timer t;

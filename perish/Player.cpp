@@ -57,7 +57,22 @@ void Player::_spawn() {
 
 
 //START CONTACT
-void Player::beginContact(Entity* entity) {
-	std::cout << "entity begin contact\n";
-	entity->kill();
+bool Player::beginContact(Entity* entity, b2Contact* contact) {
+
+	return false;
+}
+
+//END CONTACT
+bool Player::endContact(Entity* entity, b2Contact* contact) {
+	return false;
+}
+
+//PRE-SOLVE
+bool Player::preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold) {
+	return false;
+}
+
+//POST SOLVE
+bool Player::postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse) {
+	return false;
 }

@@ -14,18 +14,17 @@
 #include "DrawManager.h"
 
 //CONSTRUCTOR
-DrawManager::DrawManager(sf::RenderWindow *_window, const int maxLayers) {
-
-	window = _window;
-	layers = new DrawLayer*[maxLayers];
-	MAX_LAYERS = maxLayers;
+DrawManager::DrawManager() {
+	windowReady = false;
+	windowOpen = false;
+	layers = new DrawLayer*[MAX_LAYERS];
 	layersUsed = 0;
 }
 
 //DECONSTRUCTOR
 DrawManager::~DrawManager() {
 
-	//delete[] layers;
+	delete[] layers;
 
 }
 
@@ -39,12 +38,19 @@ void DrawManager::ThreadHandler() {
 	fpsTimer.start();
 
 	//draw loop
-	while (window->isOpen()) {
-		draw();
+	while (windowOpen) {
+		while (window->pollEvent(event)){
+			if (event.type == sf::Event::Closed) {
+				close();
+			}
+		}
 
+		draw();
+		
 		//calculate fps
 		fps = (1000000000.0f / (float)fpsTimer.getNanoseconds());
 		fpsTimer.reset();
+
 
 	}
 
@@ -59,8 +65,11 @@ void DrawManager::initWindow() {
 	SetConsoleTitle(TEXT(consoleTitle.c_str()));
 
 	//render window TODO: read video settings from file
-	resizeWindow(1280, 720, false, false);
+	window = new sf::RenderWindow(sf::VideoMode(misc::NATIVE_WIDTH / 2, misc::NATIVE_HEIGHT / 2), misc::GAME_NAME, sf::Style::Default);
 	window->setFramerateLimit(100);
+
+	windowReady = true; //window done being created
+	windowOpen = true;
 }
 
 //DRAW
@@ -74,33 +83,33 @@ void DrawManager::draw() {
 		//stops looping when every DrawObject has been drawn
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
-		// TODO FIX DRAWCOUNT: for (int j = 0; drawCount < layers[i]->getSize(); j++) {
-		for(int j=0; j < layers[i]->getSize(); j++) {
+		for (int j=0; drawCount < layers[i]->getSize(); j++) {
+		//for(int j=0; j < layers[i]->getSize(); j++) {
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; //do nothing
 			case DrawType::SPRITE:
 				window->draw(*layers[i]->getDrawObjects()[j]->sprite, layers[i]->getDrawObjects()[j]->shader);
-				//drawCount++;
+				drawCount++;
 				break;
 			case DrawType::VERTEX_ARRAY:
 				window->draw(*layers[i]->getDrawObjects()[j]->vertexArray, layers[i]->getDrawObjects()[j]->shader);
-				//drawCount++;
+				drawCount++;
 				break;
 			case DrawType::TEXT:
 				window->draw(*layers[i]->getDrawObjects()[j]->text, layers[i]->getDrawObjects()[j]->shader);
-				//drawCount++;
+				drawCount++;
 				break;
 			case DrawType::RECTANGLE:
 				window->draw(*layers[i]->getDrawObjects()[j]->rectangle, layers[i]->getDrawObjects()[j]->shader);
-				//drawCount++;
+				drawCount++;
 				break;
 			case DrawType::CIRCLE:
 				window->draw(*layers[i]->getDrawObjects()[j]->circle, layers[i]->getDrawObjects()[j]->shader);
-				//drawCount++;
+				drawCount++;
 				break;
 			case DrawType::CONVEX:
 				window->draw(*layers[i]->getDrawObjects()[j]->convex, layers[i]->getDrawObjects()[j]->shader);
-				//drawCount++;
+				drawCount++;
 				break;
 			}
 		}
@@ -164,4 +173,10 @@ void DrawManager::setLayer(int loc, DrawLayer &layer) {
 //GET FPS
 float DrawManager::getFps() {
 	return fps;
+}
+
+//CLOSE
+void DrawManager::close() {
+	windowOpen = false;
+	window->close();
 }

@@ -37,7 +37,7 @@ void Controller::update() {
 	//movement
 	diagonalAdjust();
 	body->SetLinearVelocity(forwardVel + backwardVel + leftVel + rightVel);
-	wasDirectionalInput = false;
+//	wasDirectionalInput = false;
 }
 
 //INPUT
@@ -140,8 +140,6 @@ void Controller::diagonalAdjust()
 		{
 			leftVel.SetZero();
 			float32 angle = body->GetAngle() + misc::PI7d4;
-			if (lastVerticalRate < 0)
-				lastVerticalRate *= -1;
 			forwardVel =  speed * b2Vec2(sin(angle), -cos(angle));
 			if (isSprinting)
 				sprintAdjust(forwardVel);
@@ -150,8 +148,6 @@ void Controller::diagonalAdjust()
 		{
 			rightVel.SetZero();
 			float32 angle = body->GetAngle() + misc::PId4;
-			if (lastVerticalRate < 0)
-				lastVerticalRate *= -1;
 			forwardVel = speed * b2Vec2(sin(angle), -cos(angle));
 			if (isSprinting)
 				sprintAdjust(forwardVel);

@@ -9,7 +9,10 @@ public:
 	void load(sf::View* _view, b2World* _physWorld, DrawLayer& _layer);
 	void update();
 	void unload();
-	void beginContact(Entity* entity);
+	virtual bool beginContact(Entity* entity, b2Contact* contact);
+	virtual bool endContact(Entity* entity, b2Contact* contact);
+	virtual bool preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold);
+	virtual bool postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse);
 private:
 	float speed = 5.f;
 	float rotationSpeed = 0.1f;
