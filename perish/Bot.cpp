@@ -27,6 +27,7 @@ void Bot::load(b2World* _physWorld, DrawLayer& _layer) {
 		physicsBoxSetup(width, height);
 		controller.load(body, 1.f, 5.f);
 
+
 		texture.loadFromFile("assets/topdown.png");
 		sprite.setTexture(texture);
 		sprite.setColor(misc::randomColor());
@@ -44,16 +45,16 @@ void Bot::update() {
 
 	if (spawned) {
 		//look at target
-		if (target != NULL) {
-			float targetAngle = -misc::lineAngle(body->GetPosition(), target->GetPosition()) + misc::PIh;
-		//	std::cout << targetAngle * misc::RAD2DEG << '\n';
-			body->SetTransform(body->GetPosition(), targetAngle);
-			targetLastPosition = target->GetPosition();
+		if (true) {
+		//	float targetAngle = -misc::lineAngle(body->GetPosition(),target.getTargetPoint()) + misc::PIh;
+		//	body->SetTransform(body->GetPosition(), targetAngle);
 		}
 
 		if (true) {
-			float32 angle = body->GetAngle() + misc::PI;
-			body->ApplyLinearImpulseToCenter(0.00005f * b2Vec2(-sin(angle), cos(angle)), true);
+		//	float32 angle = body->GetAngle() + misc::PI;
+		//	body->ApplyLinearImpulseToCenter(0.0001f * b2Vec2(-sin(angle), cos(angle)), true);
+			//angle += misc::PIh;
+			//body->ApplyLinearImpulseToCenter(0.000001f * b2Vec2(-sin(angle), cos(angle)), true);
 		}
 
 		sprite.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
@@ -66,12 +67,6 @@ void Bot::unload() {
 
 }
 
-//SET TARGET
-void Bot::setTarget(b2Body* _target) {
-	if (_target != NULL) {
-		target = _target;
-	}
-}
 
 //SPAWN
 void Bot::_spawn() {

@@ -6,6 +6,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <stdlib.h>
 #include <iostream>
 #include "b2Math.h"
 
@@ -37,7 +38,8 @@ namespace misc {
 	sf::Vector2f midpoint(const sf::Vector2f a, const sf::Vector2f b);
 	sf::Vector2f pointLocation(const sf::Vector2f point, const float angle, const float distance);
 	b2Vec2 pointLocation(const b2Vec2 point, const float angle, const float distance);
-	bool intersects(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Vector2f p3, const sf::Vector2f p4);
+	bool intersects(const sf::Vector2f a, const sf::Vector2f b, const sf::Vector2f c, const sf::Vector2f d);
+	bool intersects(const b2Vec2 a, const b2Vec2 b, b2Vec2 c, b2Vec2 d);
 	int random(int min, int max);
 	sf::Color randomColor();
 	std::vector<sf::Vector2f> getAreaPoints(const sf::RectangleShape shape, const float resolustion, const bool sides);

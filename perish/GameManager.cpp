@@ -31,13 +31,11 @@ void GameManager::gameLoop() {
 	DrawLayer layer(camera), guiLayer(gui), floor(camera);
 
 	Player player;
-	Bot bot;
-	bot.load(physWorld, layer);
 	player.load(&camera, physWorld, layer);
 	player.spawn();
 
-	bot.setTarget(player.getBody());
-	bot.spawn();
+	LightManager lm;
+	lm.set(&layer, &player);
 
 	const int b = 100000;
 	Bot* boxes = new Bot[b];
@@ -77,7 +75,7 @@ void GameManager::gameLoop() {
 
 	for (int i = 0; i < x; i++) {
 		for (int j = 0; j < x; j++) {
-			sprite[i][j].setPosition(i * 100 , j * 100);
+			sprite[i][j].setPosition(i * 100.f , j * 100.f);
 			sprite[i][j].setTexture(texture);
 			floor.add(sprite[i][j]);
 		}
@@ -95,85 +93,48 @@ void GameManager::gameLoop() {
 	physWorld->SetContactListener(&collisionHandler);
 	Key button(XboxButton::A, KeyType::REPEATED);
 	Key quit(XboxButton::BACK, KeyType::REPEATED);
+	Key quit1(sf::Keyboard::Escape, KeyType::REPEATED);
 	Joystick lStick(0);
 
 	Timer clk;
 	clk.start();
 
+	PerfArray<Bot*> arr;
+	for (int i = 0; i < 100; i++) {
+		arr.add(new Bot());
 
-	int* an = new int(1);
-	int* bn = new int(2);
-	int* cn = new int(3);
-	int* dn = new int(4);
-
-
-
-	PerfArray<int*> arr;
-	arr.add(an);
-	arr.add(bn);
-	arr.add(cn);
-	arr.add(dn);
-	arr.remove(0);
-
-	for (int i = 0; i < arr.getSize(); i++) {
-		std::cout << "perf:" << (*arr[i]-1) << '\n';
+		arr[i]->load(physWorld, layer);
+		arr[i]->getTarget().setTarget(player.getBody());
+		arr[i]->setSpawnPoint(b2Vec2(misc::random(0, 5), misc::random(0, 5)), 0);
+		arr[i]->spawn();
+		lm.addObject(arr[i]);
 	}
 
 	while (drawManager->isWindowOpen()) {
+		if (quit1.getValue())
+			drawManager->close();
 
 		if (gameTick()) {
 			//update active controller
 			if (sf::Joystick::isConnected(0))
 				sf::Joystick::update();
 
+
+			arr.update();
+
+
+			if (kill.getValue())
+				arr.killAll();
+			else if (spawn.getValue())
+				arr.spawnAll();
+
 			menu.update();
 			player.update();
 			playerCoords = "Player x: " + misc::intToString((int)player.getPosition().x) + " y: " + misc::intToString((int)player.getPosition().y);
 			playerRot = "Player rot: " + misc::intToString((int)player.getBody()->GetAngle() * misc::RAD2DEG);
 			countStr = "count: " + misc::intToString(count);
-			bot.update();
-			for (int i = 0; i < count; i++)
-				boxes[i].update();
-
 			physWorld->Step(1.0f / 60.f, 8, 3);
 			collisionHandler.update(); //always call after a physics step
-
-			if (spawn.getValue()|| count < 1000) {
-
-				for (int i = 0; i < 2 ; i++) {
-					boxes[count].load(physWorld, layer);
-				boxes[count].setSpawnPoint(misc::pointLocation(b2Vec2(misc::random(0, 100), misc::random(0, 100)), player.getBody()->GetAngle(), 2.0f), player.getBody()->GetAngle());
-				//boxes[count].setSpawnPoint(b2Vec2(0, 0), 0);
-				if (count == count)
-					boxes[count].setTarget(player.getBody());
-				else {
-					boxes[count].setTarget(boxes[count - 1].getBody());
-
-				}
-
-				boxes[count].spawn();
-				count >= b ? count = 0 : count++;
-			}
-			}
-			else if (kill.getValue()) {
-				//bot.kill();
-				//count = 0;
-			}
-			
-			if (kill.getValue()) {
-				for (int i = 0; i < count; i++) {
-					boxes[i].kill();
-				}
-
-	
-			}
-
-				//std::cout << sf::Joystick::isConnected(0) << '\n';
-				//for (int i = 0; i < count; i++)
-					//if (misc::distance(player.getPosition(), boxes[i].getPosition()) > 1)
-						//boxes[i].kill();
-
-//				std::cout << "top speed: " << player.getBody()->GetLinearVelocity().Length() << '\n';
 
 			if (zoomIn.getValue())
 				camera.zoom(1.1f);

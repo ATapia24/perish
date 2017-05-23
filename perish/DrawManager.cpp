@@ -39,12 +39,19 @@ void DrawManager::ThreadHandler() {
 
 	//draw loop
 	while (windowOpen) {
+		
+		//handle window events
 		while (window->pollEvent(event)){
-			if (event.type == sf::Event::Closed) {
-				close();
+			switch (event.type) {
+				case sf::Event::Closed:
+					close();
+					break;
+				default: //do nothing
+					break;
 			}
 		}
 
+		//draw
 		draw();
 		
 		//calculate fps
@@ -65,7 +72,7 @@ void DrawManager::initWindow() {
 	SetConsoleTitle(TEXT(consoleTitle.c_str()));
 
 	//render window TODO: read video settings from file
-	window = new sf::RenderWindow(sf::VideoMode(misc::NATIVE_WIDTH / 2, misc::NATIVE_HEIGHT / 2), misc::GAME_NAME, sf::Style::Default);
+	window = new sf::RenderWindow(sf::VideoMode(misc::NATIVE_WIDTH / 2, misc::NATIVE_HEIGHT / 2), misc::GAME_NAME, sf::Style::Titlebar);
 	window->setFramerateLimit(100);
 
 	windowReady = true; //window done being created
@@ -78,17 +85,17 @@ void DrawManager::draw() {
 	//clear window
 	window->clear(sf::Color::Black);
 	//draw objects in layer
-	for (int i = 0; i < layersUsed; i++) {
+	for (unsigned int i = 0; i < layersUsed; i++) {
 
 		//stops looping when every DrawObject has been drawn
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
-		for (int j=0; drawCount < layers[i]->getSize(); j++) {
+		for (unsigned int j=0; drawCount < layers[i]->getSize(); j++) {
 		//for(int j=0; j < layers[i]->getSize(); j++) {
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; //do nothing
 			case DrawType::SPRITE:
-				window->draw(*layers[i]->getDrawObjects()[j]->sprite, layers[i]->getDrawObjects()[j]->shader);
+				window->draw(*layers[i]->getDrawObjects()[j]->sprite, layers[i]->getDrawObjects()[j]->blend);
 				drawCount++;
 				break;
 			case DrawType::VERTEX_ARRAY:
@@ -120,9 +127,9 @@ void DrawManager::draw() {
 
 //RESIZE WINDOW
 void DrawManager::resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border) {
-	//window->setSize(sf::Vector2u(width, height));
-	//window->setPosition(sf::Vector2i(0, 0));
-	//MoveWindow(consoleWindow, width + 15, 0, 300, height, true);
+	window->setSize(sf::Vector2u(width, height));
+	window->setPosition(sf::Vector2i(0, 0));
+	MoveWindow(consoleWindow, width + 15, 0, 300, height, true);
 }
 
 

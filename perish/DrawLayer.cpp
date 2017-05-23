@@ -46,6 +46,7 @@ int DrawLayer::add(sf::Sprite *sprite) {
 			drawObjects[i]->type = DrawType::SPRITE;
 			drawObjects[i]->sprite = sprite;
 			drawObjects[i]->shader = NULL;
+			drawObjects[i]->blend = sf::BlendAlpha;
 			size++;
 			return i;
 		}
@@ -61,6 +62,7 @@ int DrawLayer::add(sf::Sprite &sprite) {
 			drawObjects[i]->type = DrawType::SPRITE;
 			drawObjects[i]->sprite = &sprite;
 			drawObjects[i]->shader = NULL;
+			drawObjects[i]->blend = sf::BlendAlpha;
 			size++;
 			return i;
 		}
@@ -465,4 +467,20 @@ DrawLayer& DrawLayer::operator=(DrawLayer &layer) {
 //GET VIEW
 sf::View* DrawLayer::getView() {
 	return view;
+}
+
+//ADD SPRITE BY REFERENCE
+int DrawLayer::add(sf::Sprite &sprite, sf::BlendMode blendMode) {
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		if (drawObjects[i]->type == DrawType::EMPTY) {
+			drawObjects[i]->type = DrawType::SPRITE;
+			drawObjects[i]->sprite = &sprite;
+			drawObjects[i]->shader = NULL;
+			drawObjects[i]->blend = blendMode;
+			size++;
+			return i;
+		}
+	}
+	return -1;
 }

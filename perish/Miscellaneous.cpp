@@ -96,7 +96,7 @@ sf::Vector2f misc::midpoint(const sf::Vector2f a, const sf::Vector2f b) {
 	return sf::Vector2f(((a.x + b.x) / 2), ((a.y + b.y) / 2));
 }
 
-//INTERSECTS
+//INTERSECTS w/ sf::vector2f
 //determine if line a->b intersects line c->d
 bool misc::intersects(const sf::Vector2f a, const sf::Vector2f b, const sf::Vector2f c, const sf::Vector2f d) {
 	float den = ((d.y - c.y)*(b.x - a.x) - (d.x - c.x)*(b.y - a.y));
@@ -108,6 +108,12 @@ bool misc::intersects(const sf::Vector2f a, const sf::Vector2f b, const sf::Vect
 	if (u1 < 0 || u1 > 1 || u2 < 0 || u2 > 1)
 		return true;
 	return false;
+}
+
+//INTERSECTS w/ b2Vec2
+bool misc::intersects(const b2Vec2 p1, const b2Vec2 p2, b2Vec2 q1, b2Vec2 q2 ) {
+	return (((q1.x - p1.x)*(p2.y - p1.y) - (q1.y - p1.y)*(p2.x - p1.x)) * ((q2.x - p1.x)*(p2.y - p1.y) - (q2.y - p1.y)*(p2.x - p1.x)) < 0) && 
+		(((p1.x - q1.x)*(q2.y - q1.y) - (p1.y - q1.y)*(q2.x - q1.x)) * ((p2.x - q1.x)*(q2.y - q1.y) - (p2.y - q1.y)*(q2.x - q1.x)) < 0);
 }
 
 //RANDOM
@@ -130,7 +136,7 @@ float misc::lineAngle(const sf::Vector2f centerpoint, const sf::Vector2f endpoin
 //GET LINE ANGLE w/ b2Vec2
 //desc. returns the angle between two points
 float misc::lineAngle(const b2Vec2 centerpoint, const b2Vec2 endpoint) {
-	return ((atan2f((-centerpoint.y + endpoint.y), (centerpoint.x - endpoint.x)))) + PI;
+	return ((atan2f((centerpoint.y - endpoint.y), (centerpoint.x - endpoint.x)))) + PI;
 }
 
 //POINT LOCATION w/ Vector2f
@@ -142,7 +148,7 @@ sf::Vector2f misc::pointLocation(const sf::Vector2f point, const float angle, co
 //POINT LOCATION w/ b2Vec2
 //returns a new point location given starting point, angle, and distance
 b2Vec2 misc::pointLocation(const b2Vec2 point, const float angle, const float distance) {
-	return b2Vec2(point.x + distance * sin(angle), point.y + distance * -cos(angle));
+	return b2Vec2(point.x + distance * cos(angle), point.y + distance * sin(angle));
 }
 
 //GET AREA POINTS

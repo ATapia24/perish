@@ -85,13 +85,6 @@ void Entity::physicsCircleSetup(float radius) {
 //UNLOAD PHYSICS
 //Desc. delete all new allocations related to box2d physics
 void Entity::physicsDelete() {
-
-	std::cout << "address before - \n";
-	std::cout << ": " << bodyDef << '\n';
-	std::cout << ": " << polyShape << '\n';
-	std::cout << ": " << circleShape << '\n';
-	std::cout << ": " << fixtureDef << '\n';
-
 	physWorld->DestroyBody(body);
 	delete bodyDef;
 	delete fixtureDef;
@@ -99,12 +92,6 @@ void Entity::physicsDelete() {
 		delete polyShape;
 	if (circleShape != NULL)
 		delete circleShape;
-
-	std::cout << "address after - \n";
-	std::cout << ": " << bodyDef << '\n';
-	std::cout << ": " << polyShape << '\n';
-	std::cout << ": " << circleShape << '\n';
-	std::cout << ": " << fixtureDef << '\n';
 }
 
 

@@ -11,6 +11,7 @@ enum EntityType {
 	PLAYER,
 	ENEMY,
 	ITEM,
+	STATIC,
 	OTHER
 };
 
@@ -38,7 +39,7 @@ public:
 	b2Vec2 getSpawnPoint();
 	float getSpawnRotation();
 	EntityType getType() { return type; };
-
+	b2PolygonShape* getPolyShape() { return polyShape; };
 protected:
 	DrawLayer* layer;
 	b2World* physWorld;
@@ -72,3 +73,5 @@ protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
 };
+
+class Target;

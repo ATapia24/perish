@@ -23,6 +23,7 @@ struct DrawObject {
 	sf::ConvexShape* convex;
 	sf::VertexArray* vertexArray;
 	sf::Shader*  shader;
+	sf::BlendMode blend;
 };
 
 class DrawLayer {
@@ -56,6 +57,8 @@ public:
 	int add(sf::VertexArray& vertexArray);
 	int add(sf::VertexArray* vertexArray, sf::Shader* shader);
 	int add(sf::VertexArray& vertexArray, sf::Shader* shader);
+	
+	int add(sf::Sprite& sprite, sf::BlendMode blendMode);
 
 	sf::View* getView();
 	void remove(int index);
