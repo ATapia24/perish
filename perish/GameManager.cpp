@@ -29,13 +29,20 @@ void GameManager::gameLoop() {
 	//temp
 	sf::View camera, gui;
 	DrawLayer layer(camera), guiLayer(gui), floor(camera);
-
-	Player player;
-	player.load(&camera, physWorld, layer);
-	player.spawn();
+	
+	sf::RenderTexture nightText;
+	nightText.create(1920, 1080, true);
+	nightText.clear(sf::Color(0, 0, 0, 255));
+	nightText.display();
+	sf::Sprite night;
+	night.setTexture(nightText.getTexture());
 
 	LightManager lm;
+
+	Player player;
 	lm.set(&layer, &player);
+	player.load(&camera, physWorld, layer);
+	player.spawn();
 
 	const int b = 100000;
 	Bot* boxes = new Bot[b];
@@ -100,15 +107,21 @@ void GameManager::gameLoop() {
 	clk.start();
 
 	PerfArray<Bot*> arr;
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 10; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
 		arr[i]->getTarget().setTarget(player.getBody());
-		arr[i]->setSpawnPoint(b2Vec2(misc::random(0, 5), misc::random(0, 5)), 0);
+		if(i % 2)
+			arr[i]->setSpawnPoint(b2Vec2(i, 6), 0);
+		else
+			arr[i]->setSpawnPoint(b2Vec2(i-1, 5), 0);
+
 		arr[i]->spawn();
 		lm.addObject(arr[i]);
 	}
+
+	//layer.add(night, sf::BlendAdd);
 
 	while (drawManager->isWindowOpen()) {
 		if (quit1.getValue())
@@ -121,6 +134,7 @@ void GameManager::gameLoop() {
 
 
 			arr.update();
+			lm.update();
 
 
 			if (kill.getValue())

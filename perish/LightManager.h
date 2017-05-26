@@ -6,6 +6,7 @@
 #include "DrawLayer.h"
 #include "Box2D.h"
 #include "Entities.h"
+#include "Timer.h"
 
 struct  Blocker
 {
@@ -34,6 +35,7 @@ private:
 	Blocker* blockers;
 	int n_blockers;
 	const int max_blockers = 100000;
+	const int PL_DISTANCE = 1000000;
 
 	bool containsMovables;
 	void calculateBlocker(Blocker& blocker);
@@ -43,7 +45,11 @@ private:
 
 
 	sf::RenderTexture renderTexture;
+	sf::View view;
 	sf::Texture lightTexture;
 	sf::Sprite light, lightMap;
+	float renderScale;
+	sf::RectangleShape lightHitbox;
+	float width, height;
 };
 
