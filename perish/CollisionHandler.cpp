@@ -2,26 +2,17 @@
 
 
 //CONSTRUCTOR
-CollisionHandler::CollisionHandler()
-{
-	removalArr = new Entity*[MAX_REMOVES];
-	n_removes = 0;
+CollisionHandler::CollisionHandler(){
 }
 
 //DECONSTRUCTOR
-CollisionHandler::~CollisionHandler()
-{
-	delete[] removalArr;
+CollisionHandler::~CollisionHandler(){
 }
 
 //UPDATE
 //desc. kill all entities that need to be deleted
 void CollisionHandler::update() {
-	for (unsigned int i = 0; i < n_removes; i++) {
-		removalArr[i]->kill();
-	}
-
-	n_removes = 0;
+	removalArr.remove();
 }
 
 //START CONTACT
@@ -99,6 +90,5 @@ void CollisionHandler::PostSolve(b2Contact* contact, const b2ContactImpulse* imp
 //ADD TO BE REMOVED
 //desc. add body to be removed after physics step
 void CollisionHandler::addRemoval(Entity* e) {
-	removalArr[n_removes] = e;
-	n_removes++;
+	removalArr.add(e);
 }

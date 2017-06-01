@@ -29,27 +29,13 @@ void GameManager::gameLoop() {
 	//temp
 	sf::View camera, gui;
 	DrawLayer layer(camera), guiLayer(gui), floor(camera);
-	
-	sf::RenderTexture nightText;
-	nightText.create(1920, 1080, true);
-	nightText.clear(sf::Color(0, 0, 0, 255));
-	nightText.display();
-	sf::Sprite night;
-	night.setTexture(nightText.getTexture());
 
 	LightManager lm;
 
 	Player player;
-	lm.set(&layer, &player);
+	lm.set(&player, layer, physWorld);
 	player.load(&camera, physWorld, layer);
 	player.spawn();
-
-	const int b = 100000;
-	Bot* boxes = new Bot[b];
-
-	for (int i = 0; i < b; i++) {
-	//	boxes[i].load(physWorld, layer);
-	}
 
 	Key spawn (sf::Keyboard::Num1, KeyType::REPEATED);
 	Key kill(sf::Keyboard::Num2, KeyType::REPEATED);
@@ -57,15 +43,8 @@ void GameManager::gameLoop() {
 	menu.setSelectedFontColot(sf::Color::White);
 	upsString = "UPS: 00";
 	fpsString = "FPS: 00";
-	playerCoords = "Player x: 0000 y: 00000";
-	playerRot = "Player angle: 00.0";
-	countStr = "count: 00000";
 	menu.add(upsString);
 	menu.add(fpsString);
-	menu.add(playerCoords);
-	menu.add(playerRot);
-	menu.addLiteral("hit \'tab\' to spawn a box");
-	menu.add(countStr);
 	menu.reshape();
 	menu.setUpdateRate(50);
 
@@ -106,47 +85,38 @@ void GameManager::gameLoop() {
 	Timer clk;
 	clk.start();
 
+
+	LightManager l2;
+
+
 	PerfArray<Bot*> arr;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 1; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
 		arr[i]->getTarget().setTarget(player.getBody());
-		if(i % 2)
-			arr[i]->setSpawnPoint(b2Vec2(i, 6), 0);
-		else
-			arr[i]->setSpawnPoint(b2Vec2(i-1, 5), 0);
-
-		arr[i]->spawn();
+		arr[i]->setSpawnPoint(b2Vec2(misc::random(2, 2), misc::random(2, 2)), 0);
 		lm.addObject(arr[i]);
 	}
 
-	//layer.add(night, sf::BlendAdd);
+	arr.spawnAll();
 
 	while (drawManager->isWindowOpen()) {
 		if (quit1.getValue())
 			drawManager->close();
 
 		if (gameTick()) {
-			//update active controller
+			//update controller
 			if (sf::Joystick::isConnected(0))
 				sf::Joystick::update();
 
 
-			arr.update();
+			arr.update();		
 			lm.update();
 
 
-			if (kill.getValue())
-				arr.killAll();
-			else if (spawn.getValue())
-				arr.spawnAll();
-
 			menu.update();
 			player.update();
-			playerCoords = "Player x: " + misc::intToString((int)player.getPosition().x) + " y: " + misc::intToString((int)player.getPosition().y);
-			playerRot = "Player rot: " + misc::intToString((int)player.getBody()->GetAngle() * misc::RAD2DEG);
-			countStr = "count: " + misc::intToString(count);
 			physWorld->Step(1.0f / 60.f, 8, 3);
 			collisionHandler.update(); //always call after a physics step
 

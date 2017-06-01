@@ -72,10 +72,10 @@ void DrawManager::initWindow() {
 	SetConsoleTitle(TEXT(consoleTitle.c_str()));
 
 	//render window TODO: read video settings from file
-	window = new sf::RenderWindow(sf::VideoMode(misc::NATIVE_WIDTH / 2, misc::NATIVE_HEIGHT / 2), misc::GAME_NAME, sf::Style::Titlebar);
+	//window = new sf::RenderWindow(sf::VideoMode(misc::NATIVE_WIDTH / 2 , misc::NATIVE_HEIGHT / 2), misc::GAME_NAME, sf::Style::Titlebar);
+	window = new sf::RenderWindow(sf::VideoMode(1280, 720), misc::GAME_NAME, sf::Style::Titlebar);
 	window->setFramerateLimit(100);
-
-	windowReady = true; //window done being created
+	windowReady = true;
 	windowOpen = true;
 }
 

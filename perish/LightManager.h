@@ -15,14 +15,16 @@ struct  Blocker
 	b2Vec2 lastPosition;
 };
 
-class LightManager
+class LightManager : public Entity
 {
 public:
 	LightManager();
 	~LightManager();
-	void set(DrawLayer* _layer, Entity* _entity);
+	void set(Entity* _entity, DrawLayer& layer, b2World* _physWorld);
 	void addObject(Entity* entity);
 	void update();
+	bool beginContact(Entity* entity, b2Contact* contact);
+	bool endContact(Entity* entity, b2Contact* contact);
 
 private:
 	DrawLayer *layer;
@@ -35,7 +37,7 @@ private:
 	Blocker* blockers;
 	int n_blockers;
 	const int max_blockers = 100000;
-	const int PL_DISTANCE = 1000000;
+	const float PL_DISTANCE = 1000000.f;
 
 	bool containsMovables;
 	void calculateBlocker(Blocker& blocker);
@@ -50,6 +52,14 @@ private:
 	sf::Sprite light, lightMap;
 	float renderScale;
 	sf::RectangleShape lightHitbox;
-	float width, height;
+	float widthOrginOffset, heightOrginOffset;
+
+	b2World* physWorld;
+	b2Body* body;
+	b2CircleShape* circleShape;
+	b2FixtureDef* fixtureDef;
+	b2BodyDef* bodyDef;
+	sf::CircleShape circle;
+
 };
 

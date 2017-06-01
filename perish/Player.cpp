@@ -58,7 +58,6 @@ void Player::_spawn() {
 
 //START CONTACT
 bool Player::beginContact(Entity* entity, b2Contact* contact) {
-
 	return false;
 }
 

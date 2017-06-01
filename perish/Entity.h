@@ -12,6 +12,7 @@ enum EntityType {
 	ENEMY,
 	ITEM,
 	STATIC,
+	LIGHT,
 	OTHER
 };
 

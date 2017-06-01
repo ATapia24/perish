@@ -12,8 +12,8 @@
 
 namespace misc {
 	const std::string GAME_NAME = "Perish";
-	const int NATIVE_WIDTH = 1920;
-	const int NATIVE_HEIGHT = 1080;
+	const int NATIVE_WIDTH = 1600;
+	const int NATIVE_HEIGHT = 900;
 	const float PI = 3.14159265359f;
 	const float PI2 = 6.28318530718f;
 	const float PIh = 1.57079632679f;

@@ -6,6 +6,7 @@ public:
 	PerfArray(unsigned int _MAX_SIZE);
 	void add(T obj);
 	void remove(unsigned int index);
+	void remove();
 	int size();
 	T operator[](unsigned int index);
 	void operator+=(T obj);
@@ -65,12 +66,22 @@ void PerfArray<T>::clean() {
 
 }
 
-//REMOVE
+//REMOVE w/ INDEX
 template <class T>
 void PerfArray<T>::remove(unsigned int index) {
 
 	_size <= 1 ? _size = 0 : _size--;
 	array[index] = array[_size];
+}
+
+//REMOVE
+template <class T>
+void PerfArray<T>::remove() {
+	for (int i = 0; i < _size; i++) {
+		array[i]->kill();
+	}
+
+	_size = 0;
 }
 
 //GET SIZE

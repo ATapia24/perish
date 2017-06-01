@@ -3,6 +3,7 @@
 #include "Miscellaneous.h"
 #include <thread>
 #include <ctime>
+#include <windows.h>
 
 int main() {
 	//seed for random numbers
@@ -14,6 +15,7 @@ int main() {
 
 	//create and launch drawThread
 	std::thread drawThread(&DrawManager::ThreadHandler, &drawManager);
+	Sleep(200);//wait for window to be created
 
 	//initialize game
 	gameManager.initGame();

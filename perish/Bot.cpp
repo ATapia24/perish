@@ -87,17 +87,18 @@ void Bot::kill() {
 
 //BEGIN CONTACT
 bool Bot::beginContact(Entity* entity, b2Contact* contact) {
-	if (entity->getType() == PLAYER)
-	{
+	if (entity->getType() == LIGHT){
 		sprite.setColor(sf::Color::Green);
+		std::cout << "start\n";
 	}
 	return false;
 }
 
 //END CONTACT
 bool Bot::endContact(Entity* entity, b2Contact* contact) {
-	if (entity->getType() == PLAYER) {
+	 if (entity->getType() == LIGHT) {
 		sprite.setColor(sf::Color::White);
+		std::cout << "end\n";
 	}
 	return false;
 }

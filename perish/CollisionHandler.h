@@ -2,6 +2,7 @@
 
 #include "Box2D.h"
 #include "Entities.h"
+#include "PerfArray.h"
 
 class CollisionHandler : public b2ContactListener
 {
@@ -15,8 +16,7 @@ public:
 	virtual void update();
 private:
 	const int MAX_REMOVES = 10000;
-	Entity** removalArr;
-	unsigned int n_removes;
+	PerfArray<Entity*> removalArr;
 	void addRemoval(Entity* entity);
 };
 

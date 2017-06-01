@@ -13,6 +13,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <windows.h>
+#include <iostream>
 #include "DrawLayer.h"
 #include "Miscellaneous.h"
 #include "Timer.h"

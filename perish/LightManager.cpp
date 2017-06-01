@@ -1,21 +1,25 @@
 #include "LightManager.h"
 
-
 //CONSTRUCTOR
 LightManager::LightManager(){
 	blockers = new Blocker[max_blockers];
 	pcount = 0;
 	points.setPrimitiveType(sf::Triangles);
 	lastCenter = b2Vec2(0, 0);
+	float renderScale = 2.f;
 
 	lightTexture.loadFromFile("assets/light.png");
 	light.setTexture(lightTexture);
-	light.setOrigin(sf::Vector2f(lightTexture.getSize().x / 2, lightTexture.getSize().y / 2));
+	light.setOrigin(sf::Vector2f(lightTexture.getSize().x / 2.f, lightTexture.getSize().y / 2.f));
 	renderTexture.create(lightTexture.getSize().x, lightTexture.getSize().y);
-	lightMap.setOrigin(sf::Vector2f(lightTexture.getSize().x/2, lightTexture.getSize().y/2));
+	lightMap.setOrigin(sf::Vector2f(lightTexture.getSize().x/2.f, lightTexture.getSize().y/2.f));
 	lightMap.setTexture(renderTexture.getTexture());
-	width = lightTexture.getSize().x / 2;
-	height = lightTexture.getSize().y / 2;
+
+	//texture origin offset
+	widthOrginOffset = lightTexture.getSize().x / 2.f;
+	heightOrginOffset = lightTexture.getSize().y / 2.f;
+
+	type = EntityType::LIGHT;
 }
 
 //DECONSTRUCTOR
@@ -31,15 +35,18 @@ void LightManager::update() {
 	Timer t;
 	t.start();
 
+
 	center = player->getBody()->GetPosition();
+	body->SetTransform(center, 0);
+	circle.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
 
 	//check for new center or rotation or movables
-	if (center != lastCenter || containsMovables || true) 
-	{
+	//if (center != lastCenter || containsMovables || true) 
+	//{
 		pcount = 0;
 		for (int i = 0; i < n_blockers; i++) //TODO: if moved
 				calculateBlocker(blockers[i]);
-	}
+	//}
 
 	sf::BlendMode blendMode(
 		sf::BlendMode::Factor::Zero,              // color src
@@ -50,7 +57,8 @@ void LightManager::update() {
 		sf::BlendMode::Equation::Add);
 
 	//render texture
-	light.setPosition(sf::Vector2f(center.x + width, center.y + height));
+	//light.setPosition(sf::Vector2f(center.x + widthOrginOffset, center.y + heightOrginOffset));
+	light.setPosition(sf::Vector2f(center.x / misc::PHYSICS_SCALE + widthOrginOffset, center.y / misc::PHYSICS_SCALE + heightOrginOffset));
 	renderTexture.clear(sf::Color::Transparent);
 	renderTexture.draw(light);
 	renderTexture.draw(points, blendMode);
@@ -101,27 +109,62 @@ void LightManager::calculateBlocker(Blocker& blocker) {
 
 	//setup triangle in points array
 	points.resize(pcount + 6);
-	points[pcount++] = sf::Vertex(sf::Vector2f(bp1.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + width, bp1.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + height));
-	points[pcount++] = sf::Vertex(sf::Vector2f(tip1.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + width, tip1.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + height));
-	points[pcount++] = sf::Vertex(sf::Vector2f(tip2.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + width, tip2.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + height));
-	points[pcount++] = sf::Vertex(sf::Vector2f(bp1.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + width, bp1.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + height));
-	points[pcount++] = sf::Vertex(sf::Vector2f(bp2.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + width, bp2.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + height));
-	points[pcount++] = sf::Vertex(sf::Vector2f(tip2.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + width, tip2.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + height));
+	points[pcount++] = sf::Vertex(sf::Vector2f(bp1.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + widthOrginOffset, bp1.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + heightOrginOffset));
+	points[pcount++] = sf::Vertex(sf::Vector2f(tip1.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + widthOrginOffset, tip1.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + heightOrginOffset));
+	points[pcount++] = sf::Vertex(sf::Vector2f(tip2.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + widthOrginOffset, tip2.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + heightOrginOffset));
+	points[pcount++] = sf::Vertex(sf::Vector2f(bp1.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + widthOrginOffset, bp1.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + heightOrginOffset));
+	points[pcount++] = sf::Vertex(sf::Vector2f(bp2.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + widthOrginOffset, bp2.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + heightOrginOffset));
+	points[pcount++] = sf::Vertex(sf::Vector2f(tip2.x * misc::PHYSICS_SCALE - (center.x * misc::PHYSICS_SCALE) + widthOrginOffset, tip2.y * misc::PHYSICS_SCALE - (center.y * misc::PHYSICS_SCALE) + heightOrginOffset));
 }
 
 //SET
-void LightManager::set(DrawLayer* _layer, Entity* _player) {
-	layer = _layer;
-	player = _player;
-	lightMap.setColor(sf::Color(255, 0, 0, 100));
+void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) {
+	layer = &_layer;
+	player = _entity;
+	physWorld = _physWorld;
+	lightMap.setColor(misc::randomColor());
 	layer->add(lightMap, sf::BlendAdd);
-	//layer->add(lightMap);
 	layer->add(lightHitbox);
-	//layer->add(points);
+	layer->add(circle);
+
+	//sensor setup
+
+	//body def
+	bodyDef = new b2BodyDef();
+	bodyDef->type = b2_kinematicBody;
+
+	//body
+	body = physWorld->CreateBody(bodyDef);
+	body->SetActive(true);
+	body->SetUserData(this);
+
+	//fixture
+	fixtureDef = new b2FixtureDef();
+	fixtureDef->isSensor = true;
+
+	circleShape = new b2CircleShape();
+	circleShape->m_radius = widthOrginOffset; //* misc::PHYSICS_SCALE;
+	fixtureDef->shape = circleShape;
+	body->CreateFixture(fixtureDef);
+	circle.setFillColor(sf::Color::Transparent);
+	circle.setOutlineColor(sf::Color::Green);
+	circle.setOutlineThickness(2.f);
+	circle.setRadius(widthOrginOffset);
+	circle.setOrigin(widthOrginOffset, heightOrginOffset);
 }
 
 //ADD OBJECT
 void LightManager::addObject(Entity* obj) {
 	blockers[n_blockers].entity = obj;
 	n_blockers++;
+}
+
+bool LightManager::beginContact(Entity* entity, b2Contact* contact) {
+	std::cout << "start LIGHT contact\n";
+	return false;
+}
+
+bool LightManager::endContact(Entity* entity, b2Contact* contact) {
+	std::cout << "end LIGHT contact\n";
+	return false;
 }
