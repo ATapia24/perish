@@ -25,6 +25,7 @@ public:
 	void update();
 	bool beginContact(Entity* entity, b2Contact* contact);
 	bool endContact(Entity* entity, b2Contact* contact);
+	bool preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold);
 
 private:
 	DrawLayer *layer;

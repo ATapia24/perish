@@ -131,7 +131,7 @@ void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) 
 
 	//body def
 	bodyDef = new b2BodyDef();
-	bodyDef->type = b2_kinematicBody;
+	bodyDef->type = b2_dynamicBody;
 
 	//body
 	body = physWorld->CreateBody(bodyDef);
@@ -140,10 +140,10 @@ void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) 
 
 	//fixture
 	fixtureDef = new b2FixtureDef();
-	fixtureDef->isSensor = true;
+	//fixtureDef->isSensor = true;
 
 	circleShape = new b2CircleShape();
-	circleShape->m_radius = widthOrginOffset; //* misc::PHYSICS_SCALE;
+	circleShape->m_radius = widthOrginOffset / misc::PHYSICS_SCALE; //* misc::PHYSICS_SCALE;
 	fixtureDef->shape = circleShape;
 	body->CreateFixture(fixtureDef);
 	circle.setFillColor(sf::Color::Transparent);
@@ -160,11 +160,16 @@ void LightManager::addObject(Entity* obj) {
 }
 
 bool LightManager::beginContact(Entity* entity, b2Contact* contact) {
-	std::cout << "start LIGHT contact\n";
+	std::cout << "start LIGHT contact " << entity->getType() << "\n";
 	return false;
 }
 
 bool LightManager::endContact(Entity* entity, b2Contact* contact) {
 	std::cout << "end LIGHT contact\n";
+	return false;
+}
+
+bool LightManager::preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold) {
+	contact->SetEnabled(false);
 	return false;
 }
