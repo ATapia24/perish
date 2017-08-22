@@ -30,11 +30,13 @@ private:
 	
 	Debug* debug;
 	b2World* physWorld;
+	CollisionHandler collisionHandler;
 	void gameLoop();
+	void updatePhysics();
 
-	const unsigned TICK_RATE = 16;
-	float tick_delta;
-	Timer gameTickTimer;
+	const unsigned TICK_RATE = 8;
+	float tick_delta, phys_delta;
+	Timer gameTickTimer, physTimer;
 	bool gameTick();
 	std::string upsString, fpsString;
 	std::string playerCoords, playerRot;

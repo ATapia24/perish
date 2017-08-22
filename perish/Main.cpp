@@ -19,6 +19,7 @@ int main() {
 
 	//initialize game
 	gameManager.initGame();
+	drawThread.join();
 	
 	return 0;
 }

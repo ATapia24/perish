@@ -91,7 +91,6 @@ void DrawManager::draw() {
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
 		for (unsigned int j=0; drawCount < layers[i]->getSize(); j++) {
-		//for(int j=0; j < layers[i]->getSize(); j++) {
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; //do nothing
 			case DrawType::SPRITE:

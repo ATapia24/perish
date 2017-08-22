@@ -75,7 +75,6 @@ void GameManager::gameLoop() {
 	int count = 0;
 	int sOffset = 0;
 
-	CollisionHandler collisionHandler;
 	physWorld->SetContactListener(&collisionHandler);
 	Key button(XboxButton::A, KeyType::REPEATED);
 	Key quit(XboxButton::BACK, KeyType::REPEATED);
@@ -90,20 +89,23 @@ void GameManager::gameLoop() {
 
 
 	PerfArray<Bot*> arr;
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 100; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
 		arr[i]->getTarget().setTarget(player.getBody());
-		arr[i]->setSpawnPoint(b2Vec2(misc::random(2, 2), misc::random(2, 2)), 0);
+		arr[i]->setSpawnPoint(b2Vec2(misc::random(0, 20), misc::random(0, 20)), 0);
 		lm.addObject(arr[i]);
 	}
 
 	arr.spawnAll();
 
+	physTimer.start();
+
 	while (drawManager->isWindowOpen()) {
 		if (quit1.getValue())
 			drawManager->close();
+
 
 		if (gameTick()) {
 			//update controller
@@ -117,8 +119,8 @@ void GameManager::gameLoop() {
 
 			menu.update();
 			player.update();
-			physWorld->Step(1.0f / 60.f, 8, 3);
-			collisionHandler.update(); //always call after a physics step
+
+			updatePhysics();
 
 			if (zoomIn.getValue())
 				camera.zoom(1.1f);
@@ -142,6 +144,14 @@ bool GameManager::gameTick() {
 	}
 
 	return false;
+}
+
+//UPDATE PHYSICS
+void GameManager::updatePhysics() {
+	phys_delta = physTimer.getNanoseconds() / 1000000000.f; //nanoseconds to seconds
+	physTimer.reset();
+	physWorld->Step(phys_delta, 8, 3);
+	collisionHandler.update(); //always call after a physics step
 }
 
 
