@@ -182,3 +182,14 @@ float Entity::getSpawnRotation() {
 b2Body* Entity::getBody() {
 	return body;
 }
+
+
+//SET LIGHT INDEX
+void Entity::setLightIndex(int _index) {
+	lightIndex = _index;
+}
+
+//GET LIGHT INDEX
+int Entity::getLightIndex() {
+	return lightIndex;
+}

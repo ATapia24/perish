@@ -28,12 +28,12 @@ void GameManager::gameLoop() {
 
 	//temp
 	sf::View camera, gui;
-	DrawLayer layer(camera), guiLayer(gui), floor(camera);
+	DrawLayer layer(camera), guiLayer(gui), floor(camera), light(camera);
 
 	LightManager lm;
 
 	Player player;
-	lm.set(&player, layer, physWorld);
+	lm.set(&player, light, physWorld);
 	player.load(&camera, physWorld, layer);
 	player.spawn();
 
@@ -68,6 +68,7 @@ void GameManager::gameLoop() {
 	}
 
 	drawManager->addLayer(floor);
+	drawManager->addLayer(light);
 	drawManager->addLayer(layer);
 	drawManager->addLayer(guiLayer);
 
@@ -85,16 +86,13 @@ void GameManager::gameLoop() {
 	clk.start();
 
 
-	LightManager l2;
-
-
 	PerfArray<Bot*> arr;
 	for (int i = 0; i < 1000; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
 		arr[i]->getTarget().setTarget(player.getBody());
-		arr[i]->setSpawnPoint(b2Vec2(misc::random(0, 20), misc::random(0, 20)), 0);
+		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 5)-2.5f, -misc::random(0, 100)), 0);
 		lm.addObject(arr[i]);
 	}
 

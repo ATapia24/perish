@@ -13,6 +13,7 @@ struct  Blocker
 	Entity* entity;
 	sf::Vector2f points[4];
 	b2Vec2 lastPosition;
+	unsigned int index;
 };
 
 class LightManager : public Entity
@@ -26,6 +27,7 @@ public:
 	bool beginContact(Entity* entity, b2Contact* contact);
 	bool endContact(Entity* entity, b2Contact* contact);
 	bool preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold);
+	bool postSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 
 private:
 	DrawLayer *layer;

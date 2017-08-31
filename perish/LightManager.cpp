@@ -6,18 +6,20 @@ LightManager::LightManager(){
 	pcount = 0;
 	points.setPrimitiveType(sf::Triangles);
 	lastCenter = b2Vec2(0, 0);
-	float renderScale = 2.f;
 
 	lightTexture.loadFromFile("assets/light.png");
 	light.setTexture(lightTexture);
+	light.setColor(sf::Color(255, 255, 255, 250));
+	float s = 4.f;
+	light.scale(s, s);
 	light.setOrigin(sf::Vector2f(lightTexture.getSize().x / 2.f, lightTexture.getSize().y / 2.f));
-	renderTexture.create(lightTexture.getSize().x, lightTexture.getSize().y);
-	lightMap.setOrigin(sf::Vector2f(lightTexture.getSize().x/2.f, lightTexture.getSize().y/2.f));
+	renderTexture.create(lightTexture.getSize().x * s, lightTexture.getSize().y * s);
+	lightMap.setOrigin(sf::Vector2f(lightTexture.getSize().x/2.f*s, lightTexture.getSize().y/2.f*s));
 	lightMap.setTexture(renderTexture.getTexture());
 
 	//texture origin offset
-	widthOrginOffset = lightTexture.getSize().x / 2.f;
-	heightOrginOffset = lightTexture.getSize().y / 2.f;
+	widthOrginOffset = lightTexture.getSize().x / 2.f*s;
+	heightOrginOffset = lightTexture.getSize().y / 2.f*s;
 
 	type = EntityType::LIGHT;
 }
@@ -122,7 +124,8 @@ void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) 
 	layer = &_layer;
 	player = _entity;
 	physWorld = _physWorld;
-	lightMap.setColor(misc::randomColor());
+	//lightMap.setColor(misc::randomColor());
+	lightMap.setColor(sf::Color(255, 255, 255, 200));
 	layer->add(lightMap, sf::BlendAdd);
 	layer->add(lightHitbox);
 	layer->add(circle);
@@ -156,20 +159,28 @@ void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) 
 //ADD OBJECT
 void LightManager::addObject(Entity* obj) {
 	blockers[n_blockers].entity = obj;
+	//obj->setLightIndex(n_blockers);
+	//blockers[n_blockers].index = n_blockers;
 	n_blockers++;
 }
 
 bool LightManager::beginContact(Entity* entity, b2Contact* contact) {
-	std::cout << "start LIGHT contact " << entity->getType() << "\n";
+	//std::cout << "start LIGHT contact " << entity->getType() << "\n";
 	return false;
 }
 
 bool LightManager::endContact(Entity* entity, b2Contact* contact) {
-	std::cout << "end LIGHT contact\n";
+	//std::cout << "end LIGHT contact\n";
 	return false;
 }
 
 bool LightManager::preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold) {
 	contact->SetEnabled(false);
+	//addObject(entity);
+	return false;
+}
+
+bool LightManager::postSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
+	
 	return false;
 }

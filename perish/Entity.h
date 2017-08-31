@@ -18,7 +18,6 @@ enum EntityType {
 
 class Entity {
 public:
-
 	Entity();
 	virtual ~Entity();
 	virtual void load(b2World* _physWorld, DrawLayer& _layer);
@@ -41,6 +40,9 @@ public:
 	float getSpawnRotation();
 	EntityType getType() { return type; };
 	b2PolygonShape* getPolyShape() { return polyShape; };
+	virtual void setLightIndex(int _index);
+	virtual int getLightIndex();
+
 protected:
 	DrawLayer* layer;
 	b2World* physWorld;
@@ -73,6 +75,9 @@ protected:
 	//sprite and texture
 	sf::Sprite sprite;
 	sf::Texture texture;
+
+	//light index
+	unsigned int lightIndex;
 };
 
 class Target;
