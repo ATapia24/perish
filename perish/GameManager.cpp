@@ -133,7 +133,7 @@ void GameManager::gameLoop() {
 				sf::Joystick::update();
 
 
-			arr.update();		
+			//arr.update();		
 			//lm.update();
 			//lms.update();
 
