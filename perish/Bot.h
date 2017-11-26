@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BOT_H
+#define BOT_H
+
 #include "Entity.h"
 #include "Target.h"
 
@@ -31,3 +33,4 @@ private:
 
 };
 
+#endif

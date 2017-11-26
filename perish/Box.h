@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BOX_H
+#define BOX_H
+
 #include "Entity.h"
 
 class Box :
@@ -20,3 +22,4 @@ private:
 	float size;
 };
 
+#endif

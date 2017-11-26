@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONTROLELR_H
+#define CONTROLLER_H
 
 #include <SFML\Graphics.hpp>
 #include "Box2D.h"
@@ -48,3 +49,4 @@ protected:
 	int count=0;
 };
 
+#endif

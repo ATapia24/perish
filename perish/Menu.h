@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MENU_H
+#define MENU_H
 
 #include <SFML\Graphics.hpp>
 #include <stdarg.h>
@@ -57,3 +58,4 @@ private:
 	unsigned int updateRate;
 };
 
+#endif

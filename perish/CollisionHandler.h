@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COLLISIONHANDLER_H
+#define COLLISIONHANDLER_H
 
 #include "Box2D.h"
 #include "Entities.h"
@@ -20,3 +21,4 @@ private:
 	void addRemoval(Entity* entity);
 };
 
+#endif

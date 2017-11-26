@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TARGET_H
+#define TARGET_H
 
 #include "Box2D.h"
 #include <iostream>
@@ -35,3 +36,4 @@ private:
 	bool isActive = true;
 };
 
+#endif

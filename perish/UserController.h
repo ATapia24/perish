@@ -1,4 +1,5 @@
-#pragma once
+#ifndef USERCONTROLLER_H
+#define USERCONTROLLER_h
 
 #include <iostream>
 #include "Controller.h"
@@ -21,3 +22,5 @@ private:
 	Key sprintKey2;
 
 };
+
+#endif

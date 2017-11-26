@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIGHTMANAGER_H
+#define LIGHTMANAGER_H
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
@@ -67,3 +68,4 @@ private:
 
 };
 
+#endif

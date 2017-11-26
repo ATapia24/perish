@@ -33,15 +33,10 @@ void GameManager::gameLoop() {
 	sf::View camera, gui;
 	DrawLayer layer(camera), guiLayer(gui), floor(camera), light(camera);
 
-	LightManager lm;
-
 	Player player;
-	lm.set(&player, light, physWorld);
 	player.load(&camera, physWorld, layer);
 	player.spawn();
 
-	Key spawn (sf::Keyboard::Num1, KeyType::REPEATED);
-	Key kill(sf::Keyboard::Num2, KeyType::REPEATED);
 	Menu menu(guiLayer, 10, 10, 0);
 	menu.setSelectedFontColot(sf::Color::White);
 	upsString = "UPS: 00";
@@ -51,18 +46,25 @@ void GameManager::gameLoop() {
 	menu.reshape();
 	menu.setUpdateRate(50);
 
+	//key binds
 	Key up(sf::Keyboard::Up, KeyType::SINGLE), down(sf::Keyboard::Down, KeyType::SINGLE);
 	Key zoomIn(sf::Keyboard::Dash, KeyType::REPEATED), zoomOut(sf::Keyboard::Equal, KeyType::REPEATED);
+	Key button(XboxButton::A, KeyType::REPEATED);
+	Key quit(XboxButton::BACK, KeyType::REPEATED);
+	Key quit1(sf::Keyboard::Escape, KeyType::REPEATED);
+	Key spawn(sf::Keyboard::Num1, KeyType::REPEATED);
+	Key kill(sf::Keyboard::Num2, KeyType::REPEATED);
+	Joystick lStick(0);
+
 	sf::Texture texture;
 	texture.loadFromFile("assets/dirty_grass.png");
 
+	//floor
 	const int x = 10;
 	sf::Sprite** sprite = new sf::Sprite*[x];
 	for (int i = 0; i < x; i++) {
 		sprite[i] = new sf::Sprite[x];
 	}
-
-	PerfArray<LightManager*> lms;
 	for (int i = 0; i < x; i++) {
 		for (int j = 0; j < x; j++) {
 			sprite[i][j].setPosition(i * 100.f , j * 100.f);
@@ -77,17 +79,8 @@ void GameManager::gameLoop() {
 	drawManager->addLayer(guiLayer);
 
 	gameTickTimer.start();
-	int count = 0;
-	int sOffset = 0;
 
 	physWorld->SetContactListener(&collisionHandler);
-	Key button(XboxButton::A, KeyType::REPEATED);
-	Key quit(XboxButton::BACK, KeyType::REPEATED);
-	Key quit1(sf::Keyboard::Escape, KeyType::REPEATED);
-	Joystick lStick(0);
-
-	Timer clk;
-	clk.start();
 
 
 	PerfArray<Bot*> arr;
@@ -98,27 +91,9 @@ void GameManager::gameLoop() {
 		arr[i]->getTarget().setTarget(player.getBody());
 		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 20), misc::random(0, 20)), 0);
 		arr[i]->getTarget().setTarget(player.getBody());
-		lm.addObject(arr[i]);
-		//lms.add(new LightManager);
-		//lms[lms.size() - 1]->set(arr[i], light, physWorld);
-	}
-
-	for (int i = 0; i < arr.size(); i++) {
-		for (int j = 0; j < lms.size(); j++) {
-			//lms[j]->addObject(arr[i]);
-			//lms[j]->addObject(&player);
-		}
 	}
 
 	arr.spawnAll();
-
-	Static s;
-	s.load(physWorld, layer);
-
-	s.setSpawnPoint(b2Vec2(10, 10), 0);
-	//lm.addObject(&s);
-	//s.spawn();
-
 	physTimer.start();
 
 	//game loop
@@ -134,9 +109,6 @@ void GameManager::gameLoop() {
 
 
 			arr.update();		
-			//lm.update();
-			//lms.update();
-
 			menu.update();
 			player.update();
 

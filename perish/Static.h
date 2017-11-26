@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STATIC_H
+#define STATIC_H
+
 #include "Entity.h"
 #include <iostream>
 
@@ -17,3 +19,4 @@ private:
 	int height, width;
 };
 
+#endif

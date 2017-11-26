@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DRAWLAYER_H
+#define DRAWLAYER_H
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -79,3 +80,4 @@ private:
 	bool createdNewView;
 };
 
+#endif

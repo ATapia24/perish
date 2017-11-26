@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PERFARRAY_H
+#define PERFARRAY_H
+
 template <class T>
 class PerfArray {
 public:
@@ -111,3 +113,4 @@ void PerfArray<T>::spawnAll() {
 		array[i]->spawn();
 }
 
+#endif

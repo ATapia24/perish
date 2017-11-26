@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
@@ -82,3 +83,5 @@ protected:
 };
 
 class Target;
+
+#endif

@@ -15,7 +15,11 @@ int main() {
 
 	//create and launch drawThread
 	std::thread drawThread(&DrawManager::ThreadHandler, &drawManager);
-	Sleep(200);//wait for window to be created
+	
+	//wait for window to be created
+	while(drawManager.getWindow() == NULL){
+		Sleep(0);
+	}
 
 	//initialize game
 	gameManager.initGame();

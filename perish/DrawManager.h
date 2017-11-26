@@ -1,15 +1,5 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
-/*
-* File:   DrawManager.h
-* Author: activates
-*
-* Created on March 13, 2017, 4:47 PM
-*/
+#ifndef DRAWMANAGER_H
+#define DRAWMANAGER_H
 
 #include <SFML/Graphics.hpp>
 #include <windows.h>
@@ -17,10 +7,6 @@
 #include "DrawLayer.h"
 #include "Miscellaneous.h"
 #include "Timer.h"
-
-
-#ifndef DRAWMANAGER_H
-#define DRAWMANAGER_H
 
 class DrawManager {
 public:
