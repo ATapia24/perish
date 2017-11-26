@@ -15,6 +15,7 @@ void Entity::load(b2World* _physWorld, DrawLayer& _layer) {
 	physWorld = _physWorld;
 	layer = &_layer;
 	loaded = true;
+	physReady = false;
 }
 
 //UNLOAD
@@ -29,7 +30,9 @@ void Entity::update() {
 
 //KILL
 void Entity::kill() {
-	//empty
+	//body->SetActive(false);
+	physicsDelete();
+	layer->remove(layerIndex);
 }
 
 //LOAD DEFAULTS
@@ -71,6 +74,7 @@ void Entity::physicsBoxSetup(float width, float height) {
 	fixtureDef->shape = polyShape;
 	//fixtureDef->restitution = 2.f;
 	body->CreateFixture(fixtureDef);
+	physReady = true;
 }
 
 //CIRCLE SHAPE SETUP
@@ -80,6 +84,7 @@ void Entity::physicsCircleSetup(float radius) {
 	circleShape->m_radius = radius / misc::PHYSICS_SCALE;
 	fixtureDef->shape = circleShape;
 	body->CreateFixture(fixtureDef);
+	physReady = true;
 }
 
 //UNLOAD PHYSICS

@@ -41,25 +41,27 @@ void Bot::load(b2World* _physWorld, DrawLayer& _layer) {
 //UPDATE
 void Bot::update() {
 
-//	controller.update();
+	controller.update();
 
 	if (spawned) {
 		//look at target
 		if (true) {
-		//	float targetAngle = -misc::lineAngle(body->GetPosition(),target.getTargetPoint()) + misc::PIh;
-		//	body->SetTransform(body->GetPosition(), targetAngle);
+			float targetAngle = misc::lineAngle(body->GetPosition(),target.getTargetPoint()) + misc::PIh;
+			body->SetTransform(body->GetPosition(), targetAngle);
 		}
 
+		//move to target
 		if (true) {
-		//	float32 angle = body->GetAngle() + misc::PI;
-		//	body->ApplyLinearImpulseToCenter(0.0001f * b2Vec2(-sin(angle), cos(angle)), true);
-			//angle += misc::PIh;
-			//body->ApplyLinearImpulseToCenter(0.000001f * b2Vec2(-sin(angle), cos(angle)), true);
+			float32 angle = body->GetAngle() + misc::PI;
+			body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * 0.0001, cos(angle) * 0.0001), true);
+			angle += misc::PIh;
 		}
 
 		sprite.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
 		sprite.setRotation(body->GetAngle() * misc::RAD2DEG + 180.f);
 	}
+	if (!spawned)
+		spawn();
 }
 
 //UNLOAD
@@ -70,6 +72,11 @@ void Bot::unload() {
 
 //SPAWN
 void Bot::_spawn() {
+	if (!physReady) {
+		physicsBodySetup();
+		physicsBoxSetup(width, height);
+	}
+	
 	body->SetTransform(spawnPoint, spawnRotation);
 	update();
 	layerIndex = layer->add(sprite);
@@ -111,10 +118,14 @@ bool Bot::preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldMani
 		Bot* bot = static_cast<Bot*>(contact->GetFixtureB()->GetUserData());
 		std::cout << bot->getType() << '\n';
 	}*/
+
 	return false;
 }
 
 //POST-SOLVE
 bool Bot::postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse) {
+	if (entity->getType() == PLAYER)
+		return true;
+
 	return false;
 }

@@ -11,8 +11,8 @@ public:
 	void load(b2World* _physWorld, DrawLayer& _layer);
 
 private:
-	//void physicsBodySetup();
-	//void _spawn();
+	void physicsBodySetup();
+	void _spawn();
 	sf::RectangleShape hitbox;
 	int height, width;
 };

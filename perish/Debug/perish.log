@@ -1,4 +1,23 @@
-﻿  GameManager.cpp
-c:\users\pc\desktop\perish\perish\gamemanager.cpp(98): warning C4244: 'argument': conversion from 'int' to 'float32', possible loss of data
+﻿  LightManager.cpp
+c:\users\pc\desktop\perish\perish\lightmanager.cpp(16): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+  GameManager.cpp
+c:\users\pc\desktop\perish\perish\gamemanager.cpp(95): warning C4244: 'argument': conversion from 'int' to 'float32', possible loss of data
+  Entity.cpp
+  DrawManager.cpp
+c:\users\pc\desktop\perish\perish\drawmanager.cpp(88): warning C4018: '<': signed/unsigned mismatch
+c:\users\pc\desktop\perish\perish\drawmanager.cpp(93): warning C4018: '<': signed/unsigned mismatch
+  Bot.cpp
+  Generating Code...
+  Compiling...
+  Static.cpp
+c:\users\pc\desktop\perish\perish\static.cpp(28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\pc\desktop\perish\perish\static.cpp(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\pc\desktop\perish\perish\static.cpp(30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Player.cpp
+c:\users\pc\desktop\perish\perish\player.cpp(24): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Main.cpp
+  CollisionHandler.cpp
+  Box.cpp
+  Generating Code...
   perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.exe
   perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.pdb (Partial PDB)

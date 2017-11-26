@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+
 class Box :
 	public Entity
 {
@@ -11,6 +12,7 @@ public:
 	void unload();
 	//void beginContact(Entity* entity) {};
 	//void endContact(Entity* entity) {};
+	//bool postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse);
 private:
 	void _spawn();
 	sf::Sprite sprite;

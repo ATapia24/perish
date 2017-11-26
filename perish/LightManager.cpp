@@ -10,7 +10,7 @@ LightManager::LightManager(){
 	lightTexture.loadFromFile("assets/light.png");
 	light.setTexture(lightTexture);
 	light.setColor(sf::Color(255, 255, 255, 250));
-	float s = 4.f;
+	float s = 1.f;
 	light.scale(s, s);
 	light.setOrigin(sf::Vector2f(lightTexture.getSize().x / 2.f, lightTexture.getSize().y / 2.f));
 	renderTexture.create(lightTexture.getSize().x * s, lightTexture.getSize().y * s);
@@ -30,8 +30,6 @@ LightManager::~LightManager(){
 }
 
 
-unsigned long total = 0;
-unsigned long count = 0;
 //UPDATE
 void LightManager::update() {
 	Timer t;
@@ -45,10 +43,17 @@ void LightManager::update() {
 	//check for new center or rotation or movables
 	//if (center != lastCenter || containsMovables || true) 
 	//{
-		pcount = 0;
-		for (int i = 0; i < n_blockers; i++) //TODO: if moved
-				calculateBlocker(blockers[i]);
-	//}
+
+	pcount = 0;
+	int n_calculated = 0;
+
+	
+	for (int i = 0; n_calculated != n_blockers; i++){
+		if (blockers[i].entity != NULL && misc::distance(player->getBody()->GetPosition(), blockers[i].entity->getBody()->GetPosition())<widthOrginOffset) {
+			calculateBlocker(blockers[i]);
+			n_calculated++;
+		}
+	}
 
 	sf::BlendMode blendMode(
 		sf::BlendMode::Factor::Zero,              // color src
@@ -59,7 +64,6 @@ void LightManager::update() {
 		sf::BlendMode::Equation::Add);
 
 	//render texture
-	//light.setPosition(sf::Vector2f(center.x + widthOrginOffset, center.y + heightOrginOffset));
 	light.setPosition(sf::Vector2f(center.x / misc::PHYSICS_SCALE + widthOrginOffset, center.y / misc::PHYSICS_SCALE + heightOrginOffset));
 	renderTexture.clear(sf::Color::Transparent);
 	renderTexture.draw(light);
@@ -71,18 +75,22 @@ void LightManager::update() {
 	lastCenter = center;
 	t.stop();
 
-	count++;
-	total += t.getNanoseconds();
+	//std::cout << "n: " << n_blockers << " t: " << (float)t.getNanoseconds() / 1000000.f << '\n';
 }
 
 //CALCULATE BLOCKER
 void LightManager::calculateBlocker(Blocker& blocker) {
 
+	if (blocker.entity->getPolyShape() == NULL && blocker.entity->getPolyShape()->GetVertexCount() < 4)
+		return;
+
 	//get body points
 	b2Vec2 p[4];
 	float d[4];
 	for (int i = 0; i < 4; i++) {
+		std::cout << "a\n";
 		p[i] = blocker.entity->getBody()->GetWorldPoint(blocker.entity->getPolyShape()->GetVertex(i));
+		std::cout << "b\n";
 		d[i] = b2Distance(p[i], center);
 	}
 
@@ -125,10 +133,10 @@ void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) 
 	player = _entity;
 	physWorld = _physWorld;
 	//lightMap.setColor(misc::randomColor());
-	lightMap.setColor(sf::Color(255, 255, 255, 200));
+	lightMap.setColor(sf::Color(55, 55, 55, 200));
 	layer->add(lightMap, sf::BlendAdd);
 	layer->add(lightHitbox);
-	layer->add(circle);
+	//layer->add(circle);
 
 	//sensor setup
 
@@ -143,10 +151,9 @@ void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) 
 
 	//fixture
 	fixtureDef = new b2FixtureDef();
-	//fixtureDef->isSensor = true;
 
 	circleShape = new b2CircleShape();
-	circleShape->m_radius = widthOrginOffset / misc::PHYSICS_SCALE; //* misc::PHYSICS_SCALE;
+	circleShape->m_radius = widthOrginOffset / misc::PHYSICS_SCALE;
 	fixtureDef->shape = circleShape;
 	body->CreateFixture(fixtureDef);
 	circle.setFillColor(sf::Color::Transparent);
@@ -158,29 +165,77 @@ void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) 
 
 //ADD OBJECT
 void LightManager::addObject(Entity* obj) {
-	blockers[n_blockers].entity = obj;
-	//obj->setLightIndex(n_blockers);
-	//blockers[n_blockers].index = n_blockers;
-	n_blockers++;
+	
+	if (obj->getLightIndex() != -1)
+		return;
+	/*
+	for (int i = 0; i < max_blockers; i++) {
+		if (blockers[i].entity == NULL) {
+			blockers[i].entity = obj;
+			obj->setLightIndex(i);
+			n_blockers++;
+			return;
+		}
+	}*/
+
+	if (obj == player || obj->getLightIndex() != -1)
+		return;
+
+	for (int i = 0; i < max_blockers; i++)
+	{
+		if (blockers[i].entity == NULL) {
+			blockers[i].entity = obj;
+			//obj->setLightIndex(i);
+			n_blockers++;
+			break;
+		}
+	}
+	//blockers[n_blockers].entity = obj;
+	//n_blockers++;
+	
+}
+
+//REMOVE OBJECT
+void LightManager::removeObject(int index) {
+	//blockers[index].entity->setLightIndex(-1);
+	//blockers[index].entity = NULL;
+	//n_blockers--;
 }
 
 bool LightManager::beginContact(Entity* entity, b2Contact* contact) {
-	//std::cout << "start LIGHT contact " << entity->getType() << "\n";
 	return false;
 }
 
 bool LightManager::endContact(Entity* entity, b2Contact* contact) {
-	//std::cout << "end LIGHT contact\n";
+
+	/*r (int i = 0; i < max_blockers; i++) {
+		if (blockers[i].entity == entity) {
+			blockers[i].entity = NULL;
+			n_blockers--;
+			break;
+		}
+	}*/
 	return false;
 }
 
 bool LightManager::preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold) {
+
+	/*r (int i = 0; i < max_blockers; i++) {
+		if (blockers[i].entity == entity)
+			return false;
+	}
+
 	contact->SetEnabled(false);
-	//addObject(entity);
+	for (int i = 0; i < max_blockers; i++) {
+		if (blockers[i].entity == NULL) {
+			blockers[i].entity = entity;
+			n_blockers++;
+			break;
+		}
+	}*/
 	return false;
 }
 
 bool LightManager::postSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
-	
 	return false;
 }

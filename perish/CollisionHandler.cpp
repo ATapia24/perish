@@ -12,7 +12,9 @@ CollisionHandler::~CollisionHandler(){
 //UPDATE
 //desc. kill all entities that need to be deleted
 void CollisionHandler::update() {
-	removalArr.remove();
+	//for (int i = 0; i < removalArr.size(); i++)
+		//removalArr[i]->kill();
+		//removalArr.remove();
 }
 
 //START CONTACT

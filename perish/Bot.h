@@ -13,7 +13,7 @@ public:
 	virtual bool beginContact(Entity* entity, b2Contact* contact);
 	virtual bool endContact(Entity* entity, b2Contact* contact);
 	virtual bool preSolve(Entity* entity, b2Contact* contact, const b2Manifold* oldManifold);
-	virtual bool postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse);
+	bool postSolve(Entity* entity, b2Contact* contact, const b2ContactImpulse* impulse);
 
 	//target
 	Waypoint& getTarget() { return target; };

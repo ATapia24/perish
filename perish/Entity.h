@@ -52,6 +52,7 @@ protected:
 	bool loaded;
 	
 	//physics
+	bool physReady;
 	b2Body* body;
 	b2BodyDef* bodyDef;
 	b2PolygonShape* polyShape;
@@ -77,7 +78,7 @@ protected:
 	sf::Texture texture;
 
 	//light index
-	unsigned int lightIndex;
+	unsigned int lightIndex = -1;
 };
 
 class Target;

@@ -23,8 +23,11 @@ void GameManager::initGame() {
 	gameLoop();
 }
 
+
 //GAME LOOP
 void GameManager::gameLoop() {
+
+	//****ALL CODE IN HERE TO TEMPORARY AND USED FOR TESTING****
 
 	//temp
 	sf::View camera, gui;
@@ -59,6 +62,7 @@ void GameManager::gameLoop() {
 		sprite[i] = new sf::Sprite[x];
 	}
 
+	PerfArray<LightManager*> lms;
 	for (int i = 0; i < x; i++) {
 		for (int j = 0; j < x; j++) {
 			sprite[i][j].setPosition(i * 100.f , j * 100.f);
@@ -87,19 +91,37 @@ void GameManager::gameLoop() {
 
 
 	PerfArray<Bot*> arr;
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 200; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
 		arr[i]->getTarget().setTarget(player.getBody());
-		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 5)-2.5f, -misc::random(0, 100)), 0);
+		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 20), misc::random(0, 20)), 0);
+		arr[i]->getTarget().setTarget(player.getBody());
 		lm.addObject(arr[i]);
+		//lms.add(new LightManager);
+		//lms[lms.size() - 1]->set(arr[i], light, physWorld);
+	}
+
+	for (int i = 0; i < arr.size(); i++) {
+		for (int j = 0; j < lms.size(); j++) {
+			//lms[j]->addObject(arr[i]);
+			//lms[j]->addObject(&player);
+		}
 	}
 
 	arr.spawnAll();
 
+	Static s;
+	s.load(physWorld, layer);
+
+	s.setSpawnPoint(b2Vec2(10, 10), 0);
+	//lm.addObject(&s);
+	//s.spawn();
+
 	physTimer.start();
 
+	//game loop
 	while (drawManager->isWindowOpen()) {
 		if (quit1.getValue())
 			drawManager->close();
@@ -112,8 +134,8 @@ void GameManager::gameLoop() {
 
 
 			arr.update();		
-			lm.update();
-
+			//lm.update();
+			//lms.update();
 
 			menu.update();
 			player.update();
