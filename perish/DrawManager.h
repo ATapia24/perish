@@ -19,7 +19,7 @@ public:
 	//window management
 	void initWindow();
 	void resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border);
-	bool isWindowReady() const { return windowReady; };
+	bool isWindowReadyToClose() const { return windowCloseReady; };
 	bool isWindowOpen() const { return windowOpen; };
 	void close();
 
@@ -36,13 +36,14 @@ public:
 private:
 
 	void draw();
+	bool pollEvents();
+	void calculateFps();
 
 	//window management
 	HWND consoleWindow;
 	sf::RenderWindow *window;
-	bool windowReady;
 	sf::Event event;
-	bool windowOpen;
+	bool windowOpen, windowCloseReady;
 
 	// Holds the drawable layers
 	DrawLayer **layers;

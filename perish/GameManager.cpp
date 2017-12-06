@@ -60,7 +60,7 @@ void GameManager::gameLoop() {
 	texture.loadFromFile("assets/dirty_grass.png");
 
 	//floor
-	const int x = 10;
+	const int x = 100;
 	sf::Sprite** sprite = new sf::Sprite*[x];
 	for (int i = 0; i < x; i++) {
 		sprite[i] = new sf::Sprite[x];
@@ -84,12 +84,12 @@ void GameManager::gameLoop() {
 
 
 	PerfArray<Bot*> arr;
-	for (int i = 0; i < 200; i++) {
+	for (int i = 0; i < 2000; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
 		arr[i]->getTarget().setTarget(player.getBody());
-		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 20), misc::random(0, 20)), 0);
+		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 150), misc::random(0, 150)), 0);
 		arr[i]->getTarget().setTarget(player.getBody());
 	}
 
@@ -122,6 +122,11 @@ void GameManager::gameLoop() {
 		
 		}
 	}
+
+	while (!drawManager->isWindowReadyToClose()) {
+		Sleep(0);
+	}
+	
 }
 
 //GAME TICK

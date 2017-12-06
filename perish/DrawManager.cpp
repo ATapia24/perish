@@ -1,33 +1,17 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
-/*
-* File:   DrawManager.cpp
-* Author: activates
-*
-* Created on March 13, 2017, 4:47 PM
-*/
-
 #include "DrawManager.h"
 
 //CONSTRUCTOR
 DrawManager::DrawManager() {
-	windowReady = false;
 	windowOpen = false;
+	windowCloseReady = false;
 	layers = new DrawLayer*[MAX_LAYERS];
 	layersUsed = 0;
 }
 
 //DECONSTRUCTOR
 DrawManager::~DrawManager() {
-
 	delete[] layers;
-
 }
-
 
 //THREAD HANDLER - DRAW THREAD LOOP
 void DrawManager::ThreadHandler() {
@@ -39,28 +23,16 @@ void DrawManager::ThreadHandler() {
 
 	//draw loop
 	while (windowOpen) {
-		
-		//handle window events
-		while (window->pollEvent(event)){
-			switch (event.type) {
-				case sf::Event::Closed:
-					close();
-					break;
-				default: //do nothing
-					break;
-			}
+
+		//draw if polls events doesnt return false
+		if (pollEvents()) {
+			draw();
+			calculateFps();
 		}
-
-		//draw
-		draw();
-		
-		//calculate fps
-		fps = (1000000000.0f / (float)fpsTimer.getNanoseconds());
-		fpsTimer.reset();
-
-
 	}
 
+	windowCloseReady = true;
+	window->close();
 }
 
 //INITIALIZE WINDOW
@@ -75,7 +47,6 @@ void DrawManager::initWindow() {
 	//window = new sf::RenderWindow(sf::VideoMode(misc::NATIVE_WIDTH / 2 , misc::NATIVE_HEIGHT / 2), misc::GAME_NAME, sf::Style::Titlebar);
 	window = new sf::RenderWindow(sf::VideoMode(1280, 720), misc::GAME_NAME, sf::Style::Titlebar);
 	window->setFramerateLimit(100);
-	windowReady = true;
 	windowOpen = true;
 }
 
@@ -86,7 +57,6 @@ void DrawManager::draw() {
 	window->clear(sf::Color::Black);
 	//draw objects in layer
 	for (unsigned int i = 0; i < layersUsed; i++) {
-
 		//stops looping when every DrawObject has been drawn
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
@@ -120,8 +90,27 @@ void DrawManager::draw() {
 			}
 		}
 	}
-		//display
-		window->display();
+	
+	//display
+	window->display();
+}
+
+//POLL EVENTS
+//Desc. handles window events and returns false if window was closed
+bool DrawManager::pollEvents() {
+	
+	//handle window events
+	while (window->pollEvent(event)) {
+		switch (event.type) {
+		case sf::Event::Closed:
+			return false;
+			break;
+		default: //do nothing
+			break;
+		}
+	}
+
+	return true;
 }
 
 //RESIZE WINDOW
@@ -176,6 +165,13 @@ void DrawManager::setLayer(int loc, DrawLayer &layer) {
 	layers[loc] = &layer;
 }
 
+//CALCULATE FPS 
+void DrawManager::calculateFps() {
+	//calculate fps
+	fps = (1000000000.0f / (float)fpsTimer.getNanoseconds());
+	fpsTimer.reset();
+}
+
 //GET FPS
 float DrawManager::getFps() {
 	return fps;
@@ -184,5 +180,4 @@ float DrawManager::getFps() {
 //CLOSE
 void DrawManager::close() {
 	windowOpen = false;
-	window->close();
 }
