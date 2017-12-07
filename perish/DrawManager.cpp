@@ -60,19 +60,20 @@ void DrawManager::draw() {
 		//stops looping when every DrawObject has been drawn
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
-		for (unsigned int j=0; drawCount < layers[i]->getSize(); j++) {
+		std::cout << i << ' ' <<layers[i]->getSize() << '\n';
+		for (unsigned int j = 0; drawCount < layers[i]->getSize(); j++) {
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; //do nothing
 			case DrawType::SPRITE:
-				window->draw(*layers[i]->getDrawObjects()[j]->sprite, layers[i]->getDrawObjects()[j]->blend);
+				window->draw(*layers[i]->getDrawObjects()[j]->sprite);
 				drawCount++;
 				break;
 			case DrawType::VERTEX_ARRAY:
-				window->draw(*layers[i]->getDrawObjects()[j]->vertexArray, layers[i]->getDrawObjects()[j]->shader);
+				window->draw(*layers[i]->getDrawObjects()[j]->vertexArray);
 				drawCount++;
 				break;
 			case DrawType::TEXT:
-				window->draw(*layers[i]->getDrawObjects()[j]->text, layers[i]->getDrawObjects()[j]->shader);
+				window->draw(*layers[i]->getDrawObjects()[j]->text);
 				drawCount++;
 				break;
 			case DrawType::RECTANGLE:
@@ -89,8 +90,10 @@ void DrawManager::draw() {
 				break;
 			}
 		}
+
+		//std::cout << "test\n";
 	}
-	
+
 	//display
 	window->display();
 }

@@ -54,10 +54,10 @@ void Bot::update() {
 		//move to target
 		float speed = 0.001;
 		float32 angle = body->GetAngle() + misc::PI;
-		body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * 0.0001, cos(angle) * 0.0001), true);
+		body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * 0.0005, cos(angle) * 0.0005), true);
 		angle += misc::PIh;
 
-		body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * speed, cos(angle) * speed), true);
+		//body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * speed, cos(angle) * speed), true);
 
 		sprite.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
 		sprite.setRotation(body->GetAngle() * misc::RAD2DEG + 180.f);

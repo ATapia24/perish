@@ -31,7 +31,10 @@ void GameManager::gameLoop() {
 
 	//temp
 	sf::View camera, gui;
-	DrawLayer layer(camera), guiLayer(gui), floor(camera), light(camera);
+	//DrawLayer layer(camera), guiLayer(gui), floor(camera), light(camera);
+	DrawLayer layer(camera);
+	DrawLayer guiLayer(gui);
+	//DrawLayer floor(camera);
 
 	Player player;
 	player.load(&camera, physWorld, layer);
@@ -56,11 +59,11 @@ void GameManager::gameLoop() {
 	Key kill(sf::Keyboard::Num2, KeyType::REPEATED);
 	Joystick lStick(0);
 
-	sf::Texture texture;
-	texture.loadFromFile("assets/dirty_grass.png");
+	//sf::Texture texture;
+	//texture.loadFromFile("assets/dirty_grass.png");
 
 	//floor
-	const int x = 100;
+	/*const int x = 3000;
 	sf::Sprite** sprite = new sf::Sprite*[x];
 	for (int i = 0; i < x; i++) {
 		sprite[i] = new sf::Sprite[x];
@@ -71,20 +74,34 @@ void GameManager::gameLoop() {
 			sprite[i][j].setTexture(texture);
 			floor.add(sprite[i][j]);
 		}
-	}
+	}*/
 
-	drawManager->addLayer(floor);
-	drawManager->addLayer(light);
+	//drawManager->addLayer(floor);
 	drawManager->addLayer(layer);
-	drawManager->addLayer(guiLayer);
+	//drawManager->addLayer(light);
+	//drawManager->addLayer(guiLayer);
 
 	gameTickTimer.start();
 
 	physWorld->SetContactListener(&collisionHandler);
 
 
-	PerfArray<Bot*> arr;
-	for (int i = 0; i < 1000; i++) {
+	std::vector<Bot*> bots;
+	int b = 1000;
+	for (int i = 0; i < b; i++) {
+		Bot* b = new Bot();
+		bots.push_back(b);
+		bots[i]->load(physWorld, layer);
+		bots[i]->getTarget().setTarget(player.getBody());
+		bots[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 150), misc::random(0, 150)), 0);
+		bots[i]->getTarget().setTarget(player.getBody());
+		bots[i]->spawn();
+	}
+
+	
+	
+	/*PerfArray<Bot*> arr;
+	for (int i = 0; i < 500; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
@@ -92,15 +109,15 @@ void GameManager::gameLoop() {
 		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 150), misc::random(0, 150)), 0);
 		arr[i]->getTarget().setTarget(player.getBody());
 	}
-
-	arr.spawnAll();
+	*/
+	//arr.spawnAll();
 	physTimer.start();
 
 	//game loop
 	while (drawManager->isWindowOpen()) {
 		if (quit1.getValue())
 			drawManager->close();
-
+		 
 
 		if (gameTick()) {
 			//update controller
@@ -109,8 +126,10 @@ void GameManager::gameLoop() {
 
 
 
-
-			arr.update();		
+			for (int i = 0; i < b; i++) {
+				bots[i]->update();
+			}
+			//arr.update();		
 			menu.update();
 			player.update();
 
@@ -120,8 +139,6 @@ void GameManager::gameLoop() {
 				camera.zoom(1.1f);
 			else if (zoomOut.getValue())
 				camera.zoom(0.9f);
-		
-		
 		}
 	}
 

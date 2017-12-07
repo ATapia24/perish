@@ -1,9 +1,9 @@
-﻿  Bot.cpp
-Bot.cpp(55): warning C4305: 'initializing': truncation from 'double' to 'float'
-Bot.cpp(57): warning C4244: 'argument': conversion from 'double' to 'float32', possible loss of data
+﻿  DrawManager.cpp
+DrawManager.cpp(59): warning C4018: '<': signed/unsigned mismatch
+DrawManager.cpp(63): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  1 of 886 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  3 of 886 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    43 functions had inline decision re-evaluated but remain unchanged
+    9 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   perish.vcxproj -> C:\Users\pc\Desktop\perish\Release\perish.exe
