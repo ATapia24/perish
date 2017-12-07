@@ -16,6 +16,7 @@
 #include "Box.h"
 #include "LightManager.h"
 #include "PerfArray.h"
+#include <windows.h>
 
 class GameManager {
 public:
@@ -23,6 +24,7 @@ public:
 	GameManager(DrawManager& _drawManager);
 	~GameManager();
 	void initGame();
+	void gameLoop();
 
 private:
 	DrawManager* drawManager;
@@ -31,7 +33,6 @@ private:
 	Debug* debug;
 	b2World* physWorld;
 	CollisionHandler collisionHandler;
-	void gameLoop();
 	void updatePhysics();
 
 	const unsigned TICK_RATE = 8;

@@ -22,6 +22,7 @@ public:
 	bool isWindowReadyToClose() const { return windowCloseReady; };
 	bool isWindowOpen() const { return windowOpen; };
 	void close();
+	void draw();
 
 	//layers
 	void addLayer(DrawLayer* layer);
@@ -34,8 +35,6 @@ public:
 	float getFps();
 
 private:
-
-	void draw();
 	bool pollEvents();
 	void calculateFps();
 

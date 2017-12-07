@@ -8,7 +8,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <iostream>
-#include "b2Math.h"
+#include "Box2D.h"
 
 namespace misc {
 	const std::string GAME_NAME = "Perish";

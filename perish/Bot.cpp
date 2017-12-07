@@ -50,6 +50,7 @@ void Bot::update() {
 			body->SetTransform(body->GetPosition(), targetAngle);
 		}
 
+		
 		//move to target
 		float speed = 0.001;
 		float32 angle = body->GetAngle() + misc::PI;

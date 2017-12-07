@@ -81,15 +81,15 @@ void LightManager::update() {
 //CALCULATE BLOCKER
 void LightManager::calculateBlocker(Blocker& blocker) {
 
-	if (blocker.entity->getPolyShape() == NULL && blocker.entity->getPolyShape()->GetVertexCount() < 4)
-		return;
+	//if (blocker.entity->getPolyShape() == NULL && blocker.entity->getPolyShape()->GetVertexCount() < 4)
+	//	return;
 
 	//get body points
 	b2Vec2 p[4];
 	float d[4];
 	for (int i = 0; i < 4; i++) {
 		std::cout << "a\n";
-		p[i] = blocker.entity->getBody()->GetWorldPoint(blocker.entity->getPolyShape()->GetVertex(i));
+		//p[i] = blocker.entity->getBody()->GetWorldPoint(blocker.entity->getPolyShape()->GetVertex(i));
 		std::cout << "b\n";
 		d[i] = b2Distance(p[i], center);
 	}
