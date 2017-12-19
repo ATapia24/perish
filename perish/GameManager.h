@@ -17,11 +17,12 @@
 #include "LightManager.h"
 #include "PerfArray.h"
 #include <windows.h>
+#include <mutex>
 
 class GameManager {
 public:
 	GameManager();
-	GameManager(DrawManager& _drawManager);
+	GameManager(DrawManager& _drawManager, std::mutex &_mutex);
 	~GameManager();
 	void initGame();
 	void gameLoop();
@@ -42,6 +43,7 @@ private:
 	std::string upsString, fpsString;
 	std::string playerCoords, playerRot;
 	std::string countStr;
+	std::mutex* mutex;
 
 };
 

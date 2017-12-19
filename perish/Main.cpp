@@ -4,14 +4,16 @@
 #include <thread>
 #include <ctime>
 #include <windows.h>
+#include <mutex>
 
 int main() {
 	//seed for random numbers
 	srand((unsigned)time(NULL));
 
 	//initilize window, drawManager, and gameManager
-	DrawManager drawManager;
-	GameManager gameManager(drawManager);
+	std::mutex mutex;
+	DrawManager drawManager(mutex);
+	GameManager gameManager(drawManager, mutex);
 
 	//create and launch drawThread
 	std::thread drawThread(&DrawManager::ThreadHandler, &drawManager);

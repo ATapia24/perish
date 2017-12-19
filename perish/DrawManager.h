@@ -7,11 +7,12 @@
 #include "DrawLayer.h"
 #include "Miscellaneous.h"
 #include "Timer.h"
+#include <mutex>
 
 class DrawManager {
 public:
 
-	DrawManager();
+	DrawManager(std::mutex &_mutex);
 	~DrawManager();
 	void ThreadHandler();
 
@@ -33,10 +34,10 @@ public:
 	DrawLayer* getLayers() const { return *layers; };
 	sf::RenderWindow* getWindow() { return window; };
 	float getFps();
-
-private:
 	bool pollEvents();
 	void calculateFps();
+
+private:
 
 	//window management
 	HWND consoleWindow;
@@ -53,6 +54,7 @@ private:
 	Timer t;
 	Timer fpsTimer;
 	float fps;
+	std::mutex *mutex;
 };
 
 #endif /* DRAWMANAGER_H */

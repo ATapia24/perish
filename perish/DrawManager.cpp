@@ -1,11 +1,12 @@
 #include "DrawManager.h"
 
 //CONSTRUCTOR
-DrawManager::DrawManager() {
+DrawManager::DrawManager(std::mutex &_mutex) {
 	windowOpen = false;
 	windowCloseReady = false;
 	layers = new DrawLayer*[MAX_LAYERS];
 	layersUsed = 0;
+	mutex = &_mutex;
 }
 
 //DECONSTRUCTOR
@@ -25,6 +26,7 @@ void DrawManager::ThreadHandler() {
 	while (windowOpen) {
 
 		//draw if polls events doesnt return false
+	
 		if (pollEvents()) {
 			draw();
 			calculateFps();
@@ -60,8 +62,8 @@ void DrawManager::draw() {
 		//stops looping when every DrawObject has been drawn
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
-		std::cout << i << ' ' <<layers[i]->getSize() << '\n';
 		for (unsigned int j = 0; drawCount < layers[i]->getSize(); j++) {
+			mutex->lock();
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; //do nothing
 			case DrawType::SPRITE:
@@ -89,6 +91,7 @@ void DrawManager::draw() {
 				drawCount++;
 				break;
 			}
+			mutex->unlock();
 		}
 
 		//std::cout << "test\n";

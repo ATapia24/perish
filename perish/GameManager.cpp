@@ -5,9 +5,10 @@ GameManager::GameManager() {
 }
 
 //CONSTRUCTOR W/ DRAW MANAGER
-GameManager::GameManager(DrawManager& _drawManager) {
+GameManager::GameManager(DrawManager& _drawManager, std::mutex &_mutex) {
 	drawManager = &_drawManager;
 	window = drawManager->getWindow();
+	mutex = &_mutex;
 }
 
 //DECONSTRUCTOR
@@ -31,7 +32,6 @@ void GameManager::gameLoop() {
 
 	//temp
 	sf::View camera, gui;
-	//DrawLayer layer(camera), guiLayer(gui), floor(camera), light(camera);
 	DrawLayer layer(camera);
 	DrawLayer guiLayer(gui);
 	//DrawLayer floor(camera);
@@ -78,30 +78,15 @@ void GameManager::gameLoop() {
 
 	//drawManager->addLayer(floor);
 	drawManager->addLayer(layer);
-	//drawManager->addLayer(light);
-	//drawManager->addLayer(guiLayer);
+	drawManager->addLayer(guiLayer);
 
 	gameTickTimer.start();
 
 	physWorld->SetContactListener(&collisionHandler);
 
-
-	std::vector<Bot*> bots;
-	int b = 1000;
-	for (int i = 0; i < b; i++) {
-		Bot* b = new Bot();
-		bots.push_back(b);
-		bots[i]->load(physWorld, layer);
-		bots[i]->getTarget().setTarget(player.getBody());
-		bots[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 150), misc::random(0, 150)), 0);
-		bots[i]->getTarget().setTarget(player.getBody());
-		bots[i]->spawn();
-	}
-
 	
-	
-	/*PerfArray<Bot*> arr;
-	for (int i = 0; i < 500; i++) {
+	PerfArray<Bot*> arr;
+	for (int i = 0; i < 1000; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
@@ -109,8 +94,8 @@ void GameManager::gameLoop() {
 		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 150), misc::random(0, 150)), 0);
 		arr[i]->getTarget().setTarget(player.getBody());
 	}
-	*/
-	//arr.spawnAll();
+	
+	arr.spawnAll();
 	physTimer.start();
 
 	//game loop
@@ -124,14 +109,11 @@ void GameManager::gameLoop() {
 			if (sf::Joystick::isConnected(0))
 				sf::Joystick::update();
 
-
-
-			for (int i = 0; i < b; i++) {
-				bots[i]->update();
-			}
-			//arr.update();		
+			mutex->lock();
+			arr.update();		
 			menu.update();
 			player.update();
+			mutex->unlock();
 
 			updatePhysics();
 
