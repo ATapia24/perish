@@ -117,10 +117,10 @@ void GameManager::gameLoop() {
 
 			updatePhysics();
 
-			if (zoomIn.getValue())
-				camera.zoom(1.1f);
-			else if (zoomOut.getValue())
-				camera.zoom(0.9f);
+			//if (zoomIn.getValue())
+			//	camera.zoom(1.1f);
+			//else if (zoomOut.getValue())
+			//	camera.zoom(0.9f);
 		}
 	}
 
