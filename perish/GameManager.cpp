@@ -5,10 +5,9 @@ GameManager::GameManager() {
 }
 
 //CONSTRUCTOR W/ DRAW MANAGER
-GameManager::GameManager(DrawManager& _drawManager, std::mutex &_mutex) {
+GameManager::GameManager(DrawManager& _drawManager) {
 	drawManager = &_drawManager;
 	window = drawManager->getWindow();
-	mutex = &_mutex;
 }
 
 //DECONSTRUCTOR
@@ -86,7 +85,7 @@ void GameManager::gameLoop() {
 
 	
 	PerfArray<Bot*> arr;
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 3000; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
@@ -109,18 +108,16 @@ void GameManager::gameLoop() {
 			if (sf::Joystick::isConnected(0))
 				sf::Joystick::update();
 
-			mutex->lock();
 			arr.update();		
 			menu.update();
 			player.update();
-			mutex->unlock();
 
 			updatePhysics();
 
-			//if (zoomIn.getValue())
-			//	camera.zoom(1.1f);
-			//else if (zoomOut.getValue())
-			//	camera.zoom(0.9f);
+			if (zoomIn.getValue())
+				camera.zoom(1.1f);
+			else if (zoomOut.getValue())
+				camera.zoom(0.9f);
 		}
 	}
 

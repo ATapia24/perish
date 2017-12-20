@@ -22,7 +22,7 @@
 class GameManager {
 public:
 	GameManager();
-	GameManager(DrawManager& _drawManager, std::mutex &_mutex);
+	GameManager(DrawManager& _drawManager);
 	~GameManager();
 	void initGame();
 	void gameLoop();
@@ -43,7 +43,6 @@ private:
 	std::string upsString, fpsString;
 	std::string playerCoords, playerRot;
 	std::string countStr;
-	std::mutex* mutex;
 
 };
 

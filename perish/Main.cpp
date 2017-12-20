@@ -11,9 +11,8 @@ int main() {
 	srand((unsigned)time(NULL));
 
 	//initilize window, drawManager, and gameManager
-	std::mutex mutex;
-	DrawManager drawManager(mutex);
-	GameManager gameManager(drawManager, mutex);
+	DrawManager drawManager;
+	GameManager gameManager(drawManager);
 
 	//create and launch drawThread
 	std::thread drawThread(&DrawManager::ThreadHandler, &drawManager);

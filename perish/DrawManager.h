@@ -12,7 +12,7 @@
 class DrawManager {
 public:
 
-	DrawManager(std::mutex &_mutex);
+	DrawManager();
 	~DrawManager();
 	void ThreadHandler();
 
@@ -54,7 +54,6 @@ private:
 	Timer t;
 	Timer fpsTimer;
 	float fps;
-	std::mutex *mutex;
 };
 
 #endif /* DRAWMANAGER_H */

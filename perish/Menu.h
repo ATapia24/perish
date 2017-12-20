@@ -5,6 +5,7 @@
 #include <stdarg.h>
 #include <string>
 #include <iostream>
+#include "Miscellaneous.h"
 #include "Timer.h"
 #include "DrawLayer.h"
 

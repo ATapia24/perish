@@ -52,15 +52,17 @@ void Bot::update() {
 
 		
 		//move to target
-		float speed = 0.001;
-		float32 angle = body->GetAngle() + misc::PI;
-		body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * 0.0005, cos(angle) * 0.0005), true);
+		float speed = 0.0005;
+		float32 angle = body->GetAngle() + misc::PI/2;
+		body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * speed, cos(angle) * speed), true);
 		angle += misc::PIh;
 
 		//body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * speed, cos(angle) * speed), true);
 
+		misc::mutex.lock();
 		sprite.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
 		sprite.setRotation(body->GetAngle() * misc::RAD2DEG + 180.f);
+		misc::mutex.unlock();
 	}
 	if (!spawned)
 		spawn();

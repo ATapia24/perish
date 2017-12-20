@@ -1,12 +1,11 @@
 #include "DrawManager.h"
 
 //CONSTRUCTOR
-DrawManager::DrawManager(std::mutex &_mutex) {
+DrawManager::DrawManager() {
 	windowOpen = false;
 	windowCloseReady = false;
 	layers = new DrawLayer*[MAX_LAYERS];
 	layersUsed = 0;
-	mutex = &_mutex;
 }
 
 //DECONSTRUCTOR
@@ -63,7 +62,7 @@ void DrawManager::draw() {
 		int drawCount = 0;
 		window->setView(*layers[i]->getView());
 		for (unsigned int j = 0; drawCount < layers[i]->getSize(); j++) {
-			mutex->lock();
+			misc::mutex.lock();
 			switch (layers[i]->getDrawObjects()[j]->type) {
 			case DrawType::EMPTY: break; //do nothing
 			case DrawType::SPRITE:
@@ -91,10 +90,8 @@ void DrawManager::draw() {
 				drawCount++;
 				break;
 			}
-			mutex->unlock();
+			misc::mutex.unlock();
 		}
-
-		//std::cout << "test\n";
 	}
 
 	//display

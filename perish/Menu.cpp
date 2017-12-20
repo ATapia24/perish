@@ -134,7 +134,9 @@ void Menu::update() {
 	if(updateTimer.getMilliseconds() > updateRate)
 	for (int i = 0; i < size; i++)
 		if (stringArr[i] != NULL) {
+			misc::mutex.lock();
 			textArr[i].setString(*stringArr[i]);
+			misc::mutex.unlock();
 			updateTimer.reset();
 		}
 }
