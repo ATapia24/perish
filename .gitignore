@@ -263,3 +263,7 @@ __pycache__/
 *.tlog
 *.obj
 *.suo
+
+# Build Directories
+Debug/
+Release/
