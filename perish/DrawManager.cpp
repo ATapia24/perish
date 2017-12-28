@@ -120,7 +120,7 @@ bool DrawManager::pollEvents() {
 void DrawManager::resizeWindow(unsigned int width, unsigned int height, bool _fullscreen, bool border) {
 	window->setSize(sf::Vector2u(width, height));
 	window->setPosition(sf::Vector2i(0, 0));
-	MoveWindow(consoleWindow, width + 15, 0, 300, height, true);
+	//MoveWindow(consoleWindow, width + 15, 0, 300, height, true);
 }
 
 
