@@ -66,6 +66,16 @@ void Entity::physicsBodySetup() {
 	fixtureDef->friction = friction;
 }
 
+//PHYSICS BODY SETUP STATIC
+void Entity::physicsBodySetupStatic() {
+	bodyDef = new b2BodyDef();
+	bodyDef->type = b2_staticBody;
+	body = physWorld->CreateBody(bodyDef);
+	body->SetActive(false);
+	body->SetUserData(this);
+	fixtureDef = new b2FixtureDef();
+}
+
 //BOX SHAPE SETUP
 //Desc. create and set fixture definition for a box
 void Entity::physicsBoxSetup(float width, float height) {

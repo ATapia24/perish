@@ -60,6 +60,7 @@ protected:
 	b2CircleShape* circleShape;
 	b2FixtureDef* fixtureDef;
 	virtual void physicsBodySetup();
+	virtual void physicsBodySetupStatic();
 	virtual void physicsCircleSetup(float radius);
 	virtual void physicsBoxSetup(float width, float height);
 	virtual void physicsDelete();

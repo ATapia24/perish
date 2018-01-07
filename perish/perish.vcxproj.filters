@@ -19,11 +19,11 @@
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{f19ea4b3-e3c9-46bd-a9e0-7cffe28ef499}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Entities">
-      <UniqueIdentifier>{69bba16a-d1e8-451f-91b9-de171ebf55cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Box2D">
       <UniqueIdentifier>{4ddc1093-9763-4017-90c7-c2ec369eb3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{69bba16a-d1e8-451f-91b9-de171ebf55cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,9 +83,6 @@
     </ClInclude>
     <ClInclude Include="LightManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Static.h">
       <Filter>Header Files\Entities</Filter>
@@ -270,16 +267,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Box.cpp">
-      <Filter>Resource Files\Entities</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Bot.cpp">
-      <Filter>Resource Files\Entities</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Resource Files\Entities</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Resource Files\Entities</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Target.cpp">
       <Filter>Source Files</Filter>
@@ -287,11 +284,8 @@
     <ClCompile Include="LightManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Resource Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Static.cpp">
-      <Filter>Resource Files\Entities</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="..\Box2D\b2BlockAllocator.cpp">
       <Filter>Header Files\Box2D</Filter>

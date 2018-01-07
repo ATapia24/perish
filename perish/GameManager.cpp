@@ -75,6 +75,7 @@ void GameManager::gameLoop() {
 		}
 	}*/
 
+
 	//drawManager->addLayer(floor);
 	drawManager->addLayer(layer);
 	drawManager->addLayer(guiLayer);
@@ -85,7 +86,7 @@ void GameManager::gameLoop() {
 
 	
 	PerfArray<Bot*> arr;
-	for (int i = 0; i < 3000; i++) {
+	for (int i = 0; i < 300; i++) {
 		arr.add(new Bot());
 
 		arr[i]->load(physWorld, layer);
@@ -96,6 +97,10 @@ void GameManager::gameLoop() {
 	
 	arr.spawnAll();
 	physTimer.start();
+
+	Static w;
+	w.load(physWorld, layer);
+	w.spawn();
 
 	//game loop
 	while (drawManager->isWindowOpen()) {
