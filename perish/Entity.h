@@ -5,9 +5,9 @@
 #include <SFML\Graphics.hpp>
 #include "Miscellaneous.h"
 #include "Box2D.h"
-#include "DrawLayer.h"
+#include "DrawBuffer.h"
 #include "UserController.h"
-
+extern std::mutex* drawMutex;
 enum EntityType {
 	PLAYER,
 	ENEMY,
@@ -21,7 +21,7 @@ class Entity {
 public:
 	Entity();
 	virtual ~Entity();
-	virtual void load(b2World* _physWorld, DrawLayer& _layer);
+	virtual void load(b2World* _physWorld, DrawBuffer& _layer);
 	virtual void update();
 	virtual void unload();
 	virtual void kill();
@@ -45,7 +45,7 @@ public:
 	virtual int getLightIndex();
 
 protected:
-	DrawLayer* layer;
+	DrawBuffer* layer;
 	b2World* physWorld;
 	unsigned int layerIndex;
 	EntityType type;

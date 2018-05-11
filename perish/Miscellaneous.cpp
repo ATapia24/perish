@@ -1,5 +1,7 @@
 #include "Miscellaneous.h"
 
+std::mutex *drawMutex;
+
 //FLOAT -> STRING
 std::string misc::floatToString(float num) {
 	std::ostringstream string;
@@ -195,4 +197,9 @@ std::vector<sf::Vector2f> misc::getAreaPoints(const sf::RectangleShape shape, co
 			points.push_back(sf::Vector2f(pointLocation(pointLocation(p1, a2, resolution * j + 1), a1, resolution * i + 1)));
 
 	return points;
+}
+
+//PRINT WORKING DIRECTORY
+void misc::pwd() {
+	system("pwd");
 }

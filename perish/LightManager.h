@@ -4,7 +4,7 @@
 #include <iostream>
 #include <SFML\Graphics.hpp>
 #include "Miscellaneous.h"
-#include "DrawLayer.h"
+#include "DrawBuffer.h"
 #include "Box2D.h"
 #include "Entities.h"
 #include "Timer.h"
@@ -22,7 +22,7 @@ class LightManager : public Entity
 public:
 	LightManager();
 	~LightManager();
-	void set(Entity* _entity, DrawLayer& layer, b2World* _physWorld);
+	void set(Entity* _entity, DrawBuffer& layer, b2World* _physWorld);
 	void addObject(Entity* entity);
 	void removeObject(int index);
 	void update();
@@ -32,7 +32,7 @@ public:
 	bool postSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 
 private:
-	DrawLayer *layer;
+	DrawBuffer *layer;
 	Entity* player;
 	b2Vec2 center;
 	float rotation;

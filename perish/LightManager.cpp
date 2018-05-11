@@ -128,14 +128,14 @@ void LightManager::calculateBlocker(Blocker& blocker) {
 }
 
 //SET
-void LightManager::set(Entity* _entity, DrawLayer& _layer, b2World* _physWorld) {
+void LightManager::set(Entity* _entity, DrawBuffer& _layer, b2World* _physWorld) {
 	layer = &_layer;
 	player = _entity;
 	physWorld = _physWorld;
 	//lightMap.setColor(misc::randomColor());
 	lightMap.setColor(sf::Color(55, 55, 55, 200));
-	layer->add(lightMap, sf::BlendAdd);
-	layer->add(lightHitbox);
+	//layer->add(lightMap, sf::BlendAdd);
+	//layer->add(lightHitbox);
 	//layer->add(circle);
 
 	//sensor setup

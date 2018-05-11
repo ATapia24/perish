@@ -11,7 +11,7 @@ Bot::~Bot()
 {
 }
 
-void Bot::load(b2World* _physWorld, DrawLayer& _layer) {
+void Bot::load(b2World* _physWorld, DrawBuffer& _layer) {
 
 	if (!loaded) {
 		loaded = true;
@@ -53,16 +53,16 @@ void Bot::update() {
 		
 		//move to target
 		float speed = 0.0005;
-		float32 angle = body->GetAngle() + misc::PI/2;
+		float32 angle = body->GetAngle() + misc::PI;
 		body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * speed, cos(angle) * speed), true);
 		angle += misc::PIh;
 
 		//body->ApplyLinearImpulseToCenter(b2Vec2(-sin(angle) * speed, cos(angle) * speed), true);
 
-		misc::mutex.lock();
+		//drawMutex->lock();
 		sprite.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
 		sprite.setRotation(body->GetAngle() * misc::RAD2DEG + 180.f);
-		misc::mutex.unlock();
+		//drawMutex->unlock();
 	}
 	if (!spawned)
 		spawn();
@@ -83,7 +83,9 @@ void Bot::_spawn() {
 	
 	body->SetTransform(spawnPoint, spawnRotation);
 	update();
+	std::cout << 'a';
 	layerIndex = layer->add(sprite);
+	std::cout << 'b' << '\n';
 	spawned = true;
 }
 

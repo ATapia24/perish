@@ -5,9 +5,9 @@ GameManager::GameManager() {
 }
 
 //CONSTRUCTOR W/ DRAW MANAGER
-GameManager::GameManager(DrawManager& _drawManager) {
-	drawManager = &_drawManager;
-	window = drawManager->getWindow();
+GameManager::GameManager(Renderer& _Renderer) {
+	renderer = &_Renderer;
+	window = renderer->getWindow();
 }
 
 //DECONSTRUCTOR
@@ -28,106 +28,105 @@ void GameManager::initGame() {
 void GameManager::gameLoop() {
 
 	//****ALL CODE IN HERE TO TEMPORARY AND USED FOR TESTING****
-
-	//temp
-	sf::View camera, gui;
-	DrawLayer layer(camera);
-	DrawLayer guiLayer(gui);
-	//DrawLayer floor(camera);
-
-	Player player;
-	player.load(&camera, physWorld, layer);
-	player.spawn();
-
+	Key quit(XboxButton::BACK, KeyType::REPEATED);
+	Key quit1(sf::Keyboard::Escape, KeyType::REPEATED);
+	
+	sf::View gui;
+	DrawBuffer guiLayer(gui);
 	Menu menu(guiLayer, 10, 10, 0);
 	menu.setSelectedFontColot(sf::Color::White);
-	upsString = "UPS: 00";
-	fpsString = "FPS: 00";
+	upsString = "UPS : 00";
+	fpsString = "FPS : 00";
 	menu.add(upsString);
 	menu.add(fpsString);
 	menu.reshape();
 	menu.setUpdateRate(50);
 
+	/*drawMutex->lock();
+	//temp
+	sf::View camera;
+	DrawBuffer layer(camera);
+	DrawBuffer floor(camera);
+
+	Player player;
+	player.load(&camera, physWorld, layer);
+	player.spawn();
+
+
 	//key binds
 	Key up(sf::Keyboard::Up, KeyType::SINGLE), down(sf::Keyboard::Down, KeyType::SINGLE);
 	Key zoomIn(sf::Keyboard::Dash, KeyType::REPEATED), zoomOut(sf::Keyboard::Equal, KeyType::REPEATED);
 	Key button(XboxButton::A, KeyType::REPEATED);
-	Key quit(XboxButton::BACK, KeyType::REPEATED);
-	Key quit1(sf::Keyboard::Escape, KeyType::REPEATED);
 	Key spawn(sf::Keyboard::Num1, KeyType::REPEATED);
 	Key kill(sf::Keyboard::Num2, KeyType::REPEATED);
 	Joystick lStick(0);
 
-	//sf::Texture texture;
-	//texture.loadFromFile("assets/dirty_grass.png");
 
-	//floor
-	/*const int x = 3000;
-	sf::Sprite** sprite = new sf::Sprite*[x];
-	for (int i = 0; i < x; i++) {
-		sprite[i] = new sf::Sprite[x];
-	}
-	for (int i = 0; i < x; i++) {
-		for (int j = 0; j < x; j++) {
-			sprite[i][j].setPosition(i * 100.f , j * 100.f);
-			sprite[i][j].setTexture(texture);
-			floor.add(sprite[i][j]);
-		}
-	}*/
-
-
-	//drawManager->addLayer(floor);
-	drawManager->addLayer(layer);
-	drawManager->addLayer(guiLayer);
+	renderer->addBuffer(floor);
+	renderer->addBuffer(layer);
+	renderer->addBuffer(guiLayer);
 
 	gameTickTimer.start();
 
 	physWorld->SetContactListener(&collisionHandler);
 
-	
-	PerfArray<Bot*> arr;
-	for (int i = 0; i < 300; i++) {
-		arr.add(new Bot());
 
+	PerfArray<Bot*> arr;
+	for (int i = 0; i < 520; i++) {
+		arr.add(new Bot());
 		arr[i]->load(physWorld, layer);
 		arr[i]->getTarget().setTarget(player.getBody());
 		arr[i]->setSpawnPoint(b2Vec2((float)misc::random(0, 150), misc::random(0, 150)), 0);
 		arr[i]->getTarget().setTarget(player.getBody());
 	}
-	
+
 	arr.spawnAll();
+
 	physTimer.start();
 
 	Static w;
 	w.load(physWorld, layer);
 	w.spawn();
 
+	Timer t;
+
+	drawMutex->unlock();
+	*/
+
+	editor = new EditorMode(renderer);
+	editor->load();
+
+	renderer->addBuffer(guiLayer);
+
 	//game loop
-	while (drawManager->isWindowOpen()) {
-		if (quit1.getValue())
-			drawManager->close();
-		 
+	gameTickTimer.start();
+	while (true) {
+		if (quit1.getValue()) {
+			renderer->close();
+			break;
+		}
 
+		//TICK
 		if (gameTick()) {
-			//update controller
-			if (sf::Joystick::isConnected(0))
-				sf::Joystick::update();
+			//drawMutex->lock();
+			editor->update();
+			menu.update();
+			sf::Joystick::update();
 
+			/*
 			arr.update();		
 			menu.update();
 			player.update();
-
 			updatePhysics();
 
 			if (zoomIn.getValue())
 				camera.zoom(1.1f);
 			else if (zoomOut.getValue())
 				camera.zoom(0.9f);
-		}
-	}
 
-	while (!drawManager->isWindowReadyToClose()) {
-		Sleep(0);
+			drawMutex->unlock();*/
+		}
+
 	}
 	
 }
@@ -135,8 +134,8 @@ void GameManager::gameLoop() {
 //GAME TICK
 bool GameManager::gameTick() {
 
-	upsString = "UPS: " + misc::intToString((int)(1.f / (float)(gameTickTimer.getMilliseconds() / 1000.f)));
-	fpsString = "FPS: " + misc::intToString((int)drawManager->getFps());
+	upsString = "UPS : " + misc::intToString((int)(1.f / (float)(gameTickTimer.getMilliseconds() / 1000.f)));
+	fpsString = "FPS : " + misc::intToString((int)renderer->getFps());
 
 	if (gameTickTimer.getMilliseconds() > TICK_RATE) {
 		gameTickTimer.reset();
@@ -148,10 +147,14 @@ bool GameManager::gameTick() {
 
 //UPDATE PHYSICS
 void GameManager::updatePhysics() {
+	physCalcTimer.start();
 	phys_delta = physTimer.getNanoseconds() / 1000000000.f; //nanoseconds to seconds
-	physTimer.reset();
+	physTimer.start();
 	physWorld->Step(phys_delta, 8, 3);
+	physCalcTimer.stop();
 	collisionHandler.update(); //always call after a physics step
+	physString = "PCT : " + misc::floatToString(physCalcTimer.getMilliseconds());
+	physCalcTimer.reset();
 }
 
 

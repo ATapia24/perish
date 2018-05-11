@@ -7,13 +7,13 @@
 #include <iostream>
 #include "Miscellaneous.h"
 #include "Timer.h"
-#include "DrawLayer.h"
+#include "DrawBuffer.h"
 
 class Menu
 {
 public:
 	Menu();
-	Menu(DrawLayer& _layer, unsigned int _x, unsigned int _y, unsigned int _width);
+	Menu(DrawBuffer& _layer, unsigned int _x, unsigned int _y, unsigned int _width);
 	~Menu();
 	void add(std::string& text);
 	void addLiteral(std::string text);
@@ -35,7 +35,7 @@ public:
 	void setUpdateRate(unsigned int _updateRate);
 
 private: 
-	DrawLayer* layer;
+	DrawBuffer* layer;
 	const int MAX_ITEMS = 32;
 	unsigned int size;
 	float x, y;

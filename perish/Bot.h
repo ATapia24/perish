@@ -8,7 +8,7 @@ class Bot : public Entity {
 public:
 	Bot();
 	~Bot();
-	void load(b2World* _physWorld, DrawLayer& _layer);
+	void load(b2World* _physWorld, DrawBuffer& _layer);
 	void update();
 	void unload();
 	void kill();

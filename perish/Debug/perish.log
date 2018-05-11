@@ -1,1 +1,5 @@
-﻿  perish.vcxproj -> C:\Users\PC2\Desktop\perish\Debug\perish.exe
+﻿  DrawManager.cpp
+c:\users\pc\desktop\perish\perish\drawmanager.cpp(60): warning C4018: '<': signed/unsigned mismatch
+c:\users\pc\desktop\perish\perish\drawmanager.cpp(64): warning C4018: '<': signed/unsigned mismatch
+  perish.vcxproj -> C:\Users\pc\Desktop\perish\Debug\perish.exe
+  0 File(s) copied

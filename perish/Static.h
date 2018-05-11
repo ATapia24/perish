@@ -10,7 +10,7 @@ class Static :
 public:
 	Static();
 	~Static();
-	void load(b2World* _physWorld, DrawLayer& _layer);
+	void load(b2World* _physWorld, DrawBuffer& _layer);
 
 private:
 	void physicsBodySetup();

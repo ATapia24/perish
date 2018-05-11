@@ -9,7 +9,7 @@ class Box :
 public:
 	Box();
 	~Box();
-	void load(b2World* _physWorld, DrawLayer& _layer);
+	void load(b2World* _physWorld, DrawBuffer& _layer);
 	void update();
 	void unload();
 	//void beginContact(Entity* entity) {};

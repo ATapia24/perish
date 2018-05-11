@@ -1,5 +1,5 @@
 #include "GameManager.h"
-#include "DrawManager.h"
+#include "Renderer.h"
 #include "Miscellaneous.h"
 #include <thread>
 #include <ctime>
@@ -9,16 +9,17 @@
 int main() {
 	//seed for random numbers
 	srand((unsigned)time(NULL));
+	drawMutex = new std::mutex();
 
-	//initilize window, drawManager, and gameManager
-	DrawManager drawManager;
-	GameManager gameManager(drawManager);
+	//initilize window, Renderer, and gameManager
+	Renderer renderer;
+	GameManager gameManager(renderer);
 
 	//create and launch drawThread
-	std::thread drawThread(&DrawManager::ThreadHandler, &drawManager);
+	std::thread drawThread(&Renderer::threadHandler, std::ref(renderer));
 	
 	//wait for window to be created
-	while(drawManager.getWindow() == NULL){
+	while(renderer.getWindow() == NULL){
 		Sleep(0);
 	}
 

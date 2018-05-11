@@ -8,8 +8,11 @@
 #include <cmath>
 #include <stdlib.h>
 #include <iostream>
+#include <iomanip>
 #include "Box2D.h"
 #include <mutex>
+
+extern std::mutex *drawMutex;
 
 namespace misc {
 	const std::string GAME_NAME = "Perish";
@@ -25,7 +28,6 @@ namespace misc {
 	const float RAD2DEG = 57.2957795131f;
 	const float DEG2RAD = 0.0174532925f;
 	const float PHYSICS_SCALE = 64.0f;
-	static std::mutex mutex;
 
 	std::string floatToString(float num);
 	std::string intToString(int num);
@@ -45,6 +47,7 @@ namespace misc {
 	int random(int min, int max);
 	sf::Color randomColor();
 	std::vector<sf::Vector2f> getAreaPoints(const sf::RectangleShape shape, const float resolustion, const bool sides);
+	void pwd();
 	
 	//TEMPLATES ------------------------------------------------------------------------------------------------------------------------------
 

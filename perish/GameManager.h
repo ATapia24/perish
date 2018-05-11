@@ -4,8 +4,8 @@
 #include <iostream>
 #include <thread>
 #include "Debug.h"
-#include "DrawManager.h"
-#include "DrawLayer.h"
+#include "Renderer.h"
+#include "DrawBuffer.h"
 #include "InputManager.h"
 #include "Menu.h"
 #include "Entity.h"
@@ -18,29 +18,32 @@
 #include "PerfArray.h"
 #include <windows.h>
 #include <mutex>
+#include "EditorMode.h"
 
 class GameManager {
 public:
 	GameManager();
-	GameManager(DrawManager& _drawManager);
+	GameManager(Renderer& _renderer);
 	~GameManager();
 	void initGame();
 	void gameLoop();
 
 private:
-	DrawManager* drawManager;
+	Renderer* renderer;
 	sf::RenderWindow* window;
-	
+	EditorMode* editor;
+	std::mutex *drawMutex;
+
 	Debug* debug;
 	b2World* physWorld;
 	CollisionHandler collisionHandler;
 	void updatePhysics();
 
-	const unsigned TICK_RATE = 8;
+	const unsigned TICK_RATE = 5;
 	float tick_delta, phys_delta;
-	Timer gameTickTimer, physTimer;
+	Timer gameTickTimer, physTimer, physCalcTimer;
 	bool gameTick();
-	std::string upsString, fpsString;
+	std::string upsString, fpsString, physString;
 	std::string playerCoords, playerRot;
 	std::string countStr;
 

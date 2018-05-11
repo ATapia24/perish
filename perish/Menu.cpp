@@ -7,7 +7,7 @@ Menu::Menu()
 }
 
 //CONSTRUCTOR W/ LAYER
-Menu::Menu(DrawLayer & _layer, unsigned int _x, unsigned int _y, unsigned int _width) {
+Menu::Menu(DrawBuffer & _layer, unsigned int _x, unsigned int _y, unsigned int _width) {
 	layer = &_layer;
 	textArr = new sf::Text[MAX_ITEMS];
 	stringArr = new std::string*[MAX_ITEMS];
@@ -44,7 +44,7 @@ Menu::Menu(DrawLayer & _layer, unsigned int _x, unsigned int _y, unsigned int _w
 	//font
 	fontSize = 18;
 	font.loadFromFile("./assets/font.ttf");
-	layer->add(background);
+	//layer->add(background);
 
 	//background
 	background.setPosition(x, y);
@@ -134,9 +134,9 @@ void Menu::update() {
 	if(updateTimer.getMilliseconds() > updateRate)
 	for (int i = 0; i < size; i++)
 		if (stringArr[i] != NULL) {
-			misc::mutex.lock();
+			//drawMutex->lock();
 			textArr[i].setString(*stringArr[i]);
-			misc::mutex.unlock();
+			//drawMutex->unlock();
 			updateTimer.reset();
 		}
 }

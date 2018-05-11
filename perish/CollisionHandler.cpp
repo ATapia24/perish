@@ -1,6 +1,5 @@
 #include "CollisionHandler.h"
 
-
 //CONSTRUCTOR
 CollisionHandler::CollisionHandler(){
 }

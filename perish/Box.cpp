@@ -12,7 +12,7 @@ Box::~Box()
 	unload();
 }
 
-void Box::load(b2World* _physWorld, DrawLayer& _layer) {
+void Box::load(b2World* _physWorld, DrawBuffer& _layer) {
 	physWorld = _physWorld;
 	layer = &_layer;
 	type = OTHER;
@@ -31,8 +31,10 @@ void Box::load(b2World* _physWorld, DrawLayer& _layer) {
 
 void Box::update() {
 	if (spawned) {
+		//drawMutex->lock();
 		sprite.setPosition(sf::Vector2f(body->GetPosition().x * misc::PHYSICS_SCALE, body->GetPosition().y * misc::PHYSICS_SCALE));
 		sprite.setRotation(body->GetAngle() * misc::RAD2DEG);
+		//drawMutex->unlock();
 	}
 }
 void Box::unload() {

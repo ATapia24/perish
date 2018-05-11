@@ -4,8 +4,8 @@
 Static::Static()
 {
 	hitbox.setSize(sf::Vector2f(100, 1000));
-	height = 100;
-	width = 200;
+	height = 10;
+	width = 20;
 	hitbox.setFillColor(sf::Color::White);
 }
 
@@ -15,7 +15,7 @@ Static::~Static()
 }
 
 //LOAD
-void Static::load(b2World* _physWorld, DrawLayer& _layer) {
+void Static::load(b2World* _physWorld, DrawBuffer& _layer) {
 	if (!loaded) {
 		loaded = true;
 		physWorld = _physWorld;
@@ -23,13 +23,14 @@ void Static::load(b2World* _physWorld, DrawLayer& _layer) {
 		type = STATIC;
 		loadDefaults();
 
-		width = 2000;
+		width = 200;
 		height = 20;
 		density = 0.001f;
 		physicsBodySetup();
 		physicsBoxSetup(width, height);
 		hitbox.setSize(sf::Vector2f(width, height));
 		hitbox.setOrigin(sf::Vector2f(width / 2, height / 2));
+		hitbox.setFillColor(sf::Color::White);
 	}
 }
 

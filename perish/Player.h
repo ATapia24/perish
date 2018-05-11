@@ -8,7 +8,7 @@ class Player :
 public:
 	Player();
 	~Player();
-	void load(sf::View* _view, b2World* _physWorld, DrawLayer& _layer);
+	void load(sf::View* _view, b2World* _physWorld, DrawBuffer& _layer);
 	void update();
 	void unload();
 	virtual bool beginContact(Entity* entity, b2Contact* contact);

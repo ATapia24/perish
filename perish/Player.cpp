@@ -12,7 +12,7 @@ Player::~Player()
 }
 
 //LOAD
-void Player::load(sf::View* _view, b2World* _physWorld, DrawLayer& _layer) {
+void Player::load(sf::View* _view, b2World* _physWorld, DrawBuffer& _layer) {
 	view = _view;
 	physWorld = _physWorld;
 	layer = &_layer;

@@ -11,7 +11,7 @@ Entity::~Entity() {
 }
 
 //LOAD
-void Entity::load(b2World* _physWorld, DrawLayer& _layer) {
+void Entity::load(b2World* _physWorld, DrawBuffer& _layer) {
 	physWorld = _physWorld;
 	layer = &_layer;
 	loaded = true;
