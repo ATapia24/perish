@@ -118,7 +118,8 @@ typedef double float64;
 #define b2_toiBaugarte				0.75f
 
 
-// Sleep
+// 
+
 
 /// The time that a body must be still before it will go to sleep.
 #define b2_timeToSleep				0.5f

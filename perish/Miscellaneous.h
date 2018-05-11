@@ -14,6 +14,14 @@
 
 extern std::mutex *drawMutex;
 
+#ifdef _WIN32
+#include <windows.h>
+#define SLEEP(a) Sleep(a)
+#else
+#include <unistd.h>
+#define SLEEP(a) usleep(a)
+#endif
+
 namespace misc {
 	const std::string GAME_NAME = "Perish";
 	const int NATIVE_WIDTH = 1600;

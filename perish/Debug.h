@@ -2,7 +2,7 @@
 #define DEBUG_H
 
 #include <iostream>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Timer.h"
 #include "Miscellaneous.h"
 

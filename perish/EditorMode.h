@@ -1,7 +1,7 @@
 #ifndef EDITORMODE_H
 #define EDITORMODE_H
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
 #include "Renderer.h"

@@ -1,7 +1,7 @@
 #ifndef CONTROLELR_H
 #define CONTROLLER_H
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Box2D.h"
 #include "Miscellaneous.h"
 

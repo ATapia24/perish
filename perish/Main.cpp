@@ -3,8 +3,6 @@
 #include "Miscellaneous.h"
 #include <thread>
 #include <ctime>
-#include <windows.h>
-#include <mutex>
 
 int main() {
 	//seed for random numbers
@@ -20,7 +18,7 @@ int main() {
 	
 	//wait for window to be created
 	while(renderer.getWindow() == NULL){
-		Sleep(0);
+		SLEEP(0);
 	}
 
 	//initialize game

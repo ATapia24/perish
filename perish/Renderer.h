@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Miscellaneous.h"
 #include "DrawBuffer.h"
 #include "Timer.h"
