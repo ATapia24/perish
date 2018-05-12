@@ -203,3 +203,16 @@ std::vector<sf::Vector2f> misc::getAreaPoints(const sf::RectangleShape shape, co
 void misc::pwd() {
 	system("pwd");
 }
+
+//SEED RANDOM
+void misc::seedRandom() {
+	srand((unsigned)time(NULL));
+}
+
+void misc::initThreads() {
+	//check for linux
+	#ifdef __unix__
+		std::cout << "unix detected\n";
+		XInitThreads();
+	#endif
+}

@@ -17,7 +17,8 @@ extern std::mutex *drawMutex;
 #ifdef _WIN32
 #include <windows.h>
 #define SLEEP(a) Sleep(a)
-#else
+#elif _UNIX_
+#include <X11/Xlib.h>
 #include <unistd.h>
 #define SLEEP(a) usleep(a)
 #endif
@@ -36,6 +37,9 @@ namespace misc {
 	const float RAD2DEG = 57.2957795131f;
 	const float DEG2RAD = 0.0174532925f;
 	const float PHYSICS_SCALE = 64.0f;
+
+	void initThreads();
+	void seedRandom();
 
 	std::string floatToString(float num);
 	std::string intToString(int num);

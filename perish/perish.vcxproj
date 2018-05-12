@@ -74,6 +74,7 @@
     <ClInclude Include="Miscellaneous.h" />
     <ClInclude Include="PerfArray.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBase.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Static.h" />
     <ClInclude Include="Target.h" />
@@ -145,6 +146,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\pc\Desktop\perish\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBase.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Static.cpp" />
     <ClCompile Include="Target.cpp" />

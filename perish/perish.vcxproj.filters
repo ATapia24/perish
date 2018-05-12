@@ -231,6 +231,9 @@
     <ClInclude Include="EditorMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -429,6 +432,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

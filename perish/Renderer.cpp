@@ -4,12 +4,12 @@
 
 Renderer::Renderer()
 {
-	
+	drawMutex = new std::mutex();
 }
 
 Renderer::~Renderer()
 {
-
+	delete drawMutex;
 }
 
 void Renderer::close() {

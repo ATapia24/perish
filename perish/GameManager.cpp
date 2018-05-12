@@ -23,6 +23,7 @@ void GameManager::initGame() {
 	gameLoop();
 }
 
+#include "PlayerBase.h"
 
 //GAME LOOP
 void GameManager::gameLoop() {
@@ -41,8 +42,7 @@ void GameManager::gameLoop() {
 	menu.add(fpsString);
 	menu.reshape();
 	menu.setUpdateRate(50);
-
-	/*drawMutex->lock();
+	//drawMutex->lock();
 	//temp
 	sf::View camera;
 	DrawBuffer layer(camera);
@@ -51,7 +51,6 @@ void GameManager::gameLoop() {
 	Player player;
 	player.load(&camera, physWorld, layer);
 	player.spawn();
-
 
 	//key binds
 	Key up(sf::Keyboard::Up, KeyType::SINGLE), down(sf::Keyboard::Down, KeyType::SINGLE);
@@ -69,7 +68,7 @@ void GameManager::gameLoop() {
 	gameTickTimer.start();
 
 	physWorld->SetContactListener(&collisionHandler);
-
+	
 
 	PerfArray<Bot*> arr;
 	for (int i = 0; i < 520; i++) {
@@ -84,19 +83,17 @@ void GameManager::gameLoop() {
 
 	physTimer.start();
 
-	Static w;
+	/*Static w;
 	w.load(physWorld, layer);
-	w.spawn();
+	w.spawn();*/
 
 	Timer t;
 
-	drawMutex->unlock();
-	*/
+	//drawMutex->unlock();
+	
 
-	editor = new EditorMode(renderer);
-	editor->load();
-
-	renderer->addBuffer(guiLayer);
+	//editor = new EditorMode(renderer);
+	//editor->load();
 
 	//game loop
 	gameTickTimer.start();
@@ -109,11 +106,11 @@ void GameManager::gameLoop() {
 		//TICK
 		if (gameTick()) {
 			//drawMutex->lock();
-			editor->update();
-			menu.update();
+			//editor->update();
+			//menu.update();
 			sf::Joystick::update();
 
-			/*
+			
 			arr.update();		
 			menu.update();
 			player.update();
@@ -124,7 +121,7 @@ void GameManager::gameLoop() {
 			else if (zoomOut.getValue())
 				camera.zoom(0.9f);
 
-			drawMutex->unlock();*/
+			//drawMutex->unlock();
 		}
 
 	}

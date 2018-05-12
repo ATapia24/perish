@@ -2,25 +2,15 @@
 #include "Renderer.h"
 #include "Miscellaneous.h"
 #include <thread>
-#include <ctime>
-#include <X11/Xlib.h>
-
 
 int main() {
 	
-	//seed for random numbers
-	srand((unsigned)time(NULL));
-	drawMutex = new std::mutex();
+	misc::seedRandom();
+	misc::initThreads();
 
 	//initilize window, Renderer, and gameManager
 	Renderer renderer;
 	GameManager gameManager(renderer);
-
-	//check for linux
-	#ifdef __unix__
-	std::cout << "unix detected\n";
-	XInitThreads();
-	#endif
 
 	//create and launch drawThread
 	std::thread drawThread(&Renderer::threadHandler, std::ref(renderer));

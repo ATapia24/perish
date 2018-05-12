@@ -17,6 +17,7 @@ Static::~Static()
 //LOAD
 void Static::load(b2World* _physWorld, DrawBuffer& _layer) {
 	if (!loaded) {
+		std::cout << "static load\n";
 		loaded = true;
 		physWorld = _physWorld;
 		layer = &_layer;
