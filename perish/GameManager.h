@@ -16,7 +16,9 @@
 #include "Box.h"
 #include "LightManager.h"
 #include "PerfArray.h"
+#ifdef _WIN32
 #include <windows.h>
+#endif
 #include <mutex>
 #include "EditorMode.h"
 

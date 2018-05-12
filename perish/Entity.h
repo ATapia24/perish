@@ -2,7 +2,7 @@
 #define ENTITY_H
 
 #include <iostream>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Miscellaneous.h"
 #include "Box2D.h"
 #include "DrawBuffer.h"

@@ -67,7 +67,7 @@ void Menu::add(std::string& text) {
 	textArr[size].setString(text);
 	textArr[size].setFont(font);
 	textArr[size].setPosition(sf::Vector2f(x + leftPadding, y + topPadding + (size * (height + spacing))));
-	textArr[size].setFillColor(fontColor);
+	//textArr[size].setFillColor(fontColor);
 	textArr[size].setCharacterSize(fontSize);
 	layer->add(textArr[size]);
 	size++;
@@ -81,7 +81,7 @@ void Menu::addLiteral(std::string text) {
 	textArr[size].setFont(font);
 	textArr[size].setString(text);
 	textArr[size].setPosition(sf::Vector2f(x + leftPadding, y + topPadding + (size * (height + spacing))));
-	textArr[size].setFillColor(fontColor);
+	//textArr[size].setFillColor(fontColor);
 	textArr[size].setCharacterSize(fontSize);
 	layer->add(textArr[size]);
 	size++;
@@ -106,8 +106,8 @@ void Menu::prev() {
 
 //SELECT
 void Menu::indexChange(int select) {
-	textArr[lastIndex].setFillColor(fontColor);
-	textArr[select].setFillColor(selectedFontColor);
+	//textArr[lastIndex].setFillColor(fontColor);
+	//textArr[select].setFillColor(selectedFontColor);
 }
 
 //SELECTED

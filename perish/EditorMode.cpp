@@ -64,7 +64,7 @@ void EditorMode::update() {
 	if (!loaded)
 		return;
 
-	//dm->lock();
+	drawMutex->lock();
 
 	//up and down
 	if (up.getValue()) {
@@ -105,6 +105,6 @@ void EditorMode::update() {
 
 	}
 
-	//dm->unlock();
+	drawMutex->unlock();
 	dtTimer.start();
 }
